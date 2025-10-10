@@ -1,1 +1,29 @@
-/* You can add global styles to this file, and also import other style files */
+@import "tailwindcss";
+
+@theme {
+  /* ====== PRIMARY COLORS ====== */
+  --color-primary: #2A85FF; /* text and button */
+  --color-primary-light: #94C2FF; /* button before state */
+
+  /* ====== TEXT COLORS ====== */
+  --text-primary: #1A1D1F;
+  --text-secondary: #6F767E; 
+  --text-tertiary: #8C9298;
+  --text-muted: #9A9FA5;
+
+  /* ====== BACKGROUND COLORS ====== */
+  --bg-main: #F4F4F4;
+  --bg-subtle: #EFEFEF; /* filters, selects, pagination */
+  --color-white: #FFFFFF;
+
+  /* ====== BORDER & ELEMENTS ====== */
+  --border-default: #C5C8CB; /* checkbox, inputs */
+  --border-input: #88898A; /* input border */
+
+  /* ====== STATUS COLORS ====== */
+  --status-active: #27AE60; /* Active */
+  --status-desactive: #F04D58;   /* Deactivate */
+
+  /* ====== ADDITIONAL COLORS ====== */
+  --color-start: #F69133;  /* Starts */
+}
