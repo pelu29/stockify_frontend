@@ -4,13 +4,12 @@
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* Layout principal con dos columnas - orden invertido */
+
 .login-content {
   display: flex;
   min-height: 100vh;
 }
 
-/* Sección del formulario (AHORA A LA IZQUIERDA) */
 .form-section {
   flex: 1;
   display: flex;
@@ -18,7 +17,7 @@
   align-items: center;
   padding: 40px;
   background: white;
-  order: 1; /* Esto asegura que esté primero visualmente */
+  order: 1; 
 }
 
 .login-card {
@@ -26,7 +25,6 @@
   max-width: 400px;
 }
 
-/* Sección de la imagen del candado (AHORA A LA DERECHA) */
 .image-section {
   flex: 1;
   display: flex;
@@ -34,7 +32,7 @@
   align-items: center;
   background: #f0dc99;
   padding: 40px;
-  order: 2; /* Esto asegura que esté segundo visualmente */
+  order: 2; 
 }
 
 .login-image {
@@ -45,7 +43,7 @@
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
 }
 
-/* Header Section */
+
 .header-section {
   margin-bottom: 40px;
 }
@@ -72,7 +70,6 @@
   line-height: 1.5;
 }
 
-/* Form Styles */
 .login-form {
   display: flex;
   flex-direction: column;
@@ -128,7 +125,6 @@
   padding-right: 16px;
 }
 
-/* Form Options */
 .form-options {
   display: flex;
   justify-content: space-between;
@@ -161,7 +157,6 @@
   text-decoration: underline;
 }
 
-/* Login Button */
 .login-button {
   background: #667eea;
   color: white;
@@ -189,7 +184,6 @@
   box-shadow: none;
 }
 
-/* Divider */
 .divider {
   display: flex;
   align-items: center;
@@ -212,7 +206,6 @@
   background: #e2e8f0;
 }
 
-/* Social Login */
 .social-login {
   text-align: center;
   margin-bottom: 30px;
@@ -249,7 +242,6 @@
   background: #f7fafc;
 }
 
-/* Sign Up Section */
 .signup-section {
   text-align: center;
   margin-top: 24px;
@@ -272,7 +264,6 @@
   text-decoration: underline;
 }
 
-/* Success Message */
 .success-message {
   background: #48bb78;
   color: white;
@@ -302,19 +293,18 @@
   }
 }
 
-/* Responsive */
 @media (max-width: 968px) {
   .login-content {
     flex-direction: column;
   }
 
   .form-section {
-    order: 2; /* En móvil, el formulario va después */
+    order: 2; 
     padding: 40px 20px;
   }
 
   .image-section {
-    order: 1; /* En móvil, la imagen va primero */
+    order: 1; 
     padding: 60px 40px;
   }
 
