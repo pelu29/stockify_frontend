@@ -1,14 +1,13 @@
-import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { ProductListComponent } from './components/product-list/product-list.component';
+import { Component } from '@angular/core';
+import { CategoryComponent } from './components/category/category.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, ProductListComponent],
+  imports: [CategoryComponent],
   templateUrl: './app.html',
   styleUrls: ['./app.css']
 })
-export class App {
-  protected readonly title = signal('stockify_frontend');
+export class AppComponent {
+  title = 'stockify-frontend';
 }
