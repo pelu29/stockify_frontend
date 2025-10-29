@@ -1,13 +1,9 @@
 import { Routes } from '@angular/router';
-import { ProductListComponent } from './components/product-list/product-list.component';
-import { CategoryComponent } from './components/category/category.component';
-import { Register } from '@features/auth/pages/register/register';
-import { LoginComponent } from '@features/auth/pages/login/login';
+import { LoginComponent } from './features/auth/pages/login/login';
+import { ImportReportComponent } from './components/import-report/import-report.component';
 
 export const routes: Routes = [
-  { path:'',redirectTo:'login',pathMatch:'full'},
-  { path: '', component: ProductListComponent },
-  { path: 'register', component: Register },
-  { path: 'login', component:LoginComponent},
-  { path: 'categorias', component:CategoryComponent}
+ { path: '', redirectTo: 'import-report', pathMatch: 'full' },
+  { path: 'login', component: LoginComponent },
+  { path: 'import-report', component: ImportReportComponent }
 ];
