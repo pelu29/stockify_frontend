@@ -200,13 +200,10 @@
 
 /* Tabla */
 .table-container {
-  background: white;
-  border-radius: 8px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-  margin-bottom: 20px;
+  position: relative;
+  z-index: 1;
+  overflow: visible; /* 🔥 evita que corte el menú en la parte baja */
 }
-
 .products-table {
   width: 100%;
   border-collapse: collapse;
@@ -265,7 +262,7 @@
   width: 40px;
 }
 
-.checkbox-col input[type="checkbox"] {
+.checkbox-col input[type='checkbox'] {
   cursor: pointer;
   width: 16px;
   height: 16px;
@@ -314,6 +311,7 @@
 
 .action-menu-wrapper {
   position: relative;
+  z-index: 5; /* suficiente para estar sobre la fila, pero no sobre todo */
 }
 
 .action-btn {
@@ -335,8 +333,9 @@
   border-radius: 6px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   min-width: 160px;
-  z-index: 100;
+  z-index: 10; /* leve prioridad, no extremo */
   animation: fadeIn 0.2s ease;
+  overflow: visible;
 }
 
 .action-menu-item {
@@ -479,5 +478,8 @@
   .product-image {
     width: 40px;
     height: 40px;
+  }
+  .hidden {
+    display: none;
   }
 }

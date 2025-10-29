@@ -10,14 +10,14 @@ import { FormsModule } from '@angular/forms';
   standalone: true,
   imports: [CommonModule, FormsModule, CurrencyPipe],
   templateUrl: './product-list.component.html',
-  styleUrls: ['./product-list.component.css']
+  styleUrls: ['./product-list.component.css'],
 })
 export class ProductListComponent implements OnInit {
   @ViewChild('searchInput') searchInput!: ElementRef;
 
   allProducts: Product[] = PRODUCTS;
   filteredProducts: Product[] = [];
-  
+
   searchTerm = '';
   selectedCategory = '';
   private searchSubject = new Subject<string>();
@@ -32,21 +32,21 @@ export class ProductListComponent implements OnInit {
 
   // Paginación
   currentPage = 1;
-  itemsPerPage = 3;
+  itemsPerPage = 10;
   totalPages = 1;
 
   ngOnInit(): void {
     // Inicializar productos con estado basado en stock
-    this.allProducts = this.allProducts.map(p => ({
+    this.allProducts = this.allProducts.map((p) => ({
       ...p,
-      estado: p.stock > 0 ? 'Active' : 'Inactive'
+      estado: p.stock > 0 ? 'Active' : 'Inactive',
     }));
 
     this.filteredProducts = [...this.allProducts];
     this.updatePagination();
 
     // Debounce para búsqueda
-    this.searchSubject.pipe(debounceTime(300)).subscribe(term => {
+    this.searchSubject.pipe(debounceTime(300)).subscribe((term) => {
       this.filterProducts();
     });
   }
@@ -100,16 +100,17 @@ export class ProductListComponent implements OnInit {
     // Filtrar por búsqueda
     if (this.searchTerm.trim()) {
       const search = this.searchTerm.toLowerCase();
-      result = result.filter(p =>
-        p.nombre.toLowerCase().includes(search) ||
-        p.categoria.toLowerCase().includes(search) ||
-        p.codigoBarras.includes(this.searchTerm)
+      result = result.filter(
+        (p) =>
+          p.nombre.toLowerCase().includes(search) ||
+          p.categoria.toLowerCase().includes(search) ||
+          p.codigoBarras.includes(this.searchTerm)
       );
     }
 
     // Filtrar por categoría
     if (this.selectedCategory) {
-      result = result.filter(p => p.categoria === this.selectedCategory);
+      result = result.filter((p) => p.categoria === this.selectedCategory);
     }
 
     this.filteredProducts = result;
@@ -154,12 +155,7 @@ export class ProductListComponent implements OnInit {
   // Productos paginados
   get paginatedProducts(): Product[] {
     const start = (this.currentPage - 1) * this.itemsPerPage;
-    const pageProducts = this.filteredProducts.slice(start, start + this.itemsPerPage);
-
-    return pageProducts.map(p => ({
-      ...p,
-      estado: p.stock > 0 ? 'Active' : 'Inactive'
-    }));
+    return this.filteredProducts.slice(start, start + this.itemsPerPage);
   }
 
   // Actualizar paginación
@@ -200,9 +196,7 @@ export class ProductListComponent implements OnInit {
 
   deleteProduct(product: Product): void {
     if (confirm(`¿Estás seguro de eliminar "${product.nombre}"?`)) {
-      this.allProducts = this.allProducts.filter(
-        p => p.codigoBarras !== product.codigoBarras
-      );
+      this.allProducts = this.allProducts.filter((p) => p.codigoBarras !== product.codigoBarras);
       this.filterProducts();
       console.log('Producto eliminado:', product);
     }
@@ -210,12 +204,10 @@ export class ProductListComponent implements OnInit {
   }
 
   toggleStatus(product: Product): void {
-    const index = this.allProducts.findIndex(
-      p => p.codigoBarras === product.codigoBarras
-    );
-    
+    const index = this.allProducts.findIndex((p) => p.codigoBarras === product.codigoBarras);
+
     if (index !== -1) {
-      this.allProducts[index].estado = 
+      this.allProducts[index].estado =
         this.allProducts[index].estado === 'Active' ? 'Inactive' : 'Active';
       this.filterProducts();
     }
@@ -225,8 +217,8 @@ export class ProductListComponent implements OnInit {
   // Funciones de exportación
   exportAs(format: string): void {
     this.exportMenuOpen = false;
-    
-    switch(format) {
+
+    switch (format) {
       case 'pdf':
         this.exportToPDF();
         break;
@@ -253,22 +245,30 @@ export class ProductListComponent implements OnInit {
 
   private exportToCSV(): void {
     console.log('Exportando a CSV...');
-    
+
     // Implementación básica de CSV
-    const headers = ['Nombre', 'Código Barras', 'Descripción', 'Categoría', 'Precio', 'Stock', 'Estado'];
-    const data = this.filteredProducts.map(p => [
+    const headers = [
+      'Nombre',
+      'Código Barras',
+      'Descripción',
+      'Categoría',
+      'Precio',
+      'Stock',
+      'Estado',
+    ];
+    const data = this.filteredProducts.map((p) => [
       p.nombre,
       p.codigoBarras,
       p.descripcion,
       p.categoria,
       p.precio,
       p.stock,
-      p.estado || ''
+      p.estado || '',
     ]);
 
     let csv = headers.join(',') + '\n';
-    data.forEach(row => {
-      csv += row.map(cell => `"${cell}"`).join(',') + '\n';
+    data.forEach((row) => {
+      csv += row.map((cell) => `"${cell}"`).join(',') + '\n';
     });
 
     const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
@@ -276,5 +276,9 @@ export class ProductListComponent implements OnInit {
     link.href = URL.createObjectURL(blob);
     link.download = `productos_${new Date().getTime()}.csv`;
     link.click();
+  }
+  // ✅ trackBy fuera de exportToCSV, al mismo nivel
+  trackByCodigo(index: number, product: Product): string {
+    return product.codigoBarras;
   }
 }
