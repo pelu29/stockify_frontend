@@ -1,0 +1,21 @@
+.product-form { max-width:920px; margin:18px auto; padding:20px; background:#fff; border-radius:12px; box-shadow:0 8px 30px rgba(2,6,23,0.06); border:1px solid #f0f3f7 }
+.form-grid { display:grid; grid-template-columns: 1fr 1fr; gap:12px 18px }
+.field { display:flex; flex-direction:column }
+.field label { font-weight:600; margin-bottom:6px; color:#333 }
+.field input, .field textarea { padding:10px 12px; border-radius:8px; border:1px solid #e6e9ee; font-size:0.95rem }
+.field textarea { min-height:100px }
+.field input:focus, .field textarea:focus { outline: none; border-color:#60a5fa; box-shadow:0 6px 18px rgba(59,130,246,0.08) }
+.row { display:flex; gap:12px }
+.field.small { flex:1 }
+.actions { margin-top:14px; display:flex; gap:10px }
+button.primary { background: linear-gradient(90deg,#2563eb,#7c3aed); color:#fff; border:none; padding:10px 14px; border-radius:10px; font-weight:600 }
+button.secondary { background:transparent; border:1px solid #e6e9ee; padding:8px 12px; border-radius:8px }
+.error { color:#b91c1c; font-size:0.86rem; margin-top:6px }
+.products-list { margin-top:20px }
+.products-grid { display:grid; grid-template-columns: repeat(auto-fill,minmax(220px,1fr)); gap:12px }
+.product-card { background:#fafafa; padding:12px; border-radius:10px; border:1px solid #f1f5f9 }
+.product-card strong { display:block; margin-bottom:6px }
+.product-meta { color:#475569; font-size:0.9rem }
+.price { margin-top:8px; font-weight:700 }
+.stock { font-weight:400; margin-left:8px }
+@media (max-width:720px) { .form-grid { grid-template-columns:1fr } .product-form { padding:14px; margin:12px } }

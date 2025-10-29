@@ -1,0 +1,57 @@
+<div class="product-form">
+  <form [formGroup]="form" (ngSubmit)="save()" novalidate aria-labelledby="form-title">
+    <h2 id="form-title">Agregar producto</h2>
+
+    <div class="form-grid">
+      <div class="field">
+        <label for="name">Nombre *</label>
+        <input id="name" type="text" formControlName="name" />
+        <div class="error" *ngIf="form.get('name')?.touched && form.get('name')?.invalid">El nombre es obligatorio.</div>
+      </div>
+
+      <div class="field">
+        <label for="code">Código (código de barras)</label>
+        <input id="code" type="text" formControlName="code" />
+      </div>
+
+      <div class="field" style="grid-column:1 / -1">
+        <label for="description">Descripción</label>
+        <textarea id="description" formControlName="description"></textarea>
+      </div>
+
+      <div class="field">
+        <label for="category">Categoría</label>
+        <input id="category" type="text" formControlName="category" />
+      </div>
+
+      <div class="field small">
+        <label for="price">Precio</label>
+        <input id="price" type="number" formControlName="price" min="0" />
+        <div class="error" *ngIf="form.get('price')?.touched && form.get('price')?.invalid">Precio >= 0</div>
+      </div>
+
+      <div class="field small">
+        <label for="stock">Stock inicial</label>
+        <input id="stock" type="number" formControlName="stock" min="0" />
+        <div class="error" *ngIf="form.get('stock')?.touched && form.get('stock')?.invalid">Stock >= 0</div>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button class="primary" type="submit" [disabled]="form.invalid">Guardar</button>
+      <button type="button" class="secondary" (click)="form.reset({ price:0, stock:0 })">Limpiar</button>
+    </div>
+  </form>
+
+  <section class="products-list" aria-live="polite">
+    <h3>Productos agregados</h3>
+    <div class="products-grid">
+      <article class="product-card" *ngFor="let p of products">
+        <strong>{{ p.name }}</strong>
+        <div class="product-meta">{{ p.category || 'Sin categoría' }}</div>
+        <div class="product-meta">{{ p.description }}</div>
+        <div class="price">${{ p.price }} <span class="stock">stock: {{ p.stock }}</span></div>
+      </article>
+    </div>
+  </section>
+</div>
