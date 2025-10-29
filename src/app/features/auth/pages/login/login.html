@@ -5,7 +5,7 @@
         <div class="header-section">
           <h1 class="brand-title">Stockify</h1>
           <h2 class="login-title">Login</h2>
-          <p class="login-subtitle">Login to access your travelwise account</p>
+          <p class="login-subtitle">Login to access your Stockify account</p>
         </div>
 
         <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
@@ -57,31 +57,34 @@
             type="submit"
             class="login-button"
             [disabled]="loginForm.invalid || isLoading"
-            (click)="navegar('categorias')"
           >
             <span *ngIf="!isLoading">Login</span>
             <span *ngIf="isLoading">Logging in...</span>
           </button>
-        </form   >
+        </form>
 
         <div class="divider">
           <span class="divider-text">or</span>
         </div>
 
         <div class="social-login">
-          <p class="social-title"> login with</p>
+          <p class="social-title">Login with</p>
           <div class="social-buttons">
-            <button type="button" class="social-button">
-              Google
-            </button>
-            <button type="button" class="social-button">
-              Facebook
-            </button>
+            <button type="button" class="social-button">Google</button>
+            <button type="button" class="social-button">Facebook</button>
           </div>
         </div>
 
         <div class="signup-section">
-          <p>Don't have an account? <span (click)="navigate('register')" class="signup-link hover:cursor-pointer">Sign up</span></p>
+          <p>
+            Don't have an account?
+            <span
+              (click)="navigate('register')"
+              class="signup-link hover:cursor-pointer"
+            >
+              Sign up
+            </span>
+          </p>
         </div>
 
         <div *ngIf="showSuccessMessage" class="success-message">
@@ -91,7 +94,7 @@
     </div>
 
     <div class="image-section">
-      <img src="/imagen1.png" alt="Security illustration" class="login-image">
+      <img src="/imagen1.png" alt="Security illustration" class="login-image" />
     </div>
   </div>
 </div>

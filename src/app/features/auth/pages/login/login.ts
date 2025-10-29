@@ -16,7 +16,7 @@ export class LoginComponent {
   showSuccessMessage = false;
   showPassword = false;
 
-  constructor(private fb: FormBuilder,private router: Router) {
+  constructor(private fb: FormBuilder, private router: Router) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
@@ -39,22 +39,21 @@ export class LoginComponent {
   onSubmit() {
     if (this.loginForm.valid) {
       this.isLoading = true;
-      
+
       setTimeout(() => {
         this.isLoading = false;
         this.showSuccessMessage = true;
-        
-       
+
+        console.log('Login exitoso:', this.loginForm.value);
+
+        // 🔹 Espera 1 segundo y navega al componente import-report
         setTimeout(() => {
           this.showSuccessMessage = false;
-        }, 3000);
-        
-        console.log('Login exitoso:', this.loginForm.value);
-       
-        
+          this.router.navigate(['/import-report']);
+        }, 1000);
+
       }, 1500);
     } else {
-      
       this.markFormGroupTouched();
     }
   }
@@ -66,7 +65,7 @@ export class LoginComponent {
     });
   }
 
-  navegar(ruta:string){
+  navigate(ruta: string) {
     this.router.navigate([`/${ruta}`]);
   }
 }

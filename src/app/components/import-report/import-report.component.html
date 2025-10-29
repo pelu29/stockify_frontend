@@ -1,0 +1,24 @@
+<div class="import-container">
+  <h2>Importar Reporte</h2>
+
+  <!-- Botón estilizado para seleccionar archivo -->
+  <label class="file-input-label">
+    Seleccionar archivo
+    <input type="file" accept=".csv,.pdf" (change)="onFileSelected($event)" hidden>
+  </label>
+
+  <!-- Nombre del archivo seleccionado -->
+  <p *ngIf="selectedFileName" class="success-msg">
+    Archivo seleccionado: <strong>{{ selectedFileName }}</strong>
+  </p>
+
+  <!-- Mensaje de error si el archivo no es válido -->
+  <p *ngIf="errorMessage" class="error-msg">
+    {{ errorMessage }}
+  </p>
+
+  <!-- Botón Subir (deshabilitado si no hay archivo seleccionado) -->
+  <button [disabled]="!selectedFileName">Subir</button>
+</div>
+
+
