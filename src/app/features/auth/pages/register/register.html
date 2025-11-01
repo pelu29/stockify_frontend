@@ -5,13 +5,13 @@
 
         <!-- Left Side - Image -->
         <div class="hidden lg:flex items-center justify-center lg:pl-12 lg:pr-4">
-            <div class="max-w-lg w-full">
-                <img src="register.webp" alt="Sign up illustration" class="w-full h-auto object-contain" />
+            <div class="max-w-lg h-[600px]">
+                <img src="register.webp" alt="Sign up illustration" class="h-full object-contain"/>
             </div>
         </div>
 
         <!-- Right Side - Form -->
-        <div class="flex flex-col justify-center py-12  relative">
+        <div class="flex flex-col justify-center   relative">
 
             <!-- Logo Header -->
             <div class="absolute top-6 left-0 right-0 flex items-center justify-end px-6 lg:pr-12">
@@ -30,10 +30,9 @@
 
                 <!-- Title Section -->
                 <div class="mb-8">
-                    <h2 class="text-4xl font-bold text-neutral-700 mb-2">Sign up</h2>
-                    <p class="text-neutral-500 text-sm">Let's get you all set up so you can access your personal
-                        account.
-                    </p>
+                    <h2 class="text-4xl font-bold text-neutral-700 mb-2">Registrarse</h2>
+                    <p class="text-neutral-500 text-sm">Vamos a configurarlo todo para que puedas acceder a tu cuenta
+                        personal!</p>
                 </div>
 
                 <!-- Form -->
@@ -46,14 +45,14 @@
                             [class.border-neutral-700]="!(submitted && f['firstName'].errors)"
                             [class.border-red-500]="submitted && f['firstName'].errors"
                             [class.focus-within:border-blue-600]="!(submitted && f['firstName'].errors)">
-                            <legend class="ml-3 px-1 text-sm text-neutral-900 font-medium">First Name</legend>
+                            <legend class="ml-3 px-1 text-sm text-neutral-900 font-medium">Nombres</legend>
                             <div class="relative px-4 pb-3">
                                 <input type="text" formControlName="firstName" placeholder="Jhon"
                                     class="w-full outline-none bg-transparent text-neutral-900 text-base placeholder-neutral-400" />
                             </div>
                         </fieldset>
                         @if (submitted && f['firstName'].errors) {
-                        <p class="text-red-500 text-xs mt-1">First name is required</p>
+                        <p class="text-red-500 text-xs mt-1">El campo nombres es requerido</p>
                         }
 
                         <!-- Last Name -->
@@ -61,14 +60,14 @@
                             [class.border-neutral-700]="!(submitted && f['lastName'].errors)"
                             [class.border-red-500]="submitted && f['lastName'].errors"
                             [class.focus-within:border-blue-600]="!(submitted && f['lastName'].errors)">
-                            <legend class="ml-3 px-1 text-sm text-neutral-900 font-medium">Last Name</legend>
+                            <legend class="ml-3 px-1 text-sm text-neutral-900 font-medium">Apellidos</legend>
                             <div class="relative px-4 pb-3">
                                 <input type="text" formControlName="lastName" placeholder="Doe"
                                     class="w-full outline-none bg-transparent text-neutral-900 text-base placeholder-neutral-400" />
                             </div>
                         </fieldset>
                         @if (submitted && f['lastName'].errors) {
-                        <p class="text-red-500 text-xs mt-1">Last name is required</p>
+                        <p class="text-red-500 text-xs mt-1">El campo apellidos es requerido</p>
                         }
                     </div>
 
@@ -97,14 +96,14 @@
                             [class.border-neutral-700]="!(submitted && f['phoneNumber'].errors)"
                             [class.border-red-500]="submitted && f['phoneNumber'].errors"
                             [class.focus-within:border-blue-600]="!(submitted && f['phoneNumber'].errors)">
-                            <legend class="ml-3 px-1 text-sm text-neutral-900 font-medium">Phone Number</legend>
+                            <legend class="ml-3 px-1 text-sm text-neutral-900 font-medium">Telefono</legend>
                             <div class="relative px-4 pb-3">
                                 <input type="tel" formControlName="phoneNumber" placeholder="+1 (555) 000-0000"
                                     class="w-full outline-none bg-transparent text-neutral-900 text-base placeholder-neutral-400" />
                             </div>
                         </fieldset>
                         @if (submitted && f['phoneNumber'].errors) {
-                        <p class="text-red-500 text-xs mt-1">Phone number is required</p>
+                        <p class="text-red-500 text-xs mt-1">El campo de telefono es requerido</p>
                         }
                     </div>
 
@@ -114,7 +113,7 @@
                             [class.border-neutral-700]="!(submitted && f['password'].errors)"
                             [class.border-red-500]="submitted && f['password'].errors"
                             [class.focus-within:border-blue-600]="!(submitted && f['password'].errors)">
-                            <legend class="ml-3 px-1 text-sm text-neutral-900 font-medium">Password</legend>
+                            <legend class="ml-3 px-1 text-sm text-neutral-900 font-medium">Contraseña</legend>
                             <div class="relative px-4 pb-3">
                                 <input [type]="showPassword ? 'text' : 'password'" formControlName="password"
                                     placeholder="••••••••••••••••"
@@ -149,7 +148,7 @@
                             [class.border-neutral-700]="!(submitted && (f['confirmPassword'].errors || registerForm.errors?.['passwordMismatch']))"
                             [class.border-red-500]="submitted && (f['confirmPassword'].errors || registerForm.errors?.['passwordMismatch'])"
                             [class.focus-within:border-blue-600]="!(submitted && (f['confirmPassword'].errors || registerForm.errors?.['passwordMismatch']))">
-                            <legend class="ml-3 px-1 text-sm text-neutral-900 font-medium">Confirm Password</legend>
+                            <legend class="ml-3 px-1 text-sm text-neutral-900 font-medium">Confirmar contraseña</legend>
                             <div class="relative px-4 pb-3">
                                 <input [type]="showConfirmPassword ? 'text' : 'password'"
                                     formControlName="confirmPassword" placeholder="••••••••••••••••"
@@ -184,26 +183,26 @@
                             [class.border-red-500]="submitted && f['agreeToTerms'].errors"
                             class="w-4 h-4 border-2 border-gray-300 rounded mt-0.5 text-blue-600 focus:ring-blue-500 cursor-pointer" />
                         <label for="terms" class="text-sm text-gray-700 cursor-pointer">
-                            I agree to all the <a href="#" class="text-blue-600 hover:underline font-medium">Terms</a>
-                            and <a href="#" class="text-blue-600 hover:underline font-medium">Privacy Policies</a>
+                            Acepto todos los <a href="#" class="text-blue-600 hover:underline font-medium">Términos</a>
+                            y <a href="#" class="text-blue-600 hover:underline font-medium">Políticas de Privacidad.</a>
                         </label>
                     </div>
                     @if (submitted && f['agreeToTerms'].errors) {
-                    <p class="text-red-500 text-xs -mt-3">You must agree to the terms</p>
+                    <p class="text-red-500 text-xs -mt-3">Debes aceptar los términos</p>
                     }
 
                     <!-- Create Account Button -->
                     <button type="submit"
                         class="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-gray-300 disabled:cursor-not-allowed text-white font-semibold py-3 rounded-md transition-colors text-sm">
-                        Create account
+                        Crear cuenta
                     </button>
                 </form>
 
                 <!-- Already have account -->
                 <div class="text-center mt-6">
                     <p class="text-gray-700 text-sm">
-                        Already have an account?
-                        <a href="/login" class="text-blue-600 hover:underline font-medium ml-1">Login</a>
+                        ¿Ya tienes una cuenta?
+                        <a href="/login" class="text-blue-600 hover:underline font-medium ml-1">Iniciar sesión</a>
                     </p>
                 </div>
 

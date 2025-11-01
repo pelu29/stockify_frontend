@@ -4,14 +4,14 @@
       <div class="login-card">
         <div class="header-section">
           <h1 class="brand-title">Stockify</h1>
-          <h2 class="login-title">Login</h2>
-          <p class="login-subtitle">Login to access your travelwise account</p>
+          <h2 class="login-title">Iniciar sesión</h2>
+          <p class="login-subtitle">Inicia sesión para acceder a tu cuenta!</p>
         </div>
 
         <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
           
           <div class="form-group">
-            <label class="form-label">Email</label>
+            <label class="form-label">Correo electronico</label>
             <input
               type="email"
               formControlName="email"
@@ -20,13 +20,13 @@
               [class.error]="email?.invalid && email?.touched"
             />
             <div *ngIf="email?.invalid && email?.touched" class="error-message">
-              <span *ngIf="email?.errors?.['required']">Email is required</span>
+              <span *ngIf="email?.errors?.['required']">El campo de correo electronico es requerido</span>
               <span *ngIf="email?.errors?.['email']">Invalid email format</span>
             </div>
           </div>
 
           <div class="form-group">
-            <label class="form-label">Password</label>
+            <label class="form-label">Contraseña</label>
             <div class="password-container">
               <input
                 [type]="showPassword ? 'text' : 'password'"
@@ -37,7 +37,7 @@
               />
             </div>
             <div *ngIf="password?.invalid && password?.touched" class="error-message">
-              <span *ngIf="password?.errors?.['required']">Password is required</span>
+              <span *ngIf="password?.errors?.['required']">El campo de contraseña es requerido</span>
               <span *ngIf="password?.errors?.['minlength']">
                 Password must be at least 6 characters
               </span>
@@ -48,9 +48,9 @@
             <label class="checkbox-container">
               <input type="checkbox" formControlName="rememberMe" />
               <span class="checkmark"></span>
-              Remember me
+              Acuérdate de mí
             </label>
-            <a href="#" class="forgot-password">Forget Password</a>
+            <a href="#" class="forgot-password">Olvidar contraseña</a>
           </div>
 
           <button
@@ -59,17 +59,17 @@
             [disabled]="loginForm.invalid || isLoading"
             (click)="navegar('categorias')"
           >
-            <span *ngIf="!isLoading">Login</span>
-            <span *ngIf="isLoading">Logging in...</span>
+            <span *ngIf="!isLoading">Iniciar sesión</span>
+            <span *ngIf="isLoading">Iniciando sesión...</span>
           </button>
         </form   >
 
         <div class="divider">
-          <span class="divider-text">or</span>
+          <span class="divider-text">o</span>
         </div>
 
         <div class="social-login">
-          <p class="social-title"> login with</p>
+          <p class="social-title"> Iniciar sesión con</p>
           <div class="social-buttons">
             <button type="button" class="social-button">
               Google
@@ -81,7 +81,7 @@
         </div>
 
         <div class="signup-section">
-          <p>Don't have an account? <span (click)="navigate('register')" class="signup-link hover:cursor-pointer">Sign up</span></p>
+          <p>¿No tienes una cuenta?<span (click)="navegar('register')" class="signup-link hover:cursor-pointer"> Registrate</span></p>
         </div>
 
         <div *ngIf="showSuccessMessage" class="success-message">
@@ -91,7 +91,7 @@
     </div>
 
     <div class="image-section">
-      <img src="/imagen1.png" alt="Security illustration" class="login-image">
+      <img src="Login-rafiki.png" alt="Security illustration" class="login-image">
     </div>
   </div>
 </div>

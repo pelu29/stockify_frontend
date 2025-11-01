@@ -1,6 +1,5 @@
 .login-container {
   min-height: 100vh;
-  background: #f0dc99;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
@@ -15,7 +14,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 40px;
   background: white;
   order: 1; 
 }
@@ -30,23 +28,16 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #f0dc99;
-  padding: 40px;
   order: 2; 
 }
 
 .login-image {
-  width: 100%;
+  width: 900px;
   max-width: 500px;
   height: auto;
   border-radius: 10px;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
 }
 
-
-.header-section {
-  margin-bottom: 40px;
-}
 
 .brand-title {
   color: #2d3748;
