@@ -1,6 +1,6 @@
 import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { CategoryComponent } from './components/category/category.component';
+import { CategoryComponent } from './components/inventario/category.component';
 
 
 @Component({

@@ -1,4 +1,4 @@
-import { Product } from './product.model';
+import { Product } from '../inventario/product.model';
 
 /* Mock data for products */
 export const PRODUCTS: Product[] = [

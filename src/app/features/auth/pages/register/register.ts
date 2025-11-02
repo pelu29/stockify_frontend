@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, AbstractControl, ValidationErrors } from '@angular/forms';
 import { SocialIcons } from '@shared/components/social-icons/social-icons';
+import { Usuarios } from 'src/app/services/usuarios/usuarios';
+import { Usuario } from 'src/app/models/usuarios/usuarios.model';
 import { Router } from '@angular/router';
 
 @Component({
@@ -17,7 +19,7 @@ export class Register {
   submitted = false;
   successMessage = '';
 
-  constructor(private fb: FormBuilder, private router:Router) {
+  constructor(private fb: FormBuilder, private router:Router,private usuarioService:Usuarios) {
     this.registerForm = this.fb.group({
       firstName: ['', [Validators.required, Validators.minLength(2)]],
       lastName: ['', [Validators.required, Validators.minLength(2)]],
@@ -55,6 +57,20 @@ export class Register {
     this.submitted = true;
 
     if (this.registerForm.valid) {
+
+      const formValue = this.registerForm.value;
+      
+      const nuevoUsuario = new Usuario(
+        formValue.firstName,
+        formValue.lastName,
+        formValue.email,
+        formValue.phoneNumber,
+        formValue.password
+      )
+
+      console.log("Instancia de usuario: " , nuevoUsuario);
+      console.log(this.usuarioService.agregarUsuario(nuevoUsuario));
+
       // Mostrar mensaje de éxito
       this.successMessage = '✓ Account created successfully!';
 
@@ -73,6 +89,8 @@ export class Register {
 
       console.log('Form is invalid', this.registerForm.errors);
     }
+
+    this.navigate('categorias');
   }
   get f() {
     return this.registerForm.controls;
