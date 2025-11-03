@@ -1,35 +1,206 @@
-<div class="container">
-  <h2>Lista de Productos</h2>
+<div class="products-container">
+  <!-- Header con búsqueda y acciones -->
+  <div class="products-header">
+    <h2 class="products-title">
+      <span class="title-bar"></span>
+      Productos
+    </h2>
+    
+    <div class="header-actions">
+      <!-- Búsqueda -->
+      <div class="search-wrapper" [class.search-expanded]="searchExpanded">
+        <button class="icon-btn search-btn" (click)="toggleSearch()">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"></circle>
+            <path d="m21 21-4.35-4.35"></path>
+          </svg>
+          <span class="search-label" *ngIf="!searchExpanded">Buscar</span>
+        </button>
+        <input 
+          *ngIf="searchExpanded"
+          type="text" 
+          [(ngModel)]="searchTerm"
+          (ngModelChange)="onSearchChange($event)"
+          placeholder=""
+          class="search-input"
+          #searchInput
+        >
+      </div>
 
-  <div class="search-bar">
-    <input
-      type="text"
-      placeholder="Buscar por nombre o categoría"
-      [(ngModel)]="searchTerm"
-      (ngModelChange)="onSearchChange($event)"
-    />
+      <!-- Filtro por categoría -->
+<div class="filter-wrapper">
+  <button class="icon-btn filter-btn" (click)="toggleFilter()">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
+    </svg>
+    <span>Filtrar</span>
+  </button>
+
+      <div [class.hidden]="!filterExpanded" class="filter-select-wrapper filter-panel">
+        <div class="filter-chips">
+          <label *ngFor="let cat of getCategories()" class="category-chip">
+            <input type="checkbox" [checked]="selectedCategories.includes(cat)" (change)="toggleCategory(cat, $event.target.checked)">
+            <span class="chip-label">{{ cat }}</span>
+          </label>
+        </div>
+
+        <div class="filter-controls">
+          <button class="btn btn-secondary" (click)="clearCategories()">Limpiar</button>
+          <button class="btn btn-primary" (click)="toggleFilter()">Cerrar</button>
+        </div>
+      </div> <!-- cierre correcto del div filter-select-wrapper -->
+</div> <!-- cierre del div filter-wrapper -->
+
+
+      <!-- Agregar producto -->
+      <button class="btn btn-primary" (click)="addProduct()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="12" y1="5" x2="12" y2="19"></line>
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+        </svg>
+        Agregar producto
+      </button>
+
+      <!-- Exportar -->
+      <div class="export-wrapper">
+        <button class="btn btn-secondary" (click)="toggleExport()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+          </svg>
+          Exportar
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </button>
+        <div *ngIf="exportMenuOpen" class="export-menu">
+          <button (click)="exportAs('pdf')">Exportar como PDF</button>
+          <button (click)="exportAs('excel')">Exportar como Excel</button>
+          <button (click)="exportAs('csv')">Exportar como CSV</button>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <table>
-    <thead>
-      <tr>
-        <th>Nombre</th>
-        <th>Categoría</th>
-        <th>Precio (S/)</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let product of paginatedProducts">
-        <td>{{ product.nombre }}</td>
+  <!-- Tabla de productos -->
+  <div class="table-container">
+  <table class="products-table" [class.menu-active]="menuIsOpen" [class.filter-active]="filterExpanded">
+      <thead>
+  <tr>
+    <th class="checkbox-col">
+      <input type="checkbox" (change)="selectAll($event)">
+    </th>
+    <th class="sortable" (click)="sortBy('nombre')">
+      Nombre <span class="sort-icon">↕</span>
+    </th>
+    <th>Imagen</th>
+    <th class="sortable" (click)="sortBy('codigoBarras')">
+      Código de barras <span class="sort-icon">↕</span>
+    </th>
+    <th class="sortable" (click)="sortBy('descripcion')">
+      Descripción 
+    </th>
+    <th>Categoría</th>
+    <th class="sortable" (click)="sortBy('precio')">
+      Precio <span class="sort-icon">↕</span>
+    </th>
+    <th class="sortable" (click)="sortBy('stock')">
+      Stock <span class="sort-icon">↕</span>
+    </th>
+    <th>Estado</th>
+    <th class="action-col">Acción</th>
+  </tr>
+</thead>
+      <tbody>
+      <tr *ngFor="let product of paginatedProducts; trackBy: trackByCodigo" [class.selected]="product.selected" [class.menu-opened]="actionMenuOpen === product.codigoBarras" [class.matching-filter]="isCategoryMatch(product)">
+        <td class="checkbox-col">
+          <input type="checkbox" [(ngModel)]="product.selected">
+        </td>
+        <td class="product-name">{{ product.nombre }}</td>
+        <td>
+          <img [src]="product.imagen" [alt]="product.nombre" class="product-image" loading="lazy">
+        </td>
+        <td>{{ product.codigoBarras }}</td>
+        <td>{{ product.descripcion }}</td>
         <td>{{ product.categoria }}</td>
-        <td>{{ product.precio | currency:'PEN':'symbol':'1.2-2' }}</td>
+  <td class="product-price">{{ product.precio | currency:'CRC':'symbol':'1.2-2' }}</td>
+        <td>{{ product.stock }}</td>
+        <td>
+          <span class="status-badge" 
+                [class.status-active]="product.estado === 'Active'" 
+                [class.status-inactive]="product.estado === 'Inactive'">
+            {{ product.estado }}
+          </span>
+        </td>
+        <td class="action-col">
+          <div class="action-menu-wrapper">
+            <button class="icon-btn action-btn" (click)="toggleActionMenu(product.codigoBarras)">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                <circle cx="12" cy="5" r="2"></circle>
+                <circle cx="12" cy="12" r="2"></circle>
+                <circle cx="12" cy="19" r="2"></circle>
+              </svg>
+            </button>
+
+            <div *ngIf="actionMenuOpen === product.codigoBarras" class="action-menu">
+              <button class="action-menu-item" (click)="viewProduct(product)">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                  <circle cx="12" cy="12" r="3"></circle>
+                </svg>
+                Ver
+              </button>
+
+              <button class="action-menu-item" (click)="editProduct(product)">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                  <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                </svg>
+                Editar
+              </button>
+
+              <button class="action-menu-item danger" (click)="deleteProduct(product)">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="3 6 5 6 21 6"></polyline>
+                  <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                </svg>
+                Eliminar
+              </button>
+
+              <button class="action-menu-item" (click)="toggleStatus(product)">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                  <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                </svg>
+                {{ product.estado === 'Active' ? 'Desactivar' : 'Activar' }}
+              </button>
+            </div>
+          </div>
+        </td>
       </tr>
     </tbody>
-  </table>
+    </table>
 
-  <div class="pagination">
-    <button (click)="prevPage()" [disabled]="currentPage === 1">Anterior</button>
-    <span>Página {{ currentPage }} de {{ totalPages }}</span>
-    <button (click)="nextPage()" [disabled]="currentPage === totalPages">Siguiente</button>
+    <div *ngIf="paginatedProducts.length === 0" class="no-products">
+      <p>No se encontraron productos</p>
+    </div>
+  </div>
+
+  <!-- Paginación -->
+  <div class="pagination" *ngIf="paginatedProducts.length > 0">
+    <button class="btn-pagination" (click)="prevPage()" [disabled]="currentPage === 1">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polyline points="15 18 9 12 15 6"></polyline>
+      </svg>
+      Anterior
+    </button>
+    <span class="page-info">Página {{ currentPage }} de {{ totalPages }}</span>
+    <button class="btn-pagination" (click)="nextPage()" [disabled]="currentPage === totalPages">
+      Siguiente
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polyline points="9 18 15 12 9 6"></polyline>
+      </svg>
+    </button>
   </div>
 </div>
