@@ -1,7 +1,8 @@
+
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Product } from '../../models/product.model';
-import { PRODUCTS } from '../../models/mock-products';
+import { Product } from '../../models/inventario/product.model';
+import { PRODUCTS } from '../../models/inventario/mock-products';
 import { Subject, debounceTime } from 'rxjs';
 import { FormsModule } from '@angular/forms';
 

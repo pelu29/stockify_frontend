@@ -1,29 +1,79 @@
 @import "tailwindcss";
 
 @theme {
-  /* ====== PRIMARY COLORS ====== */
-  --color-primary: #2A85FF; /* text and button */
-  --color-primary-light: #94C2FF; /* button before state */
-
-  /* ====== TEXT COLORS ====== */
-  --text-primary: #1A1D1F;
-  --text-secondary: #6F767E; 
-  --text-tertiary: #8C9298;
-  --text-muted: #9A9FA5;
-
-  /* ====== BACKGROUND COLORS ====== */
-  --bg-main: #F4F4F4;
-  --bg-subtle: #EFEFEF; /* filters, selects, pagination */
+  /* ========== NEUTRAL ========== */
   --color-white: #FFFFFF;
+  --color-neutral-50: #FCFCFC;
+  --color-neutral-100: #F4F4F4;
+  --color-neutral-200: #EFEFEF;
+  --color-neutral-500: #6F767E;
+  --color-neutral-700: #33383F;
+  --color-neutral-800: #272B30;
+  --color-neutral-900: #1A1D1F;
+  --color-neutral-950: #111315;
 
-  /* ====== BORDER & ELEMENTS ====== */
-  --border-default: #C5C8CB; /* checkbox, inputs */
-  --border-input: #88898A; /* input border */
+  /* ========== SHADES  ========== */
+  --color-shade-light: #9A9FA5;  
+  --color-shade-mid: #6F767E;   
+  --color-shade-dark: #33383F;   
+  --color-shade-darker: #15181A; 
+  --color-shade-gray: #3C4145;  
 
-  /* ====== STATUS COLORS ====== */
-  --status-active: #27AE60; /* Active */
-  --status-desactive: #F04D58;   /* Deactivate */
+  /* ========== COLORS ========== */
+  --color-primary: #2A85FF;      
+  --color-success: #83BF6E;    
+  --color-error: #FF6A55;
+  --color-purple: #8E59FF;
 
-  /* ====== ADDITIONAL COLORS ====== */
-  --color-start: #F69133;  /* Starts */
+  /* ========== SECONDARY  ========== */
+  --color-secondary-orange: #FFBC99;
+  --color-secondary-purple: #CABDFF;
+  --color-secondary-blue: #B1E5FC;
+  --color-secondary-green: #B5E4CA;
+  --color-secondary-yellow: #FFD88D;
+}
+
+
+@font-face {
+  font-family: 'Inter';
+  src: url("/fonts/Inter-Regular.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Inter';
+  src: url("/fonts/Inter-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Inter';
+  src: url("/fonts/Inter-SemiBold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Inter';
+  src: url("/fonts/Inter-Bold.woff2") format("woff2");
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Inter';
+  src: url("/fonts/Extra-Bold.woff2") format("woff2");
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
 }

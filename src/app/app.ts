@@ -1,10 +1,13 @@
-import { Component } from '@angular/core';
-import { CategoryComponent } from './components/category/category.component';
+import { Component, signal } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+import { CategoryComponent } from './components/inventario/category.component';
+
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CategoryComponent],
+
+  imports: [RouterOutlet,CategoryComponent],
   templateUrl: './app.html',
   styleUrls: ['./app.css']
 })
