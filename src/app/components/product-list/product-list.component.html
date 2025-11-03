@@ -2,7 +2,8 @@
   <!-- Header con búsqueda y acciones -->
   <div class="products-header">
     <h2 class="products-title">
-      <span class="title-icon"></span> Productos
+      <span class="title-bar"></span>
+      Productos
     </h2>
     
     <div class="header-actions">
@@ -13,13 +14,14 @@
             <circle cx="11" cy="11" r="8"></circle>
             <path d="m21 21-4.35-4.35"></path>
           </svg>
+          <span class="search-label" *ngIf="!searchExpanded">Buscar</span>
         </button>
         <input 
           *ngIf="searchExpanded"
           type="text" 
           [(ngModel)]="searchTerm"
           (ngModelChange)="onSearchChange($event)"
-          placeholder="Buscar"
+          placeholder=""
           class="search-input"
           #searchInput
         >
@@ -34,15 +36,19 @@
     <span>Filtrar</span>
   </button>
 
-  <div [class.hidden]="!filterExpanded" class="filter-select-wrapper">
-    <select [(ngModel)]="selectedCategory" (change)="onCategoryChange()">
-      <option value="">Todas las categorías</option>
-      <option value="Pizza">Pizza</option>
-      <option value="Burger">Burger</option>
-      <option value="Bebidas">Bebidas</option>
-      <option value="Snacks">Snacks</option>
-    </select>
-  </div> <!-- cierre correcto del div filter-select-wrapper -->
+      <div [class.hidden]="!filterExpanded" class="filter-select-wrapper filter-panel">
+        <div class="filter-chips">
+          <label *ngFor="let cat of getCategories()" class="category-chip">
+            <input type="checkbox" [checked]="selectedCategories.includes(cat)" (change)="toggleCategory(cat, $event.target.checked)">
+            <span class="chip-label">{{ cat }}</span>
+          </label>
+        </div>
+
+        <div class="filter-controls">
+          <button class="btn btn-secondary" (click)="clearCategories()">Limpiar</button>
+          <button class="btn btn-primary" (click)="toggleFilter()">Cerrar</button>
+        </div>
+      </div> <!-- cierre correcto del div filter-select-wrapper -->
 </div> <!-- cierre del div filter-wrapper -->
 
 
@@ -79,7 +85,7 @@
 
   <!-- Tabla de productos -->
   <div class="table-container">
-    <table class="products-table">
+  <table class="products-table" [class.menu-active]="menuIsOpen" [class.filter-active]="filterExpanded">
       <thead>
   <tr>
     <th class="checkbox-col">
@@ -107,7 +113,7 @@
   </tr>
 </thead>
       <tbody>
-      <tr *ngFor="let product of paginatedProducts; trackBy: trackByCodigo" [class.selected]="product.selected">
+      <tr *ngFor="let product of paginatedProducts; trackBy: trackByCodigo" [class.selected]="product.selected" [class.menu-opened]="actionMenuOpen === product.codigoBarras" [class.matching-filter]="isCategoryMatch(product)">
         <td class="checkbox-col">
           <input type="checkbox" [(ngModel)]="product.selected">
         </td>
@@ -118,7 +124,7 @@
         <td>{{ product.codigoBarras }}</td>
         <td>{{ product.descripcion }}</td>
         <td>{{ product.categoria }}</td>
-        <td class="product-price">₡ {{ product.precio | number:'1.2-2' }}</td>
+  <td class="product-price">{{ product.precio | currency:'CRC':'symbol':'1.2-2' }}</td>
         <td>{{ product.stock }}</td>
         <td>
           <span class="status-badge" 

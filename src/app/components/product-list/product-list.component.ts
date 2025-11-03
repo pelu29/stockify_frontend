@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { CommonModule, CurrencyPipe } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { Product } from '../../models/product.model';
 import { PRODUCTS } from '../../models/mock-products';
 import { Subject, debounceTime } from 'rxjs';
@@ -8,7 +8,7 @@ import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-product-list',
   standalone: true,
-  imports: [CommonModule, FormsModule, CurrencyPipe],
+  imports: [CommonModule, FormsModule],
   templateUrl: './product-list.component.html',
   styleUrls: ['./product-list.component.css'],
 })
@@ -20,6 +20,7 @@ export class ProductListComponent implements OnInit {
 
   searchTerm = '';
   selectedCategory = '';
+  selectedCategories: string[] = [];
   private searchSubject = new Subject<string>();
 
   // UI States
@@ -27,6 +28,8 @@ export class ProductListComponent implements OnInit {
   filterExpanded = false;
   exportMenuOpen = false;
   actionMenuOpen: string | null = null;
+  // indica si cualquier menú de acción está abierto (permite reglas CSS más simples)
+  menuIsOpen = false;
   sortColumn = '';
   sortDirection: 'asc' | 'desc' = 'asc';
 
@@ -67,10 +70,40 @@ export class ProductListComponent implements OnInit {
   // Toggle filter
   toggleFilter(): void {
     this.filterExpanded = !this.filterExpanded;
+    // Si cerramos el panel, no limpiamos las selecciones automáticamente —
+    // el usuario puede usar 'Limpiar' si quiere.
     if (!this.filterExpanded) {
-      this.selectedCategory = '';
+      // opcional: aplicar el filtro actual
       this.filterProducts();
     }
+  }
+
+  // Toggle category selection (multi-select)
+  toggleCategory(category: string, checked: boolean): void {
+    if (checked) {
+      if (!this.selectedCategories.includes(category)) {
+        this.selectedCategories.push(category);
+      }
+    } else {
+      this.selectedCategories = this.selectedCategories.filter((c) => c !== category);
+    }
+    // aplicar filtro inmediatamente
+    this.filterProducts();
+  }
+
+  clearCategories(): void {
+    this.selectedCategories = [];
+    this.filterProducts();
+  }
+
+  getCategories(): string[] {
+    const set = new Set<string>(this.allProducts.map((p) => p.categoria));
+    return Array.from(set);
+  }
+
+  isCategoryMatch(product: Product): boolean {
+    if (!this.selectedCategories || this.selectedCategories.length === 0) return true;
+    return this.selectedCategories.includes(product.categoria);
   }
 
   // Toggle export menu
@@ -81,6 +114,7 @@ export class ProductListComponent implements OnInit {
   // Toggle action menu
   toggleActionMenu(codigoBarras: string): void {
     this.actionMenuOpen = this.actionMenuOpen === codigoBarras ? null : codigoBarras;
+    this.menuIsOpen = this.actionMenuOpen !== null;
   }
 
   // Search con debounce
@@ -108,9 +142,9 @@ export class ProductListComponent implements OnInit {
       );
     }
 
-    // Filtrar por categoría
-    if (this.selectedCategory) {
-      result = result.filter((p) => p.categoria === this.selectedCategory);
+    // Filtrar por categoría (multi-select)
+    if (this.selectedCategories && this.selectedCategories.length > 0) {
+      result = result.filter((p) => this.selectedCategories.includes(p.categoria));
     }
 
     this.filteredProducts = result;
@@ -185,12 +219,14 @@ export class ProductListComponent implements OnInit {
   viewProduct(product: Product): void {
     console.log('Ver producto:', product);
     this.actionMenuOpen = null;
+    this.menuIsOpen = false;
     // TODO: Implementar vista detallada
   }
 
   editProduct(product: Product): void {
     console.log('Editar producto:', product);
     this.actionMenuOpen = null;
+    this.menuIsOpen = false;
     // TODO: Implementar edición
   }
 
@@ -201,6 +237,7 @@ export class ProductListComponent implements OnInit {
       console.log('Producto eliminado:', product);
     }
     this.actionMenuOpen = null;
+    this.menuIsOpen = false;
   }
 
   toggleStatus(product: Product): void {
@@ -212,6 +249,7 @@ export class ProductListComponent implements OnInit {
       this.filterProducts();
     }
     this.actionMenuOpen = null;
+    this.menuIsOpen = false;
   }
 
   // Funciones de exportación
