@@ -57,26 +57,23 @@
             type="submit"
             class="login-button"
             [disabled]="loginForm.invalid || isLoading"
-            (click)="navegar('categorias')"
           >
             <span *ngIf="!isLoading">Iniciar sesión</span>
             <span *ngIf="isLoading">Iniciando sesión...</span>
           </button>
-        </form   >
+        </form>
 
         <div class="divider">
           <span class="divider-text">o</span>
         </div>
 
         <div class="social-login">
+
           <p class="social-title"> Iniciar sesión con</p>
+
           <div class="social-buttons">
-            <button type="button" class="social-button">
-              Google
-            </button>
-            <button type="button" class="social-button">
-              Facebook
-            </button>
+            <button type="button" class="social-button">Google</button>
+            <button type="button" class="social-button">Facebook</button>
           </div>
         </div>
 
