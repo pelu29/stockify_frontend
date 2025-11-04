@@ -1,24 +1,46 @@
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
 <div class="import-container">
-  <h2>Importar Reporte</h2>
+  <h2>Importar reporte</h2>
+  <p class="subtitle">Selecciona un archivo para subir un reporte en formato CSV o PDF.</p>
 
-  <!-- Botón estilizado para seleccionar archivo -->
-  <label class="file-input-label">
-    Seleccionar archivo
-    <input type="file" accept=".csv,.pdf" (change)="onFileSelected($event)" hidden>
-  </label>
+  <input
+    type="file"
+    #fileInput
+    accept=".csv,.pdf,.xlsx"
+    style="display: none"
+    (change)="onFileSelected($event)"
+  />
 
-  <!-- Nombre del archivo seleccionado -->
-  <p *ngIf="selectedFileName" class="success-msg">
+  <button class="upload-btn" (click)="triggerFileInput()">Seleccionar archivo</button>
+
+  <p *ngIf="selectedFileName" class="file-info">
     Archivo seleccionado: <strong>{{ selectedFileName }}</strong>
   </p>
 
-  <!-- Mensaje de error si el archivo no es válido -->
-  <p *ngIf="errorMessage" class="error-msg">
-    {{ errorMessage }}
-  </p>
+  <div class="file-type-buttons">
+    <button class="file-btn pdf" (click)="triggerFileInput('pdf')">
+      <i class="material-icons">picture_as_pdf</i>
+      PDF
+    </button>
 
-  <!-- Botón Subir (deshabilitado si no hay archivo seleccionado) -->
-  <button [disabled]="!selectedFileName">Subir</button>
+    <button class="file-btn excel" (click)="triggerFileInput('excel')">
+      <i class="material-icons">table_chart</i>
+      Excel
+    </button>
+
+    <button class="file-btn csv" (click)="triggerFileInput('csv')">
+      <i class="material-icons">description</i>
+      CSV
+    </button>
+  </div>
+
+  <button class="upload-btn" [disabled]="!selectedFileName" (click)="uploadFile()">
+    <i class="material-icons" style="vertical-align: middle; margin-right: 6px;">cloud_upload</i>
+    Subir
+  </button>
+
+  <!-- Mensaje de confirmación -->
+  <p *ngIf="uploadMessage" class="message">{{ uploadMessage }}</p>
 </div>
-
 
