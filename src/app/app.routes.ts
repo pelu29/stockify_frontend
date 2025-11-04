@@ -6,7 +6,7 @@ import { LoginComponent } from '@features/auth/pages/login/login';
 
 export const routes: Routes = [
   { path:'',redirectTo:'register',pathMatch:'full'},
-  { path: '', component: ProductListComponent },
+  { path: 'productos', component: ProductListComponent },
   { path: 'register', component: Register },
   { path: 'login', component:LoginComponent},
   { path: 'categorias', component:CategoryComponent}
