@@ -3,11 +3,13 @@ import { ProductListComponent } from './components/product-list/product-list.com
 import { CategoryComponent } from './components/inventario/category.component';
 import { Register } from '@features/auth/pages/register/register';
 import { LoginComponent } from '@features/auth/pages/login/login';
+import { ImportReportComponent } from './components/import-report/import-report.component';
 
 export const routes: Routes = [
   { path:'',redirectTo:'register',pathMatch:'full'},
   { path: 'productos', component: ProductListComponent },
   { path: 'register', component: Register },
   { path: 'login', component:LoginComponent},
-  { path: 'categorias', component:CategoryComponent}
+  { path: 'categorias', component:CategoryComponent},
+  { path: 'import-report', component: ImportReportComponent }
 ];
