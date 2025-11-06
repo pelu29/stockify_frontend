@@ -1,0 +1,184 @@
+.cuadro {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  max-width: 1000px;
+  margin: 2rem auto;
+  font-family: 'Inter', sans-serif;
+}
+
+h2 {
+  color: #222222;
+  margin-bottom: 1.5rem;
+  border-left: 4px solid #3b82f6;
+  padding-left: 0.5rem;
+}
+
+.foto {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.fotobox {
+  border: 2px dashed #b0b0b0;
+  border-radius: 8px;
+  width: 280px;
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #999;
+  cursor: pointer;
+  overflow: hidden;
+  position: relative;
+  transition: all 0.3s ease;
+  overflow: visible !important;
+}
+
+/* ✅ cuando hay imagen, quitar borde */
+.fotobox img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border: none;
+  display: block;
+}
+
+
+
+
+
+.fotobox:hover {
+  border-color: #3b82f6;
+}
+
+.fotob {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.btn1 , .btn2 {
+  padding: 0.6rem 1.2rem;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+.btn1 {
+  background-color: #3b82f6;
+  color: white;
+}
+
+.btn2 {
+  background-color: #f3f4f6;
+  color: #333;
+}
+
+.btn1:hover {
+  background-color: #2563eb;
+}
+
+.txt {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+}
+
+.txt label {
+  font-weight: 500;
+  margin-bottom: 0.4rem;
+}
+
+input,
+select,
+textarea {
+  padding: 0.6rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  width: 100%;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 70px;
+}
+
+.checkbox {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.checkbox label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 500;
+  color: #333;
+  cursor: pointer;
+}
+
+.checkbox input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: #3b82f6; /* color azul moderno */
+}
+
+
+.sizes {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.size-input {
+  flex: 1;
+}
+
+.btn.full {
+  width: 100%;
+  margin-top: 1rem;
+}
+
+/* ===== Símbolo S/ fijo ===== */
+.input-wrapper {
+  position: relative;
+  display: block;
+  width: 100%;
+}
+
+.currency {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #555;
+  font-size: 0.9rem;
+  pointer-events: none;
+}
+
+.input-wrapper input {
+  padding-left: 30px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+
+
+
+/* 🔹 Cuando hay imagen, quitamos el borde y texto */
+.fotobox.has-image {
+  border: none;
+  color: transparent;
+}
+
+/* 🔹 Si quieres un borde azul cuando ya hay imagen, cambia "none" por: */
+/* border: 2px solid #3b82f6; */
