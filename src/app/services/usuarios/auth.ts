@@ -14,6 +14,6 @@ export class Auth {
   }
 
   isLoggedIn():boolean{
-    return !!localStorage.getItem("token");
+    return !!localStorage.getItem("Token");
   }
 }
