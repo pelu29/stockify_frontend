@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { ProductListComponent } from './components/product-list/product-list.component';
+import { ProductFormComponent } from './components/product-form/product-form.component';
 import { CategoryComponent } from './components/inventario/category.component';
 import { Register } from '@features/auth/pages/register/register';
 import { LoginComponent } from '@features/auth/pages/login/login';
@@ -18,6 +19,7 @@ export const routes: Routes = [
   { path: 'report', component: ImportReportComponent },
   {path:'sidebar',component:Sidebar},
   {path:'navbar',component:Navbar},
+  { path: 'add-product', component: ProductFormComponent },
   {
     path:'layout', component:Layout,
     canActivate:[authGuard],

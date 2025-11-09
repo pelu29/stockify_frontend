@@ -1,17 +1,15 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { ProductFormComponent } from './components/product-form/product-form.component';
 import { Sidebar } from '@shared/components/sidebar/sidebar';
 import { Navbar } from '@shared/components/navbar/navbar';
-import { CategoryComponent } from './components/inventario/category.component';
 
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet,Sidebar,Navbar], // <-- quitar ImportReportComponent
+  imports: [RouterOutlet, ProductFormComponent,Sidebar,Navbar],
   templateUrl: './app.html',
-  styleUrls: ['./app.css']
+  styleUrl: './app.css'
 })
-export class AppComponent {
-  title = 'stockify-frontend';
-}
+export class AppComponent { }
