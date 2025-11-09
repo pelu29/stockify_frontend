@@ -1,0 +1,214 @@
+<div class="min-h-screen bg-white flex">
+
+    <!-- Main Content -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 w-full lg:gap-8">
+
+        <!-- Left Side - Image -->
+        <div class="hidden lg:flex items-center justify-center lg:pl-12 lg:pr-4">
+            <div class="max-w-lg h-[600px]">
+                <img src="register.webp" alt="Sign up illustration" class="h-full object-contain"/>
+            </div>
+        </div>
+
+        <!-- Right Side - Form -->
+        <div class="flex flex-col justify-center   relative">
+
+            <!-- Logo Header -->
+            <div class="absolute top-6 left-0 right-0 flex items-center justify-end px-6 lg:pr-12">
+                <img src="Logo.webp" alt="Stockify Logo" class="w-8 h-10" />
+                <span class="text-3xl font-bold text-gray-900 ml-2">Stockify</span>
+            </div>
+
+            <div class="max-w-2xl w-full">
+
+                <!-- Success Message -->
+                @if (successMessage) {
+                <div class="mb-6 p-4 bg-green-50 border border-green-200 text-green-700 rounded-lg text-sm">
+                    {{ successMessage }}
+                </div>
+                }
+
+                <!-- Title Section -->
+                <div class="mb-8">
+                    <h2 class="text-4xl font-bold text-neutral-700 mb-2">Registrarse</h2>
+                    <p class="text-neutral-500 text-sm">Vamos a configurarlo todo para que puedas acceder a tu cuenta
+                        personal!</p>
+                </div>
+
+                <!-- Form -->
+                <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="space-y-5">
+
+                    <!-- First Name & Last Name Row -->
+                    <div class="grid grid-cols-2 gap-3">
+                        <!-- First Name -->
+                        <fieldset class="relative rounded-md border-1 transition-colors min-h-[40px]"
+                            [class.border-neutral-700]="!(submitted && f['firstName'].errors)"
+                            [class.border-red-500]="submitted && f['firstName'].errors"
+                            [class.focus-within:border-blue-600]="!(submitted && f['firstName'].errors)">
+                            <legend class="ml-3 px-1 text-sm text-neutral-900 font-medium">Nombres</legend>
+                            <div class="relative px-4 pb-3">
+                                <input type="text" formControlName="firstName" placeholder="Jhon"
+                                    class="w-full outline-none bg-transparent text-neutral-900 text-base placeholder-neutral-400" />
+                            </div>
+                        </fieldset>
+                        @if (submitted && f['firstName'].errors) {
+                        <p class="text-red-500 text-xs mt-1">El campo nombres es requerido</p>
+                        }
+
+                        <!-- Last Name -->
+                        <fieldset class="relative rounded-md border-1 transition-colors min-h-[40px]"
+                            [class.border-neutral-700]="!(submitted && f['lastName'].errors)"
+                            [class.border-red-500]="submitted && f['lastName'].errors"
+                            [class.focus-within:border-blue-600]="!(submitted && f['lastName'].errors)">
+                            <legend class="ml-3 px-1 text-sm text-neutral-900 font-medium">Apellidos</legend>
+                            <div class="relative px-4 pb-3">
+                                <input type="text" formControlName="lastName" placeholder="Doe"
+                                    class="w-full outline-none bg-transparent text-neutral-900 text-base placeholder-neutral-400" />
+                            </div>
+                        </fieldset>
+                        @if (submitted && f['lastName'].errors) {
+                        <p class="text-red-500 text-xs mt-1">El campo apellidos es requerido</p>
+                        }
+                    </div>
+
+                    <!-- Email & Phone Row -->
+                    <div class="grid grid-cols-2 gap-3">
+                        <!-- Email -->
+                        <fieldset class="relative rounded-md border-1 transition-colors min-h-[40px]"
+                            [class.border-neutral-700]="!(submitted && f['email'].errors)"
+                            [class.border-red-500]="submitted && f['email'].errors"
+                            [class.focus-within:border-blue-600]="!(submitted && f['email'].errors)">
+                            <legend class="ml-3 px-1 text-sm text-neutral-900 font-medium">Email</legend>
+                            <div class="relative px-4 pb-3">
+                                <input type="email" formControlName="email" placeholder="john.doe@gmail.com"
+                                    class="w-full outline-none bg-transparent text-neutral-900 text-base placeholder-neutral-400" />
+                            </div>
+                        </fieldset>
+                        @if (submitted && f['email'].errors) {
+                        <p class="text-red-500 text-xs mt-1">
+                            @if (f['email'].errors['required']) { Email is required }
+                            @if (f['email'].errors['email']) { Invalid email format }
+                        </p>
+                        }
+
+                        <!-- Phone Number -->
+                        <fieldset class="relative rounded-md border-1 transition-colors min-h-[40px]"
+                            [class.border-neutral-700]="!(submitted && f['phoneNumber'].errors)"
+                            [class.border-red-500]="submitted && f['phoneNumber'].errors"
+                            [class.focus-within:border-blue-600]="!(submitted && f['phoneNumber'].errors)">
+                            <legend class="ml-3 px-1 text-sm text-neutral-900 font-medium">Telefono</legend>
+                            <div class="relative px-4 pb-3">
+                                <input type="tel" formControlName="phoneNumber" placeholder="+1 (555) 000-0000"
+                                    class="w-full outline-none bg-transparent text-neutral-900 text-base placeholder-neutral-400" />
+                            </div>
+                        </fieldset>
+                        @if (submitted && f['phoneNumber'].errors) {
+                        <p class="text-red-500 text-xs mt-1">El campo de telefono es requerido</p>
+                        }
+                    </div>
+
+                    <!-- Password -->
+                    <div>
+                        <fieldset class="relative rounded-md border-1 transition-colors min-h-[40px]"
+                            [class.border-neutral-700]="!(submitted && f['password'].errors)"
+                            [class.border-red-500]="submitted && f['password'].errors"
+                            [class.focus-within:border-blue-600]="!(submitted && f['password'].errors)">
+                            <legend class="ml-3 px-1 text-sm text-neutral-900 font-medium">Contraseña</legend>
+                            <div class="relative px-4 pb-3">
+                                <input [type]="showPassword ? 'text' : 'password'" formControlName="password"
+                                    placeholder="••••••••••••••••"
+                                    class="w-full outline-none bg-transparent text-neutral-900 text-base placeholder-neutral-400 pr-10" />
+                                <button type="button" (click)="togglePasswordVisibility('password')"
+                                    class="absolute right-4 top-50% transform -translate-y-50% text-neutral-700 hover:text-neutral-900 transition-colors">
+                                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2">
+                                        @if (!showPassword) {
+                                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                                        <circle cx="12" cy="12" r="3" />
+                                        } @else {
+                                        <path
+                                            d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24" />
+                                        <line x1="1" y1="1" x2="23" y2="23" />
+                                        }
+                                    </svg>
+                                </button>
+                            </div>
+                        </fieldset>
+                        @if (submitted && f['password'].errors) {
+                        <p class="text-red-500 text-xs mt-1">
+                            @if (f['password'].errors['required']) { Password is required }
+                            @if (f['password'].errors['minlength']) { Password must be at least 6 characters }
+                        </p>
+                        }
+                    </div>
+
+                    <!-- Confirm Password -->
+                    <div>
+                        <fieldset class="relative rounded-md border-1 transition-colors min-h-[40px]"
+                            [class.border-neutral-700]="!(submitted && (f['confirmPassword'].errors || registerForm.errors?.['passwordMismatch']))"
+                            [class.border-red-500]="submitted && (f['confirmPassword'].errors || registerForm.errors?.['passwordMismatch'])"
+                            [class.focus-within:border-blue-600]="!(submitted && (f['confirmPassword'].errors || registerForm.errors?.['passwordMismatch']))">
+                            <legend class="ml-3 px-1 text-sm text-neutral-900 font-medium">Confirmar contraseña</legend>
+                            <div class="relative px-4 pb-3">
+                                <input [type]="showConfirmPassword ? 'text' : 'password'"
+                                    formControlName="confirmPassword" placeholder="••••••••••••••••"
+                                    class="w-full outline-none bg-transparent text-neutral-900 text-base placeholder-neutral-400 pr-10" />
+                                <button type="button" (click)="togglePasswordVisibility('confirmPassword')"
+                                    class="absolute right-4 top-50% transform -translate-y-50% text-neutral-700 hover:text-neutral-900 transition-colors">
+                                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2">
+                                        @if (!showConfirmPassword) {
+                                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                                        <circle cx="12" cy="12" r="3" />
+                                        } @else {
+                                        <path
+                                            d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24" />
+                                        <line x1="1" y1="1" x2="23" y2="23" />
+                                        }
+                                    </svg>
+                                </button>
+                            </div>
+                        </fieldset>
+                        @if (submitted && f['confirmPassword'].errors) {
+                        <p class="text-red-500 text-xs mt-1">Confirm password is required</p>
+                        }
+                        @if (submitted && registerForm.errors?.['passwordMismatch'] && !f['confirmPassword'].errors) {
+                        <p class="text-red-500 text-xs mt-1">Passwords do not match</p>
+                        }
+                    </div>
+
+                    <!-- Terms Checkbox -->
+                    <div class="flex items-start gap-3">
+                        <input type="checkbox" formControlName="agreeToTerms" id="terms"
+                            [class.border-red-500]="submitted && f['agreeToTerms'].errors"
+                            class="w-4 h-4 border-2 border-gray-300 rounded mt-0.5 text-blue-600 focus:ring-blue-500 cursor-pointer" />
+                        <label for="terms" class="text-sm text-gray-700 cursor-pointer">
+                            Acepto todos los <a href="#" class="text-blue-600 hover:underline font-medium">Términos</a>
+                            y <a href="#" class="text-blue-600 hover:underline font-medium">Políticas de Privacidad.</a>
+                        </label>
+                    </div>
+                    @if (submitted && f['agreeToTerms'].errors) {
+                    <p class="text-red-500 text-xs -mt-3">Debes aceptar los términos</p>
+                    }
+
+                    <!-- Create Account Button -->
+                    <button type="submit"
+                        class="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-gray-300 disabled:cursor-not-allowed text-white font-semibold py-3 rounded-md transition-colors text-sm">
+                        Crear cuenta
+                    </button>
+                </form>
+
+                <!-- Already have account -->
+                <div class="text-center mt-6">
+                    <p class="text-gray-700 text-sm">
+                        ¿Ya tienes una cuenta?
+                        <a href="/login" class="text-blue-600 hover:underline font-medium ml-1">Iniciar sesión</a>
+                    </p>
+                </div>
+
+                <!-- Social Icons -->
+                <app-social-icons></app-social-icons>
+            </div>
+        </div>
+    </div>
+</div>
