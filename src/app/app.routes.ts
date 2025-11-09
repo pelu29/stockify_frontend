@@ -19,13 +19,16 @@ export const routes: Routes = [
   { path: 'report', component: ImportReportComponent },
   {path:'sidebar',component:Sidebar},
   {path:'navbar',component:Navbar},
-  { path: 'add-product', component: ProductFormComponent },
+  {path:'productos',component:ProductListComponent},
+  
   {
     path:'layout', component:Layout,
     canActivate:[authGuard],
     children:[
+      {path:'',redirectTo:'dashboard',pathMatch:'full'},
+      {path:'dashboard',component:Dashboard},
       {path:'productos',component:ProductListComponent},
-      {path:'',redirectTo:'productos',pathMatch:'full'}
+      {path:'agregar-productos',component:ProductFormComponent}
     ]
   }
 ];
