@@ -5,6 +5,7 @@ import { Product } from '../../models/inventario/product.model';
 import { PRODUCTS } from '../../models/inventario/mock-products';
 import { Subject, debounceTime } from 'rxjs';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-product-list',
@@ -23,6 +24,7 @@ export class ProductListComponent implements OnInit {
   selectedCategory = '';
   selectedCategories: string[] = [];
   private searchSubject = new Subject<string>();
+  constructor(private router: Router) {}
 
   // UI States
   searchExpanded = false;
@@ -217,12 +219,13 @@ export class ProductListComponent implements OnInit {
     // TODO: Implementar modal o redirección para agregar producto
   }
 
-  viewProduct(product: Product): void {
-    console.log('Ver producto:', product);
-    this.actionMenuOpen = null;
-    this.menuIsOpen = false;
-    // TODO: Implementar vista detallada
-  }
+
+viewProduct(codigoBarras: string): void {
+  this.actionMenuOpen = null;
+  this.menuIsOpen = false;
+  this.router.navigate(['/productos', codigoBarras]);
+}
+
 
   editProduct(product: Product): void {
     console.log('Editar producto:', product);

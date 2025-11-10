@@ -1,0 +1,81 @@
+<div class="page-title">
+  <div class="title-bar"></div>
+  <h1>Detalles de producto</h1>
+</div>
+
+<div *ngIf="product$ | async as product" class="product-detail-container">
+
+  <!-- PANEL IZQUIERDO -->
+  <div class="left-panel">
+    <img [src]="product.imagen" alt="Product Image" class="product-image" />
+
+    <h2 class="product-name">{{ product.nombre }}</h2>
+
+    <div class="product-meta">
+      <span class="price">S/ {{ product.precio }}</span>
+
+      <span class="product-rating">
+        {{ product.rating }} <span class="star">★</span> ({{ product.ratingCount }} Reviews)
+      </span>
+
+      <span class="stock">
+        Stock: {{ product.stock }}
+      </span>
+    </div>
+
+    <h3 class="section-title">Detalles</h3>
+    <p class="description">{{ product.descripcion }}</p>
+
+    <hr>
+
+    <h3 class="section-title">Size</h3>
+    <div class="options">
+      <label class="option-item" *ngFor="let size of product.sizes">
+        <input type="radio" name="size">
+        {{ size.name }}
+        <span class="option-price">S/ {{ size.price }}</span>
+      </label>
+    </div>
+  </div>
+
+  <!-- PANEL DERECHO -->
+  <div class="right-panel">
+
+    <!-- RATING SIMPLE -->
+    <div class="rating-summary">
+      <h2 class="rating-number">
+        {{ product.rating }}
+        <span class="rating-total">/ 5.0</span>
+      </h2>
+
+      <div class="stars-row">
+        <div class="stars">
+          <span class="star" *ngFor="let s of [1,2,3,4,5]">★</span>
+        </div>
+        <span class="rating-count">{{ product.ratingCount }} Ratings</span>
+      </div>
+    </div>
+
+    <!-- TITULO DE REVIEWS -->
+    <div class="reviews-header">
+      <h3>Revisión y calificaciones</h3>
+      <button class="rating-filter">Calificaciones ▼</button>
+    </div>
+
+    <!-- REVIEWS -->
+    <div class="review-item" *ngFor="let r of product.reviews">
+      <img [src]="r.avatar" class="avatar" />
+      <div class="review-info">
+        <h4>{{ r.user }}</h4>
+        <div class="review-stars">★★★★★ ({{ r.stars }}.0)</div>
+        <p class="review-text">{{ r.comment }}</p>
+        <span class="review-date">{{ r.date }}</span>
+        <a class="reply-btn">Reply</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div *ngIf="error" class="error-message">{{ error }}</div>
+<div *ngIf="loading" class="loading-message">Cargando producto...</div>
