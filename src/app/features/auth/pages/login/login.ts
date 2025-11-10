@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { Auth } from 'src/app/services/usuarios/auth';
 
 @Component({
   selector: 'app-login',
@@ -11,12 +12,13 @@ import { Router } from '@angular/router';
   imports: [CommonModule, ReactiveFormsModule]
 })
 export class LoginComponent {
+
   loginForm: FormGroup;
   isLoading = false;
   showSuccessMessage = false;
   showPassword = false;
 
-  constructor(private fb: FormBuilder, private router: Router) {
+  constructor(private fb: FormBuilder, private router: Router, private authService:Auth) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
@@ -49,7 +51,8 @@ export class LoginComponent {
         // 🔹 Espera 1 segundo y navega al componente import-report
         setTimeout(() => {
           this.showSuccessMessage = false;
-          this.router.navigate(['/import-report']);
+          this.authService.login("Esto sera mi token");
+          this.router.navigate(['/layout']);
         }, 1000);
 
       }, 1500);
