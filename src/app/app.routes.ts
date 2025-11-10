@@ -10,6 +10,9 @@ import { Sidebar } from '@shared/components/sidebar/sidebar';
 import { Navbar } from '@shared/components/navbar/navbar';
 import { Layout } from './layout/layout/layout';
 import { authGuard } from './guards/auth-guard';
+import { Orders } from './components/orders/orders';
+import { OrderHistory } from './components/order-history/order-history';
+import { DetalleProducto } from './components/detalle-producto/detalle-producto';
 
 export const routes: Routes = [
   { path:'',redirectTo:'register',pathMatch:'full'},
@@ -28,7 +31,10 @@ export const routes: Routes = [
       {path:'',redirectTo:'dashboard',pathMatch:'full'},
       {path:'dashboard',component:Dashboard},
       {path:'productos',component:ProductListComponent},
-      {path:'agregar-productos',component:ProductFormComponent}
+      {path:'agregar-productos',component:ProductFormComponent},
+      {path:'ordenes',component:Orders},
+      {path:'historial-ordenes',component:OrderHistory},
+      {path:'detalle-producto', component:DetalleProducto}
     ]
   }
 ];

@@ -216,13 +216,11 @@ export class ProductListComponent implements OnInit {
 
   // Acciones de productos
   addProduct(ruta:string): void {
-    this.router.navigate([`/${ruta}`])
+    this.router.navigate([`/${ruta}`]);
   }
 
-  viewProduct(product: Product): void {
-    console.log('Ver producto:', product);
-    this.actionMenuOpen = null;
-    this.menuIsOpen = false;
+  viewProduct(): void {
+    this.router.navigate([`/layout/detalle-producto`])
     // TODO: Implementar vista detallada
   }
 
