@@ -1,0 +1,187 @@
+<div class="dialog-container">
+  <h2 class="dialog-title">
+    {{ isEditMode ? 'Editar Producto' : 'Agregar Nuevo Producto' }}
+  </h2>
+
+  <div class="dialog-content">
+    <form [formGroup]="productForm" class="product-form">
+      <!-- Nombre del Producto -->
+      <div class="form-row">
+        <div class="form-group full-width">
+          <label for="name">Nombre del Producto *</label>
+          <input 
+            type="text" 
+            id="name"
+            formControlName="name" 
+            placeholder="Ej: Café Americano"
+            [class.error]="name?.invalid && name?.touched"
+          >
+          <div class="error-message" *ngIf="name?.hasError('required') && name?.touched">
+            El nombre es requerido
+          </div>
+          <div class="error-message" *ngIf="name?.hasError('minlength') && name?.touched">
+            El nombre debe tener al menos 2 caracteres
+          </div>
+        </div>
+      </div>
+
+      <!-- Imagen del Producto -->
+      <div class="form-row">
+        <div class="form-group full-width">
+          <label for="image">Imagen del Producto</label>
+          <div class="image-upload-section">
+            <!-- Previsualización de imagen -->
+            <div class="image-preview" *ngIf="previewImage">
+              <img [src]="previewImage" alt="Vista previa" class="preview-img">
+              <button type="button" class="remove-image-btn" (click)="removeImage()">
+                ×
+              </button>
+            </div>
+            
+            <!-- Estado sin imagen -->
+            <div class="no-image-preview" *ngIf="!previewImage">
+              <div class="no-image-icon">📷</div>
+              <span class="no-image-text">No hay imagen seleccionada</span>
+            </div>
+
+            <!-- Input de archivo -->
+            <input 
+              type="file" 
+              id="image"
+              (change)="onImageSelected($event)"
+              accept="image/*"
+              class="file-input"
+              #fileInput
+            >
+
+            <!-- Botones de imagen -->
+            <div class="image-buttons">
+              <button type="button" class="upload-image-btn" (click)="fileInput.click()">
+                <span class="btn-icon">📁</span>
+                {{ previewImage ? 'Cambiar Imagen' : 'Seleccionar Imagen' }}
+              </button>
+              
+              <button *ngIf="previewImage" type="button" class="remove-image-btn-full" (click)="removeImage()">
+                <span class="btn-icon">🗑️</span>
+                Eliminar Imagen
+              </button>
+            </div>
+
+            <!-- Información de la imagen -->
+            <div class="image-info" *ngIf="selectedImageFile">
+              <span class="file-name">{{ selectedImageFile.name }}</span>
+              <span class="file-size">({{ getFileSize(selectedImageFile.size) }})</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Categoría y Estado -->
+      <div class="form-row">
+        <div class="form-group half-width">
+          <label for="category">Categoría *</label>
+          <select 
+            id="category"
+            formControlName="category"
+            [class.error]="category?.invalid && category?.touched"
+          >
+            <option value="">Seleccionar categoría</option>
+            <option *ngFor="let category of categories" [value]="category">
+              {{ category }}
+            </option>
+          </select>
+          <div class="error-message" *ngIf="category?.hasError('required') && category?.touched">
+            La categoría es requerida
+          </div>
+        </div>
+
+        <div class="form-group half-width">
+          <label for="status">Estado</label>
+          <select id="status" formControlName="status">
+            <option value="Activo">Activo</option>
+            <option value="Inactivo">Inactivo</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Precio y Stock -->
+      <div class="form-row">
+        <div class="form-group half-width">
+          <label for="price">Precio *</label>
+          <div class="input-with-prefix">
+            <span class="prefix">$</span>
+            <input 
+              type="number" 
+              id="price"
+              formControlName="price" 
+              min="0" 
+              step="0.01"
+              [class.error]="price?.invalid && price?.touched"
+            >
+          </div>
+          <div class="error-message" *ngIf="price?.hasError('required') && price?.touched">
+            El precio es requerido
+          </div>
+          <div class="error-message" *ngIf="price?.hasError('min') && price?.touched">
+            El precio debe ser mayor o igual a 0
+          </div>
+        </div>
+
+        <div class="form-group half-width">
+          <label for="stock">Stock *</label>
+          <input 
+            type="number" 
+            id="stock"
+            formControlName="stock" 
+            min="0"
+            [class.error]="stock?.invalid && stock?.touched"
+          >
+          <div class="error-message" *ngIf="stock?.hasError('required') && stock?.touched">
+            El stock es requerido
+          </div>
+          <div class="error-message" *ngIf="stock?.hasError('min') && stock?.touched">
+            El stock debe ser mayor o igual a 0
+          </div>
+        </div>
+      </div>
+
+      <!-- Descripción -->
+      <div class="form-row">
+        <div class="form-group full-width">
+          <label for="description">Descripción</label>
+          <textarea 
+            id="description"
+            formControlName="description" 
+            rows="3" 
+            placeholder="Descripción del producto..."
+          ></textarea>
+        </div>
+      </div>
+
+      <!-- Código de Barras -->
+      <div class="form-row">
+        <div class="form-group full-width">
+          <label for="barcode">Código de Barras</label>
+          <input 
+            type="text" 
+            id="barcode"
+            formControlName="barcode" 
+            placeholder="Ej: 1234567890123"
+          >
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div class="dialog-actions">
+    <button type="button" (click)="onCancelClick()" class="cancel-btn">
+      Cancelar
+    </button>
+    <button type="button" 
+            (click)="onSaveClick()"
+            [disabled]="productForm.invalid"
+            class="save-btn bt1-btn">
+      {{ isEditMode ? 'Guardar Cambios' : 'Agregar Producto' }}
+    </button>
+  </div>
+</div>

@@ -1,0 +1,194 @@
+<div class="export-dialog">
+  <div class="dialog-header">
+    <h2> Exportar Productos</h2>
+    <p class="subtitle">Exportar {{ totalProducts }} productos encontrados</p>
+  </div>
+
+  <div class="dialog-content">
+    <!-- Formato de exportación -->
+    <div class="option-section">
+      <h3> Formato de Exportación</h3>
+      <div class="format-grid">
+        @for (format of formats; track format.value) {
+          <label class="format-option" [class.selected]="options.format === format.value">
+            <input 
+              type="radio" 
+              name="exportFormat" 
+              [value]="format.value"
+              [(ngModel)]="options.format"
+              hidden>
+            <span class="format-icon">{{ format.icon }}</span>
+            <span class="format-label">{{ format.label }}</span>
+          </label>
+        }
+      </div>
+    </div>
+
+    <!-- nombre de archivo -->
+<div class="file-name-option">
+  <label> Nombre del archivo:</label>
+  <input 
+    type="text" 
+    [(ngModel)]="options.fileName" 
+    class="file-name-input"
+    placeholder="nombre_del_archivo">
+  <span class="file-extension">
+    @if (options.format === 'excel') {
+      .xlsx
+    } @else if (options.format === 'pdf') {
+      .pdf
+    } @else {
+      .{{ options.format }}
+    }
+  </span>
+</div>
+
+    <!-- Columnas a incluir -->
+    <div class="option-section">
+      <div class="section-header">
+        <h3> Columnas a Incluir</h3>
+        <div class="column-actions">
+          <button type="button" class="action-btn" (click)="selectAllColumns()">Seleccionar Todas</button>
+          <button type="button" class="action-btn" (click)="deselectAllColumns()">Limpiar</button>
+        </div>
+      </div>
+      <div class="columns-grid">
+        <label class="column-option">
+          <input type="checkbox" [(ngModel)]="options.columns.id">
+          <span class="checkmark"></span>
+          ID
+        </label>
+        <label class="column-option">
+          <input type="checkbox" [(ngModel)]="options.columns.name">
+          <span class="checkmark"></span>
+          Nombre
+        </label>
+        <label class="column-option">
+          <input type="checkbox" [(ngModel)]="options.columns.category">
+          <span class="checkmark"></span>
+          Categoría
+        </label>
+        <label class="column-option">
+          <input type="checkbox" [(ngModel)]="options.columns.price">
+          <span class="checkmark"></span>
+          Precio
+        </label>
+        <label class="column-option">
+          <input type="checkbox" [(ngModel)]="options.columns.stock">
+          <span class="checkmark"></span>
+          Stock
+        </label>
+        <label class="column-option">
+          <input type="checkbox" [(ngModel)]="options.columns.status">
+          <span class="checkmark"></span>
+          Estado
+        </label>
+        <label class="column-option">
+          <input type="checkbox" [(ngModel)]="options.columns.description">
+          <span class="checkmark"></span>
+          Descripción
+        </label>
+        <label class="column-option">
+          <input type="checkbox" [(ngModel)]="options.columns.barcode">
+          <span class="checkmark"></span>
+          Código Barras
+        </label>
+      </div>
+      <div class="selected-info">
+        {{ selectedColumns.length }} columnas seleccionadas
+      </div>
+    </div>
+
+    <!-- Opciones adicionales -->
+    <div class="option-section">
+      <h3> Opciones Adicionales</h3>
+      <div class="additional-options">
+        <label class="additional-option">
+          <input type="checkbox" [(ngModel)]="options.includeImages">
+          <span class="checkmark"></span>
+          Incluir URLs de imágenes (si están disponibles)
+        </label>
+        
+        <div class="file-name-option">
+          <label> Nombre del archivo:</label>
+          <input 
+            type="text" 
+            [(ngModel)]="options.fileName" 
+            class="file-name-input"
+            placeholder="nombre_del_archivo">
+          <span class="file-extension">
+            @if (options.format === 'excel') {
+              .xlsx
+            } @else {
+              .{{ options.format }}
+            }
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Vista previa -->
+    <div class="option-section">
+      <h3>Vista Previa</h3>
+      <div class="preview-section">
+        <div class="preview-header">
+          <span>Formato: <strong>{{ getSelectedFormatLabel() }}</strong></span>
+          <span>Columnas: <strong>{{ selectedColumns.length }}</strong></span>
+          <span>Productos: <strong>{{ totalProducts }}</strong></span>
+        </div>
+        <div class="preview-content">
+          <div class="preview-table">
+            <div class="preview-row preview-header-row">
+              @for (col of selectedColumns; track col) {
+                <div class="preview-cell">{{ col }}</div>
+              }
+            </div>
+            @for (product of products.slice(0, 3); track product.id) {
+              <div class="preview-row">
+                @if (options.columns.id) {
+                  <div class="preview-cell">{{ product.id }}</div>
+                }
+                @if (options.columns.name) {
+                  <div class="preview-cell">{{ product.name }}</div>
+                }
+                @if (options.columns.category) {
+                  <div class="preview-cell">{{ product.category }}</div>
+                }
+                @if (options.columns.price) {
+                  <div class="preview-cell">${{ product.price }}</div>
+                }
+                @if (options.columns.stock) {
+                  <div class="preview-cell">{{ product.stock }}</div>
+                }
+                @if (options.columns.status) {
+                  <div class="preview-cell">{{ product.status }}</div>
+                }
+                @if (options.columns.description) {
+                  <div class="preview-cell">{{ (product.description || '').slice(0, 20) }}...</div>
+                }
+                @if (options.columns.barcode) {
+                  <div class="preview-cell">{{ product.barcode || '-' }}</div>
+                }
+              </div>
+            }
+            @if (products.length > 3) {
+              <div class="preview-row preview-more">
+                <div class="preview-cell" [style.grid-column]="'1 / ' + (selectedColumns.length + 1)">
+                  ... y {{ products.length - 3 }} más
+                </div>
+              </div>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="dialog-actions">
+    <button type="button" class="cancel-btn" (click)="cancel()">Cancelar</button>
+    <button type="button" class="export-btn" (click)="export()">
+      <span class="btn-icon"></span>
+      Exportar {{ totalProducts }} Productos
+    </button>
+  </div>
+</div>

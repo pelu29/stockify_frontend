@@ -1,0 +1,143 @@
+<div class="product-list-container">
+  <!-- Header -->
+  <header class="header">
+    <h1>Editar Productos</h1>
+    <div class="actions">
+      <div class="primary-actions">
+        <div class="search-bar">
+          <input 
+            type="text" 
+            placeholder="Buscar..." 
+            class="search-input"
+            [(ngModel)]="searchTerm"
+            (input)="onSearch()"
+            #searchInput
+          >
+          @if (searchTerm) {
+            <button class="clear-search-btn" (click)="clearSearch()" title="Limpiar búsqueda">
+              
+            </button>
+          }
+        </div>
+        <button class="filter-btn">Filtra</button>
+        <button class="add-btn" (click)="openAddDialog()">Agregar producto</button>
+        <button class="export-btn" (click)="onExport()">Exportar</button>
+      </div>
+      
+      <div class="changes-actions">
+        <button class="save-changes-btn" (click)="onSaveAllChanges()">
+          GUARDAR CAMBIOS
+        </button>
+        <button class="cancel-changes-btn" (click)="onCancelAllChanges()">
+          CANCELAR CAMBIOS
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Información de búsqueda -->
+  @if (searchTerm) {
+    <div class="search-info">
+      <span class="search-results">
+        Mostrando {{ filteredProducts.length }} de {{ allProducts.length }} productos
+        @if (searchTerm) {
+          para "<strong>{{ searchTerm }}</strong>"
+        }
+      </span>
+      <button class="clear-search-link" (click)="clearSearch()">
+        Mostrar todos
+      </button>
+    </div>
+  }
+
+  <!-- Diálogo de Exportación -->
+@if (showExportDialog) {
+  <div class="dialog-overlay" (click)="onExportCancelled()">
+    <div class="dialog-content" (click)="$event.stopPropagation()">
+      <app-export-dialog
+        [products]="exportProducts"
+        (onExport)="onExportConfirmed($event)"
+        (onCancel)="onExportCancelled()"
+      ></app-export-dialog>
+    </div>
+  </div>
+}
+
+  <!-- Tabla de productos -->
+  <div class="table-container">
+    <table class="products-table">
+      <thead>
+        <tr>
+          <th>NOMBRE</th>
+          <th>IMAGEN</th>
+          <th>CATEGORÍA</th>
+          <th>PRECIO</th>
+          <th>STOCK</th>
+          <th>ESTADO</th>
+          <th>ACCIÓN</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (product of filteredProducts; track product.id) {
+          <tr class="product-row">
+            <td class="product-name">{{ product.name }}</td>
+            <td class="product-image">
+              @if (product.image) {
+                <img [src]="product.image" [alt]="product.name" class="product-img">
+              } @else {
+                <div class="no-image">Sin imagen</div>
+              }
+              <input 
+                type="file" 
+                #fileInput
+                (change)="onImageUpload($event, product)" 
+                accept="image/*" 
+                class="image-upload-input"
+                style="display: none;"
+              >
+              <button class="upload-btn" (click)="fileInput.click()">
+                {{ product.image ? 'Cambiar' : 'Subir' }}
+              </button>
+            </td>
+            <td class="product-category">{{ product.category }}</td>
+            <td class="product-price">${{ product.price }}</td>
+            <td class="product-stock">{{ product.stock }}</td>
+            <td class="product-status">
+              <span [class]="'status-badge ' + (product.status === 'Activo' ? 'active' : 'inactive')">
+                {{ product.status }}
+              </span>
+            </td>
+            <td class="product-actions">
+              <button class="edit-btn" (click)="openEditDialog(product)">Editar</button>
+              <button class="delete-btn" (click)="deleteProduct(product)">Eliminar</button>
+            </td>
+          </tr>
+        }
+        @if (filteredProducts.length === 0) {
+          <tr class="no-results-row">
+            <td colspan="7" class="no-results">
+              @if (searchTerm) {
+                No se encontraron productos para "{{ searchTerm }}"
+              } @else {
+                No hay productos disponibles
+              }
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Diálogo -->
+  @if (showDialog) {
+    <div class="dialog-overlay" (click)="closeDialog()">
+      <div class="dialog-content" (click)="$event.stopPropagation()">
+        <app-edit-product-dialog
+          [data]="{ product: currentProduct, isEdit: isEditMode }"
+          (onSave)="onProductSaved($event)"
+          (onCancel)="onDialogCancel()"
+        ></app-edit-product-dialog>
+      </div>
+    </div>
+  }
+</div>
