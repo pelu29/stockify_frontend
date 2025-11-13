@@ -1,0 +1,133 @@
+<!-- src/app/components/assistant/assistant.component.html -->
+
+<!-- Botón flotante (cuando está minimizado) -->
+<div class="floating-button" 
+     *ngIf="!chatState.isOpen" 
+     (click)="toggleChat()"
+     [@fadeIn]>
+  <div class="bot-avatar">
+    <img [src]="botAvatar" alt="Stocki Bot" />
+  </div>
+  <div class="welcome-badge">¡Bienvenido!</div>
+</div>
+
+<!-- Ventana del chat -->
+<div class="chat-container" 
+     *ngIf="chatState.isOpen"
+     [@slideIn]>
+  
+  <!-- Header del chat -->
+  <div class="chat-header">
+    <div class="header-left">
+      <button class="btn-icon" (click)="minimizeChat()">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M8 12L4 8L5.4 6.6L8 9.2L10.6 6.6L12 8L8 12Z" fill="white"/>
+        </svg>
+      </button>
+      <div class="bot-info">
+        <img [src]="botAvatar" alt="Stocki" class="bot-avatar-small" />
+        <span class="bot-name">Stocki</span>
+      </div>
+    </div>
+    <button class="btn-icon" (click)="closeChat()">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+        <path d="M12 4L4 12M4 4L12 12" stroke="white" stroke-width="2"/>
+      </svg>
+    </button>
+  </div>
+
+  <!-- Mensajes del chat -->
+  <div class="chat-messages" #messagesContainer>
+    <div *ngFor="let message of chatState.messages" 
+         class="message-wrapper"
+         [class.user-message]="message.type === 'user'"
+         [class.bot-message]="message.type === 'bot'">
+      
+      <!-- Mensaje del bot -->
+      <div *ngIf="message.type === 'bot'" class="message bot">
+        <div class="message-content">
+          <p>{{ message.content }}</p>
+          <span class="message-time">{{ formatTime(message.timestamp) }}</span>
+        </div>
+        
+        <!-- Opciones de botones -->
+        <div *ngIf="message.contentType === 'options' && message.options" 
+             class="message-options">
+          <button *ngFor="let option of message.options" 
+                  class="option-button"
+                  (click)="handleOptionClick(option)">
+            {{ option.label }}
+          </button>
+        </div>
+
+        <!-- Tarjetas de productos -->
+        <div *ngIf="message.contentType === 'product_card' && message.products" 
+             class="products-container">
+          <div *ngFor="let product of message.products" 
+               class="product-card">
+            <img [src]="'/' + product.imagen" 
+                 [alt]="product.nombre" 
+                 class="product-image"
+                 (error)="handleImageError($event)" />
+            
+            <div class="product-info">
+              <h4 class="product-name">{{ product.nombre }}</h4>
+              <p class="product-description">{{ product.descripcion }}</p>
+              
+              <div class="product-status">
+                <span class="status-badge" 
+                      [class.available]="product.stock > 0"
+                      [class.unavailable]="product.stock === 0">
+                  {{ product.stock > 0 ? 'Disponible' : 'Agotado' }}
+                </span>
+              </div>
+              
+              <div class="product-footer">
+                <span class="product-price">S/ {{ product.precio.toFixed(2) }}</span>
+                <div class="product-rating">
+                  <span class="sales-count">55 Ventas</span>
+                  <span class="rating-value">5.0</span>
+                  <div class="stars">⭐⭐⭐⭐⭐</div>
+                </div>
+              </div>
+            </div>
+            
+            <button class="btn-menu" *ngIf="product.stock > 0">
+              Ir al Menú
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mensaje del usuario -->
+      <div *ngIf="message.type === 'user'" class="message user">
+        <div class="message-content">
+          <p>{{ message.content }}</p>
+          <span class="message-time">{{ formatTime(message.timestamp) }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Input de mensaje -->
+  <div class="chat-input">
+    <button class="btn-attach">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+        <path d="M10 5V15M5 10H15" stroke="#5B9BF3" stroke-width="2"/>
+      </svg>
+    </button>
+    <input 
+      type="text" 
+      [(ngModel)]="messageInput"
+      (keyup.enter)="sendMessage()"
+      placeholder="Escribe aquí..." 
+      class="input-message" />
+    <button class="btn-send" (click)="sendMessage()" [disabled]="!messageInput.trim()">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+        <path d="M18 2L9 11M18 2L12 18L9 11M18 2L2 8L9 11" 
+              stroke="#5B9BF3" 
+              stroke-width="2"/>
+      </svg>
+    </button>
+  </div>
+</div>

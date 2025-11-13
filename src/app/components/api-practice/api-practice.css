@@ -1,0 +1,84 @@
+/* Fondo general */
+:host {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #ffe6e6, #fff);
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Botón */
+button {
+  background-color: #e63946;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-bottom: 20px;
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  background-color: #b71c1c;
+  transform: scale(1.05);
+}
+
+/* Tarjeta del Pokémon */
+div[pokemon-card] {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  padding: 20px 30px;
+  text-align: center;
+  width: 280px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+div[pokemon-card]:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* Imagen */
+div[pokemon-card] img {
+  width: 150px;
+  height: 150px;
+  object-fit: contain;
+  margin: 10px auto;
+}
+
+/* Nombre */
+div[pokemon-card] h2 {
+  text-transform: capitalize;
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+/* Detalles */
+div[pokemon-card] p {
+  margin: 4px 0;
+  font-size: 0.95rem;
+  color: #555;
+}
+
+/* Lista de habilidades */
+div[pokemon-card] ul {
+  list-style: none;
+  padding: 0;
+  margin-top: 10px;
+}
+
+div[pokemon-card] li {
+  background: #fce4ec;
+  color: #880e4f;
+  margin: 5px;
+  padding: 6px 10px;
+  border-radius: 10px;
+  display: inline-block;
+  font-size: 0.85rem;
+}

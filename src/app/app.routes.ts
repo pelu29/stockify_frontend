@@ -13,6 +13,9 @@ import { authGuard } from './guards/auth-guard';
 import { Orders } from './components/orders/orders';
 import { OrderHistory } from './components/order-history/order-history';
 import { DetalleProducto } from './components/detalle-producto/detalle-producto';
+import { ApiPractice } from './components/api-practice/api-practice';
+import { AssistantComponent } from './components/assistant/assistant.component';
+import { Formularios } from './components/formularios/formularios';
 
 export const routes: Routes = [
   { path:'',redirectTo:'register',pathMatch:'full'},
@@ -23,6 +26,9 @@ export const routes: Routes = [
   {path:'sidebar',component:Sidebar},
   {path:'navbar',component:Navbar},
   {path:'productos',component:ProductListComponent},
+  { path: 'api-practice', component:ApiPractice },
+  { path: 'assistant', component:AssistantComponent },
+  { path: 'formularios', component:Formularios },
   
   {
     path:'layout', component:Layout,
@@ -34,7 +40,8 @@ export const routes: Routes = [
       {path:'agregar-productos',component:ProductFormComponent},
       {path:'ordenes',component:Orders},
       {path:'historial-ordenes',component:OrderHistory},
-      {path:'detalle-producto', component:DetalleProducto}
+      {path:'detalle-producto', component:DetalleProducto},
+      {path:'assistant', component:AssistantComponent}
     ]
   }
 ];

@@ -1,0 +1,464 @@
+/* src/app/components/assistant/assistant.component.css */
+
+/* ========== Botón Flotante ========== */
+.floating-button {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  z-index: 1000;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: transform 0.2s ease;
+}
+
+.floating-button:hover {
+  transform: scale(1.05);
+}
+
+.bot-avatar {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #5B9BF3 0%, #4A8AD9 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 20px rgba(91, 155, 243, 0.4);
+  border: 3px solid white;
+}
+
+.bot-avatar img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.welcome-badge {
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #5B9BF3;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* ========== Contenedor del Chat ========== */
+.chat-container {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 380px;
+  height: 600px;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  z-index: 1000;
+  overflow: hidden;
+}
+
+/* ========== Header del Chat ========== */
+.chat-header {
+  background: linear-gradient(135deg, #5B9BF3 0%, #4A8AD9 100%);
+  padding: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.bot-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.bot-avatar-small {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 2px solid white;
+}
+
+.bot-name {
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.btn-icon {
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-icon:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* ========== Área de Mensajes ========== */
+.chat-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+  background: #F5F7FA;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.chat-messages::-webkit-scrollbar {
+  width: 5px;
+}
+
+.chat-messages::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.chat-messages::-webkit-scrollbar-thumb {
+  background: #D1D5DB;
+  border-radius: 3px;
+}
+
+.message-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.message {
+  max-width: 85%;
+  animation: slideMessage 0.3s ease-out;
+}
+
+@keyframes slideMessage {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.bot-message {
+  align-self: flex-start;
+}
+
+.user-message {
+  align-self: flex-end;
+}
+
+.message-content {
+  background: white;
+  padding: 10px 14px;
+  border-radius: 10px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  position: relative;
+}
+
+.user-message .message-content {
+  background: #5B9BF3;
+  color: white;
+  border-bottom-right-radius: 3px;
+}
+
+.bot-message .message-content {
+  border-bottom-left-radius: 3px;
+}
+
+.message-content p {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.4;
+  color: #1F2937;
+}
+
+.user-message .message-content p {
+  color: white;
+}
+
+.message-time {
+  display: block;
+  font-size: 10px;
+  color: #9CA3AF;
+  margin-top: 3px;
+  text-align: right;
+}
+
+.user-message .message-time {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* ========== Opciones de Botones ========== */
+.message-options {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 6px;
+}
+
+.option-button {
+  background: white;
+  border: 1px solid #E5E7EB;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  color: #374151;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: left;
+  font-weight: 500;
+}
+
+.option-button:hover {
+  background: #F9FAFB;
+  border-color: #5B9BF3;
+  color: #5B9BF3;
+  transform: translateX(3px);
+}
+
+/* ========== Tarjetas de Productos ========== */
+.products-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 6px;
+}
+
+.product-card {
+  background: white;
+  border-radius: 10px;
+  padding: 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.product-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.12);
+}
+
+.product-image {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.product-info {
+  margin-bottom: 10px;
+}
+
+.product-name {
+  font-size: 15px;
+  font-weight: 600;
+  color: #1F2937;
+  margin: 0 0 6px 0;
+}
+
+.product-description {
+  font-size: 12px;
+  color: #6B7280;
+  margin: 0 0 8px 0;
+  line-height: 1.3;
+}
+
+.product-status {
+  margin-bottom: 8px;
+}
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.status-badge::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+
+.status-badge.available {
+  background: #D1FAE5;
+  color: #065F46;
+}
+
+.status-badge.available::before {
+  background: #10B981;
+}
+
+.status-badge.unavailable {
+  background: #FEE2E2;
+  color: #991B1B;
+}
+
+.status-badge.unavailable::before {
+  background: #EF4444;
+}
+
+.product-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.product-price {
+  font-size: 16px;
+  font-weight: 700;
+  color: #1F2937;
+}
+
+.product-rating {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+}
+
+.sales-count {
+  color: #6B7280;
+}
+
+.stars {
+  color: #FCD34D;
+  font-size: 12px;
+  letter-spacing: -1px;
+}
+
+.rating-value {
+  font-weight: 600;
+  color: #1F2937;
+  font-size: 11px;
+}
+
+.btn-menu {
+  width: 100%;
+  background: #5B9BF3;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+  margin-top: 8px;
+}
+
+.btn-menu:hover {
+  background: #4A8AD9;
+}
+
+.btn-menu:disabled {
+  background: #D1D5DB;
+  cursor: not-allowed;
+}
+
+/* ========== Input de Mensaje ========== */
+.chat-input {
+  padding: 12px 16px;
+  background: white;
+  border-top: 1px solid #E5E7EB;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.btn-attach {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  transition: background 0.2s;
+}
+
+.btn-attach:hover {
+  background: #F3F4F6;
+}
+
+.input-message {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-size: 13px;
+  padding: 9px 14px;
+  background: #F3F4F6;
+  border-radius: 20px;
+  color: #374151;
+}
+
+.input-message::placeholder {
+  color: #9CA3AF;
+  font-size: 12px;
+}
+
+.btn-send {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  transition: background 0.2s;
+}
+
+.btn-send:hover:not(:disabled) {
+  background: #F3F4F6;
+}
+
+.btn-send:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ========== Responsive ========== */
+@media (max-width: 480px) {
+  .chat-container {
+    width: calc(100vw - 40px);
+    height: calc(100vh - 100px);
+    bottom: 20px;
+    right: 20px;
+  }
+  
+  .floating-button {
+    bottom: 20px;
+    right: 20px;
+  }
+}
