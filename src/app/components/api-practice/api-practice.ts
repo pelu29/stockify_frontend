@@ -1,6 +1,5 @@
-import { HttpClient } from '@angular/common/http';
-import { Component, inject } from '@angular/core';
-import { Usuarios } from 'src/app/services/usuarios/usuarios';
+import { Component } from '@angular/core';
+import { Pokeapi } from 'src/app/services/pokeapi';
 import { OnInit } from '@angular/core';
 
 @Component({
@@ -9,26 +8,39 @@ import { OnInit } from '@angular/core';
   templateUrl: './api-practice.html',
   styleUrl: './api-practice.css'
 })
-export class ApiPractice implements OnInit {
-  constructor(private usuarios: Usuarios) { }
-  private http = inject(HttpClient)
-  api = "https://pokeapi.co/api/v2/pokemon/ditto";
+export class ApiPractice implements OnInit{
 
   ngOnInit(): void {
-    /*this.usuarios.getUsuarios().subscribe({
-      next:(res)=>{
-        console.log(res)
-        console.log("Nombre Pokemon: " + res.name)
-        console.log("Poder Pokemon: " + res.weight)
-        console.log("ID Pokemon: " + res.id)
-      },
-      error:(error)=>console.log("Error al llamara a la API: " + error)
-    })*/
+    
   }
 
-  PokeAPi(): void {
+  constructor(private pokeApiService:Pokeapi){}
+
+  listadoPk():void{
+    this.pokeApiService.ObtenerPokemones().subscribe({
+      next:(datos)=>{console.log(datos)},
+      error:(error)=>{console.log(error)}
+    })
   }
 
+  confirmacionPost(){
+    this.pokeApiService.metodoPost().subscribe({
+      next:(res)=>{console.log(res)},
+      error:(error)=>{console.log(error)}
+    })
+  }
 
+  paraEliminar(){
+    this.pokeApiService.metodoDelete().subscribe({
+      next:(res)=>{console.log(res)},
+      error:(error)=>{console.log(error)}
+    })
+  }
 
+  paraActualizar(){
+    this.pokeApiService.metodoUpdate().subscribe({
+      next:(res)=>{console.log(res)},
+      error:(error)=>{console.log(error)}
+    })
+  }
 }

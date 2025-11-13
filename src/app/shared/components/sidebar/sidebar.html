@@ -26,16 +26,6 @@
 			</a>
 		</li>
 
-		<!-- Customer Management -->
-		<li>
-			<a href="#" class="flex items-center gap-3 px-3 py-2 rounded-md text-gray-700 hover:bg-gray-50">
-				<svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 flex-shrink-0 text-gray-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-					<path stroke-linecap="round" stroke-linejoin="round" d="M16 11c1.657 0 3-1.567 3-3.5S17.657 4 16 4s-3 1.567-3 3.5S14.343 11 16 11zM8 11c1.657 0 3-1.567 3-3.5S9.657 4 8 4 5 5.567 5 7.5 6.343 11 8 11zM12 14c-3 0-6 1.5-6 4v1h12v-1c0-2.5-3-4-6-4z" />
-				</svg>
-				<span class="text-sm">Customer Management</span>
-			</a>
-		</li>
-
 		<!-- Restaurant Management (colapsable visual) -->
 		<li>
 			<div class="flex items-center justify-between px-3 py-2 rounded-md text-gray-700 hover:bg-gray-50">
@@ -63,8 +53,18 @@
 			</ul>
 		</li>
 
+		<!-- Customer Management -->
+		<li class="hover:cursor-pointer" (click)="navegar('layout/agregar-componente')">
+			<button class=" hover:cursor-pointer flex items-center gap-3 px-3 py-2 rounded-md text-gray-700 hover:bg-gray-50" (click)="navegar('agregar-productos')">
+				<svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 flex-shrink-0 text-gray-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+					<path stroke-linecap="round" stroke-linejoin="round" d="M16 11c1.657 0 3-1.567 3-3.5S17.657 4 16 4s-3 1.567-3 3.5S14.343 11 16 11zM8 11c1.657 0 3-1.567 3-3.5S9.657 4 8 4 5 5.567 5 7.5 6.343 11 8 11zM12 14c-3 0-6 1.5-6 4v1h12v-1c0-2.5-3-4-6-4z" />
+				</svg>
+				<span class="text-sm">Customer Management</span>
+			</button>
+		</li>
+
 		<!-- Rider Management -->
-		<li (click)="navegar('layout/productos')">
+		<li class="hover:cursor-pointer" (click)="navegar('layout/componente')">
 			<a class="flex items-center gap-3 px-3 py-2 rounded-md text-gray-700 hover:bg-gray-50">
 				<svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 flex-shrink-0 text-gray-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
 					<path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
@@ -74,8 +74,8 @@
 		</li>
 
 		<!-- Order Management -->
-		<li>
-			<a href="#" class="flex items-center gap-3 px-3 py-2 rounded-md text-gray-700 hover:bg-gray-50">
+		<li class="hover:cursor-pointer">
+			<a class="flex items-center gap-3 px-3 py-2 rounded-md text-gray-700 hover:bg-gray-50">
 				<svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 flex-shrink-0 text-gray-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
 					<path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M3 6h18M3 14h18" />
 				</svg>
@@ -87,8 +87,8 @@
 		</li>
 
 		<!-- Advertisement -->
-		<li>
-			<a href="#" class="flex items-center gap-3 px-3 py-2 rounded-md text-gray-700 hover:bg-gray-50">
+		<li class="hover:cursor-pointer" (click)="navegar('layout/componente')">
+			<a class="flex items-center gap-3 px-3 py-2 rounded-md text-gray-700 hover:bg-gray-50">
 				<svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 flex-shrink-0 text-gray-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
 					<path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5v14" />
 				</svg>
@@ -97,8 +97,8 @@
 		</li>
 
 		<!-- Employee Management -->
-		<li>
-			<a href="#" class="flex items-center gap-3 px-3 py-2 rounded-md text-gray-700 hover:bg-gray-50">
+		<li class="hover:cursor-pointer" (click)="navegar('layout/componente')">
+			<a class="flex items-center gap-3 px-3 py-2 rounded-md text-gray-700 hover:bg-gray-50">
 				<svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 flex-shrink-0 text-gray-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
 					<path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14c-4 0-8 2-8 6h16c0-4-4-6-8-6z" />
 				</svg>

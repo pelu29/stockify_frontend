@@ -1,0 +1,27 @@
+<!-- Página 404: diseño responsive con Tailwind CSS y Font Awesome -->
+<div class="min-h-[60vh] flex items-center justify-center p-6 pt-20">
+	<div class="max-w-6xl w-full grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+		<!-- Left: texto y botón -->
+		<div class="flex flex-col gap-6">
+			<h1 class="text-3xl md:text-4xl font-extrabold text-gray-900">Oops....</h1>
+			<p class="text-xl text-gray-700 font-semibold">Pagina en construcción</p>
+			<p class="text-gray-500 max-w-xl">¡Estamos trabajando en esta página! Estará lista muy pronto.</p>
+
+			<div class="flex items-center gap-3 mt-4">
+                <button (click)="navegar('layout/dashboard')" class="hover:cursor-pointer inline-flex items-center gap-3 px-4 py-2 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700">
+                    <i class="fas fa-arrow-left"></i>
+					<span>Regresar al dashboard</span>
+                </button>
+			</div>
+		</div>
+
+		<!-- Right: ilustración (puedes cambiar la ruta por tu imagen) -->
+		<div class="flex items-center justify-center">
+			<div class="w-full max-w-md">
+				<!-- Reemplaza el src por la ruta a tu imagen, por ejemplo: assets/images/404.png -->
+				<img src="construction.png" alt="404 illustration" class="w-full h-auto object-contain rounded-lg shadow-lg bg-white" />
+			</div>
+		</div>
+	</div>
+</div>
+
