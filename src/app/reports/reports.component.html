@@ -1,0 +1,25 @@
+<div class="report-container">
+  <h2 class="report-title">Exportar Reportes de Stock</h2>
+
+  <div class="report-actions">
+    <button
+      class="btn-pdf"
+      (click)="downloadFile('pdf')"
+      [disabled]="isDownloadingPDF"
+    >
+      {{ isDownloadingPDF ? 'Descargando PDF...' : 'Exportar PDF' }}
+    </button>
+
+    <button
+      class="btn-csv"
+      (click)="downloadFile('csv')"
+      [disabled]="isDownloadingCSV"
+    >
+      {{ isDownloadingCSV ? 'Descargando CSV...' : 'Exportar CSV' }}
+    </button>
+  </div>
+
+  <div *ngIf="isDownloadingPDF || isDownloadingCSV" class="snackbar">
+    Preparando archivo...
+  </div>
+</div>
