@@ -8,25 +8,15 @@ import { Usuario } from 'src/app/models/usuarios/usuarios.model';
 })
 export class Usuarios {
 
-  usuarios:Usuario[] = [];
-
-  api = "https://pokeapi.co/api/v2/pokemon/ditto";
+  clientes_api:string = "https://stockify-backend-0r7c.onrender.com/api/usuarios/clientes/";
   http = inject(HttpClient);
 
-  getUsuarios():Observable<any>{
-    return this.http.get<any>(this.api);
+  ObtenerUsuarios():Observable<any>{
+    return this.http.get<any>(this.clientes_api);
   }
 
-  agregarUsuario(usuario:Usuario):boolean{
-    if(this.usuarios.push(usuario)){
-      return true;
-    }else{
-      return false;
-    }
-  }
-
-  listarUsuario():Usuario[]{
-    return this.usuarios;
+  RegistrarUsuario(usuario:Object):Observable<any>{
+    return this.http.post<any>(this.clientes_api,usuario);
   }
   
 }
