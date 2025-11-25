@@ -1,0 +1,87 @@
+<div class="container">
+
+  <h1 class="title">Gestión de Negocios</h1>
+  <p class="mensaje" *ngIf="mensaje">{{ mensaje }}</p>
+
+  <div class="card">
+    <h2 class="subtitle">➕ Registrar Negocio</h2>
+
+    <form [formGroup]="formCrear" (ngSubmit)="crearNegocio()">
+      <input class="inp" formControlName="nombre" placeholder="Nombre">
+      <input class="inp" formControlName="ruc" placeholder="RUC">
+      <input class="inp" formControlName="direccion" placeholder="Dirección">
+      <input class="inp" formControlName="propietario_id" placeholder="Propietario">
+
+      <label>Fecha creación</label>
+      <input class="inp" type="datetime-local" formControlName="fecha_creacion">
+
+      <label>Activo</label>
+      <select class="inp" formControlName="activo">
+        <option [value]="true">Activo</option>
+        <option [value]="false">Inactivo</option>
+      </select>
+
+      <label>Fecha límite de pago</label>
+      <input class="inp" type="date" formControlName="fecha_limite_pago">
+
+      <label>Fecha último pago</label>
+      <input class="inp" type="datetime-local" formControlName="fecha_ultimo_pago">
+
+      <input class="inp" formControlName="estado_pago" placeholder="Estado pago">
+      <input class="inp" formControlName="monto" placeholder="Monto">
+      <input class="inp" formControlName="mensaje_bloqueo" placeholder="Mensaje bloqueo">
+
+      <button class="btn" type="submit">Crear Negocio</button>
+    </form>
+  </div>
+
+  <h2 class="subtitle">📋 Lista de Negocios</h2>
+
+  <table class="tabla">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>RUC</th>
+        <th>Propietario</th>
+        <th>Estado pago</th>
+        <th>Monto</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let n of negocios">
+        <td>{{ n.id }}</td>
+        <td>{{ n.nombre }}</td>
+        <td>{{ n.ruc }}</td>
+        <td>{{ n.propietario_id }}</td>
+        <td>{{ n.estado_pago }}</td>
+        <td>{{ n.monto }}</td>
+        <td>
+          <button class="btn-edit" (click)="editar(n)">Editar</button>
+          <button class="btn-delete" (click)="eliminarNegocio(n.id)">Eliminar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="card" *ngIf="editando">
+    <h2 class="subtitle">✏ Editar Negocio</h2>
+
+    <form [formGroup]="formEditar" (ngSubmit)="actualizarNegocio()">
+      <input class="inp" formControlName="nombre">
+      <input class="inp" formControlName="ruc">
+      <input class="inp" formControlName="direccion">
+      <input class="inp" formControlName="propietario_id">
+      <input class="inp" type="datetime-local" formControlName="fecha_creacion">
+      <input class="inp" type="date" formControlName="fecha_limite_pago">
+      <input class="inp" type="datetime-local" formControlName="fecha_ultimo_pago">
+      <input class="inp" formControlName="estado_pago">
+      <input class="inp" formControlName="monto">
+      <input class="inp" formControlName="mensaje_bloqueo">
+      <button class="btn" type="submit">Guardar Cambios</button>
+    </form>
+  </div>
+
+</div>

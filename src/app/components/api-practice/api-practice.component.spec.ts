@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ImportReportComponent } from './import-report.component';
+import { ApiPracticeComponent } from './api-practice.component';
 
-describe('ImportReportComponent', () => {
-  let component: ImportReportComponent;
-  let fixture: ComponentFixture<ImportReportComponent>;
+describe('ApiPracticeComponent', () => {
+  let component: ApiPracticeComponent;
+  let fixture: ComponentFixture<ApiPracticeComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ImportReportComponent]
+      imports: [ApiPracticeComponent]
     })
     .compileComponents();
-    
-    fixture = TestBed.createComponent(ImportReportComponent);
+
+    fixture = TestBed.createComponent(ApiPracticeComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
@@ -20,4 +20,3 @@ describe('ImportReportComponent', () => {
     expect(component).toBeTruthy();
   });
 });
-

@@ -1,0 +1,41 @@
+<h2>CRUD con JsonPlaceholder</h2>
+
+<form [formGroup]="form" (ngSubmit)="editando ? actualizar() : crear()">
+
+  <label>Título</label>
+  <input type="text" formControlName="title" placeholder="Título del post">
+
+  <label>Contenido</label>
+  <input type="text" formControlName="body" placeholder="Contenido del post">
+
+  <button type="submit">
+    {{ editando ? 'Actualizar' : 'Crear' }}
+  </button>
+</form>
+
+<hr>
+
+<h3>Lista de datos</h3>
+
+<table border="1" width="100%">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Título</th>
+      <th>Cuerpo</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr *ngFor="let item of lista">
+      <td>{{ item.id }}</td>
+      <td>{{ item.title }}</td>
+      <td>{{ item.body }}</td>
+      <td>
+        <button style="background: orange" (click)="editar(item)">Editar</button>
+        <button style="background: red; color: white" (click)="eliminar(item.id)">Eliminar</button>
+      </td>
+    </tr>
+  </tbody>
+</table>

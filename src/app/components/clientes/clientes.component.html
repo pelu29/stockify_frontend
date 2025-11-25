@@ -1,0 +1,69 @@
+<div class="container">
+
+  <h1 class="title">Gestión de Clientes</h1>
+  <p class="mensaje" *ngIf="mensaje">{{ mensaje }}</p>
+
+  <!-- FORMULARIO CREAR -->
+  <div class="card">
+    <h2 class="subtitle">➕ Registrar Cliente</h2>
+
+    <form [formGroup]="formCrear" (ngSubmit)="crearCliente()">
+      <input class="inp" placeholder="Username" formControlName="username">
+      <input class="inp" placeholder="Teléfono" formControlName="telefono">
+      <input class="inp" type="password" placeholder="Contraseña" formControlName="password">
+      <button class="btn" type="submit">Crear Cliente</button>
+    </form>
+  </div>
+
+  <h2 class="subtitle">📋 Lista de Clientes</h2>
+
+  <table class="tabla">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Username</th>
+        <th>Teléfono</th>
+        <th>Fecha Registro</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let c of clientes">
+        <td>{{ c.id }}</td>
+        <td>{{ c.username }}</td>
+        <td>{{ c.telefono }}</td>
+        <td>{{ c.fecha_registro | date:'short' }}</td>
+        <td>
+          <button class="btn-edit" (click)="editar(c)">Editar</button>
+          <button class="btn-delete" (click)="eliminarCliente(c.id)">Eliminar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- FORMULARIO EDITAR -->
+  <div class="card" *ngIf="editando">
+    <h2 class="subtitle">✏ Editar Cliente</h2>
+
+    <form [formGroup]="formEditar" (ngSubmit)="actualizarCliente()">
+
+      <input class="inp" placeholder="Username" formControlName="username">
+      <input class="inp" placeholder="Teléfono" formControlName="telefono">
+      <input class="inp" type="password" placeholder="Nueva contraseña" formControlName="password">
+
+      <button class="btn" type="submit">Guardar Cambios</button>
+
+      <!-- 🔙 BOTÓN VOLVER -->
+      <button
+        type="button"
+        class="btn"
+        style="background: gray; margin-left: 10px;"
+        (click)="cancelarEdicion()">
+        Volver
+      </button>
+
+    </form>
+  </div>
+
+</div>
