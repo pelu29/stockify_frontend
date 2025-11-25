@@ -50,6 +50,7 @@ export class LoginComponent {
             console.log(data);
             this.authService.guardarTokenAcces(data.acces);
             this.authService.guardarTokenRefresh(data.refresh);
+            this.router.navigate(['/layout']);  
           },
           error: (error) => {
             console.log(error);
@@ -66,7 +67,6 @@ export class LoginComponent {
           // 🔹 Espera 1 segundo y navega al componente import-report
           setTimeout(() => {
             this.showSuccessMessage = false;
-            this.router.navigate(['/layout']);
           }, 1000);
 
         }, 1500);

@@ -15,11 +15,12 @@ import { OrderHistory } from './components/order-history/order-history';
 import { DetalleProducto } from './components/detalle-producto/detalle-producto';
 import { Formularios } from './components/formularios/formularios';
 import { PagesNotFound } from '@features/auth/pages/pages-not-found/pages-not-found';
+import { noAuthGuard } from './guards/no-auth-guard';
 
 export const routes: Routes = [
-  { path:'',redirectTo:'register',pathMatch:'full'},
-  { path: 'register', component: Register },
-  { path: 'login', component:LoginComponent},
+  { path:'',pathMatch:'full',redirectTo:'login'},
+  { path: 'register', component: Register,canActivate:[noAuthGuard]},
+  { path: 'login', component:LoginComponent, canActivate:[noAuthGuard]},
   { path: 'categorias', component:CategoryComponent},
   { path: 'report', component: ImportReportComponent },
   {path:'sidebar',component:Sidebar},
@@ -28,7 +29,7 @@ export const routes: Routes = [
   { path: 'app-formulario', component:Formularios},
 
   {
-    path:'layout', component:Layout,
+    path:'layout', component:Layout,  
     canActivate:[authGuard],
     children:[
       {path:'',redirectTo:'dashboard',pathMatch:'full'},

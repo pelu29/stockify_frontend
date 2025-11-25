@@ -15,6 +15,10 @@ export class Auth {
     return this.http.post(this.api_token,usuario);
   }
 
+  getToken():string | null{
+    return localStorage.getItem("access");
+  }
+
   guardarTokenAcces(token:string){
     localStorage.setItem("acces",token);
   }
@@ -24,10 +28,10 @@ export class Auth {
   }
 
   logout(){
-    localStorage.removeItem("token");
+    localStorage.clear();
   }
 
   isLoggedIn():boolean{
-    return !!localStorage.getItem("token");
+    return !!localStorage.getItem("refresh");
   }
 }
