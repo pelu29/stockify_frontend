@@ -1,0 +1,189 @@
+<!-- Detalle del producto: diseño responsive con Tailwind CSS y Font Awesome -->
+<div class="p-6">
+	<div class="flex items-center justify-between mb-6">
+		<h3 class="text-lg font-semibold text-gray-800">Detalles del producto</h3>
+		<div class="flex items-center gap-3">
+			<label class="flex items-center gap-2 text-sm text-gray-600">
+				<span class="text-sm">Available</span>
+				<input type="checkbox" class="relative inline-flex h-5 w-9 shrink-0 cursor-pointer rounded-full border-2 border-transparent bg-gray-200 transition-colors duration-200 checked:bg-green-500 focus:outline-none" checked>
+			</label>
+			<button class="inline-flex items-center gap-2 px-3 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">
+				<i class="fas fa-pen"></i>
+				<span class="text-sm">Editar</span>
+			</button>
+		</div>
+	</div>
+
+	<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+		<!-- Left: imagen, título, detalles y opciones -->
+		<div class="space-y-6">
+			<img src="images/productos/beef-onion-pizza.jpg" alt="Beef onion pizza" class="w-full h-56 object-cover rounded-lg shadow" />
+
+			<div>
+				<h2 class="text-2xl font-bold text-gray-900">Beef onion pizza</h2>
+				<div class="flex items-center gap-4 mt-2 text-sm text-gray-600">
+					<div class="flex items-center gap-1 text-yellow-500">
+						<i class="fas fa-star"></i>
+						<i class="fas fa-star"></i>
+						<i class="fas fa-star"></i>
+						<i class="fas fa-star"></i>
+						<i class="fas fa-star"></i>
+					</div>
+					<div>5.0 (23 Reviews)</div>
+					<div class="ml-4">|</div>
+					<div class="text-sm">23 Ventas</div>
+				</div>
+			</div>
+
+			<div class="pt-4 border-t border-dashed border-gray-200">
+				<h4 class="text-sm font-semibold text-gray-800 mb-2">Detalles</h4>
+				<p class="text-sm text-gray-600">Aceitunas negras, cebolla, champiñones, tomate, jalapeño, base de queso extra</p>
+			</div>
+
+			<div class="pt-4 border-t border-dashed border-gray-200">
+				<h4 class="text-sm font-semibold text-gray-800 mb-3">Size</h4>
+				<form class="space-y-3 text-sm">
+					<label class="flex items-center justify-between">
+						<div class="flex items-center gap-3">
+							<input type="radio" name="size" class="form-radio text-blue-600" />
+							<span>Pequeño</span>
+						</div>
+						<div class="text-gray-700">¢ 70.00</div>
+					</label>
+					<label class="flex items-center justify-between">
+						<div class="flex items-center gap-3">
+							<input type="radio" name="size" class="form-radio text-blue-600" checked />
+							<span>Mediano</span>
+						</div>
+						<div class="text-gray-700">¢ 80.00</div>
+					</label>
+					<label class="flex items-center justify-between">
+						<div class="flex items-center gap-3">
+							<input type="radio" name="size" class="form-radio text-blue-600" />
+							<span>Grande</span>
+						</div>
+						<div class="text-gray-700">¢ 90.00</div>
+					</label>
+				</form>
+			</div>
+		</div>
+
+		<!-- Right: rating summary + reviews -->
+		<div class="space-y-6">
+			<div class="flex items-start gap-6">
+				<div class="flex-1">
+					<div class="text-4xl font-bold text-gray-900">5.0<span class="text-sm text-gray-500">/5.0</span></div>
+					<div class="flex items-center mt-2 gap-2 text-yellow-400">
+						<i class="fas fa-star"></i>
+						<i class="fas fa-star"></i>
+						<i class="fas fa-star"></i>
+						<i class="fas fa-star"></i>
+						<i class="fas fa-star"></i>
+					</div>
+					<div class="text-sm text-gray-500 mt-2">23 Ratings</div>
+				</div>
+
+				<div class="w-48 space-y-2">
+					<!-- 5 stars -->
+					<div class="flex items-center gap-3 text-sm">
+						<div class="w-8 text-yellow-400">★★★★★</div>
+						<div class="flex-1 bg-gray-100 rounded-full h-3 overflow-hidden">
+							<div class="bg-green-500 h-3 rounded-full" style="width:70%"></div>
+						</div>
+						<div class="w-8 text-right text-gray-600">23</div>
+					</div>
+					<!-- 4 stars -->
+					<div class="flex items-center gap-3 text-sm">
+						<div class="w-8 text-yellow-400">★★★★☆</div>
+						<div class="flex-1 bg-gray-100 rounded-full h-3 overflow-hidden">
+							<div class="bg-green-400 h-3 rounded-full" style="width:40%"></div>
+						</div>
+						<div class="w-8 text-right text-gray-600">13</div>
+					</div>
+					<!-- 3 stars -->
+					<div class="flex items-center gap-3 text-sm">
+						<div class="w-8 text-yellow-400">★★★☆☆</div>
+						<div class="flex-1 bg-gray-100 rounded-full h-3 overflow-hidden">
+							<div class="bg-green-300 h-3 rounded-full" style="width:20%"></div>
+						</div>
+						<div class="w-8 text-right text-gray-600">3</div>
+					</div>
+					<!-- 2 stars -->
+					<div class="flex items-center gap-3 text-sm">
+						<div class="w-8 text-yellow-400">★★☆☆☆</div>
+						<div class="flex-1 bg-gray-100 rounded-full h-3 overflow-hidden">
+							<div class="bg-gray-300 h-3 rounded-full" style="width:10%"></div>
+						</div>
+						<div class="w-8 text-right text-gray-600">13</div>
+					</div>
+					<!-- 1 star -->
+					<div class="flex items-center gap-3 text-sm">
+						<div class="w-8 text-yellow-400">★☆☆☆☆</div>
+						<div class="flex-1 bg-gray-100 rounded-full h-3 overflow-hidden">
+							<div class="bg-gray-300 h-3 rounded-full" style="width:5%"></div>
+						</div>
+						<div class="w-8 text-right text-gray-600">39</div>
+					</div>
+				</div>
+			</div>
+
+			<div>
+				<div class="flex items-center justify-between mb-4">
+					<h4 class="text-sm font-semibold text-gray-800">Revisión y calificaciones</h4>
+					<select class="text-sm border border-gray-200 rounded-md px-3 py-1">
+						<option>Calificaciones</option>
+					</select>
+				</div>
+
+				<div class="space-y-4">
+					<!-- Review item -->
+					<div class="flex gap-3">
+						<img src="/public/images/avatars/avatar-1.jpg" alt="avatar" class="w-10 h-10 rounded-full object-cover" />
+						<div class="flex-1">
+							<div class="flex items-center justify-between">
+								<div>
+									<div class="text-sm font-medium text-gray-800">Ralph Edwards</div>
+									<div class="text-xs text-yellow-400">★★★★★ <span class="text-gray-400">(5.0)</span></div>
+								</div>
+								<div class="text-xs text-gray-400">Fri, Nov 28 • 12:30 PM</div>
+							</div>
+							<p class="text-sm text-gray-600 mt-2">I'm very much happy. Food is good.</p>
+							<div class="mt-1 text-sm text-blue-500">Reply</div>
+						</div>
+					</div>
+
+					<!-- Repeat review items (examples) -->
+					<div class="flex gap-3">
+						<img src="/public/images/avatars/avatar-2.jpg" alt="avatar" class="w-10 h-10 rounded-full object-cover" />
+						<div class="flex-1">
+							<div class="flex items-center justify-between">
+								<div>
+									<div class="text-sm font-medium text-gray-800">Beef onion pizza</div>
+									<div class="text-xs text-yellow-400">★★★★★ <span class="text-gray-400">(5.0)</span></div>
+								</div>
+								<div class="text-xs text-gray-400">Fri, Nov 28 • 12:30 PM</div>
+							</div>
+							<p class="text-sm text-gray-600 mt-2">I'm very much happy. Food is good.</p>
+							<div class="mt-1 text-sm text-blue-500">Reply</div>
+						</div>
+					</div>
+
+					<div class="flex gap-3">
+						<img src="/public/images/avatars/avatar-3.jpg" alt="avatar" class="w-10 h-10 rounded-full object-cover" />
+						<div class="flex-1">
+							<div class="flex items-center justify-between">
+								<div>
+									<div class="text-sm font-medium text-gray-800">Beef onion pizza</div>
+									<div class="text-xs text-yellow-400">★★★★★ <span class="text-gray-400">(5.0)</span></div>
+								</div>
+								<div class="text-xs text-gray-400">Fri, Nov 28 • 12:30 PM</div>
+							</div>
+							<p class="text-sm text-gray-600 mt-2">I'm very much happy. Food is good.</p>
+							<div class="mt-1 text-sm text-blue-500">Reply</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

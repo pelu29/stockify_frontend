@@ -1,0 +1,10 @@
+<form action="" [formGroup]="formulario_de_registro" (ngSubmit)="onSubmit()">
+    <label for="">Nombres</label><br>
+    <input class="rounded-md border" type="text" formControlName="nombres"><br>
+
+    <label for="">Apellidos</label><br>
+    <input class="rounded-md border" type="text" formControlName="apellidos">
+
+    <p>Completa el formulario con el siguiente boton {{formulario_de_registro.value.apellidos}}</p>
+    <button class="rounded-md border p-1 bg-blue-500 text-white hover:cursor-pointer" type="submit" [disabled]="!formulario_de_registro.valid">Enviar</button>
+</form>

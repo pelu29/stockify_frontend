@@ -1,0 +1,46 @@
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+<div class="import-container">
+  <h2>Importar reporte</h2>
+  <p class="subtitle">Selecciona un archivo para subir un reporte en formato CSV o PDF.</p>
+
+  <input
+    type="file"
+    #fileInput
+    accept=".csv,.pdf,.xlsx"
+    style="display: none"
+    (change)="onFileSelected($event)"
+  />
+
+  <button class="upload-btn" (click)="triggerFileInput()">Seleccionar archivo</button>
+
+  <p *ngIf="selectedFileName" class="file-info">
+    Archivo seleccionado: <strong>{{ selectedFileName }}</strong>
+  </p>
+
+  <div class="file-type-buttons">
+    <button class="file-btn pdf" (click)="triggerFileInput('pdf')">
+      <i class="material-icons">picture_as_pdf</i>
+      PDF
+    </button>
+
+    <button class="file-btn excel" (click)="triggerFileInput('excel')">
+      <i class="material-icons">table_chart</i>
+      Excel
+    </button>
+
+    <button class="file-btn csv" (click)="triggerFileInput('csv')">
+      <i class="material-icons">description</i>
+      CSV
+    </button>
+  </div>
+
+  <button class="upload-btn" [disabled]="!selectedFileName" (click)="uploadFile()">
+    <i class="material-icons" style="vertical-align: middle; margin-right: 6px;">cloud_upload</i>
+    Subir
+  </button>
+
+  <!-- Mensaje de confirmación -->
+  <p *ngIf="uploadMessage" class="message">{{ uploadMessage }}</p>
+</div>
+

@@ -1,0 +1,52 @@
+<div class="order-wrapper">
+
+  <div class="left-side">
+
+    <div class="card order-header">
+      <h3>Order #12009</h3>
+      <span class="status">On the way</span>
+    </div>
+
+    <div class="card">
+      <h4>Order Status</h4>
+      <ul class="status-list">
+        <li>Placed</li>
+        <li>Accepted</li>
+        <li>Being prepared</li>
+        <li>On the way</li>
+        <li>Delivered</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h4>Products</h4>
+
+      <div *ngIf="loading">Cargando productos...</div>
+
+      <div *ngIf="!loading">
+        <div *ngFor="let p of productos" class="product-item">
+          <div>
+            <strong>{{ p.nombre }}</strong>  
+            <p>{{ p.descripcion }}</p>
+          </div>
+          <span class="price">S/ {{ p.precio }}</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="right-side">
+
+    <div class="card customer-card">
+      <img src="https://i.pravatar.cc/150" class="avatar" />
+      <h3>Chelsie Jhonson</h3>
+      <p>Total Orders: 39</p>
+
+      <div class="info-item"><strong>Phone:</strong> +88 01600-009770</div>
+      <div class="info-item"><strong>Address:</strong> Asafoaste Nettey Road, Accra</div>
+    </div>
+
+  </div>
+
+</div>

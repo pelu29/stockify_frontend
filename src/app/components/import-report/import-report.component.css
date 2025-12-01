@@ -1,0 +1,98 @@
+.import-container {
+  max-width: 420px;
+  margin: 3rem auto;
+  padding: 2rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  background-color: #ffffff;
+  font-family: 'Inter', sans-serif;
+}
+
+h2 {
+  margin-bottom: 0.5rem;
+  color: #1e3a8a;
+}
+
+.subtitle {
+  color: #6b7280;
+  font-size: 0.95rem;
+  margin-bottom: 1.5rem;
+}
+
+.upload-btn {
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 22px;
+  margin-top: 0.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.95rem;
+}
+
+.upload-btn:hover {
+  background-color: #1d4ed8;
+  transform: translateY(-2px);
+}
+
+.upload-btn:disabled {
+  background-color: #93c5fd;
+  cursor: not-allowed;
+}
+
+.file-info {
+  margin-top: 1rem;
+  color: #374151;
+  font-size: 0.9rem;
+}
+
+.file-type-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 0.75rem;
+  margin: 1.2rem 0;
+}
+
+.file-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.25s ease;
+  color: white;
+}
+
+.file-btn i {
+  font-size: 18px;
+}
+
+.file-btn.pdf {
+  background-color: #dc2626;
+}
+
+.file-btn.excel {
+  background-color: #16a34a;
+}
+
+.file-btn.csv {
+  background-color: #2563eb;
+}
+
+.file-btn:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.message {
+  margin-top: 1rem;
+  color: #065f46;
+  font-weight: 500;
+}
+
