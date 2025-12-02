@@ -16,7 +16,7 @@ import { DetalleProducto } from './components/detalle-producto/detalle-producto'
 import { ApiPractice } from './components/api-practice/api-practice';
 import { Formularios } from './components/formularios/formularios';
 import { PagesNotFound } from '@features/auth/pages/pages-not-found/pages-not-found';
-
+import { RiderFormComponent } from './components/rider-form/rider-form';
 export const routes: Routes = [
   { path:'',redirectTo:'register',pathMatch:'full'},
   { path: 'register', component: Register },
@@ -28,6 +28,7 @@ export const routes: Routes = [
   {path:'productos',component:ProductListComponent},
   { path: 'api-practice', component:ApiPractice},
   { path: 'app-formulario', component:Formularios},
+  { path: 'rider-form', component: RiderFormComponent },
   {
     path:'layout', component:Layout,
     canActivate:[authGuard],
