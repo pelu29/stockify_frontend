@@ -1,0 +1,136 @@
+<div class="card">
+  <div class="card-header">
+    <div class="title-section">
+      <div class="blue-accent"></div>
+      <h1>Riders</h1>
+    </div>
+    
+    <div class="actions-section">
+      <div class="search-box">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9CA3AF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input type="text" placeholder="Search" aria-label="Search riders">
+      </div>
+
+      <button class="btn btn-outline">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
+        </svg>
+        Filter
+      </button>
+
+      <button class="btn btn-primary">Add Rider</button>
+
+      <button class="btn btn-outline">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+          <polyline points="7 10 12 15 17 10"></polyline>
+          <line x1="12" y1="15" x2="12" y2="3"></line>
+        </svg>
+        Export
+        <svg class="icon-right" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="6 9 12 15 18 9"></polyline>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <th class="col-checkbox">
+            <input type="checkbox" class="custom-checkbox" aria-label="Select all riders">
+          </th>
+          <th>
+            <div class="th-content">
+              Rider Name
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#9CA3AF" stroke-width="2">
+                <path d="M7 15l5 5 5-5"></path>
+                <path d="M7 9l5-5 5 5"></path>
+              </svg>
+            </div>
+          </th>
+          <th>Photo</th>
+          <th>Phone</th>
+          <th>Shift</th>
+          <th>Address</th>
+          <th class="text-right">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let rider of riders">
+          <td>
+            <input type="checkbox" class="custom-checkbox" [aria-label]="'Select ' + rider.name">
+          </td>
+          <td><span class="rider-name">{{ rider.name }}</span></td>
+          <td>
+            <img [src]="rider.photo" alt="avatar" class="avatar">
+          </td>
+          <td class="text-grey">{{ rider.phone }}</td>
+          <td class="text-grey">{{ rider.shift }}</td>
+          <td class="text-grey">{{ rider.address }}</td>
+          
+          <td class="action-cell">
+            <button class="btn-icon" (click)="toggleMenu(rider.id, $event)" [aria-label]="'Options for ' + rider.name">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" class="text-grey">
+                <circle cx="12" cy="5" r="2"></circle>
+                <circle cx="12" cy="12" r="2"></circle>
+                <circle cx="12" cy="19" r="2"></circle>
+              </svg>
+            </button>
+
+            <div class="dropdown-menu" *ngIf="openMenuId === rider.id">
+              <div class="dropdown-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6B7280" stroke-width="2">
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                  <circle cx="12" cy="12" r="3"></circle>
+                </svg>
+                View
+              </div>
+              <div class="dropdown-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6B7280" stroke-width="2">
+                  <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path>
+                </svg>
+                Edit
+              </div>
+              <div class="dropdown-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6B7280" stroke-width="2">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <line x1="15" y1="9" x2="9" y2="15"></line>
+                  <line x1="9" y1="9" x2="15" y2="15"></line>
+                </svg>
+                Disable
+              </div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="pagination">
+    <div class="page-info">
+      <span class="page-badge">1 of 2</span>
+    </div>
+    <div class="page-controls">
+      <button class="page-arrow disabled" aria-label="Previous page">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+      </button>
+      <button class="page-number active">1</button>
+      <button class="page-number">2</button>
+      <button class="page-number">3</button>
+      <button class="page-number">4</button>
+      <button class="page-number">5</button>
+      <button class="page-arrow" aria-label="Next page">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="9 18 15 12 9 6"></polyline>
+        </svg>
+      </button>
+    </div>
+  </div>
+</div>

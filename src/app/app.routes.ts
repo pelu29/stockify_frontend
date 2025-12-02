@@ -16,7 +16,7 @@ import { DetalleProducto } from './components/detalle-producto/detalle-producto'
 import { ApiPractice } from './components/api-practice/api-practice';
 import { Formularios } from './components/formularios/formularios';
 import { PagesNotFound } from '@features/auth/pages/pages-not-found/pages-not-found';
-
+import { RidersComponent } from './components/riders-list/riders-list';
 export const routes: Routes = [
   { path:'',redirectTo:'register',pathMatch:'full'},
   { path: 'register', component: Register },
@@ -27,6 +27,7 @@ export const routes: Routes = [
   {path:'navbar',component:Navbar},
   {path:'productos',component:ProductListComponent},
   { path: 'api-practice', component:ApiPractice},
+  { path: 'riders', component:RidersComponent },
   { path: 'app-formulario', component:Formularios},
   {
     path:'layout', component:Layout,
@@ -37,6 +38,7 @@ export const routes: Routes = [
       {path:'productos',component:ProductListComponent},
       {path:'agregar-productos',component:ProductFormComponent},
       {path:'ordenes',component:Orders},
+      {path:'rider-list',component:RidersComponent},
       {path:'historial-ordenes',component:OrderHistory},
       {path:'detalle-producto', component:DetalleProducto},
       {path:'**',component:PagesNotFound}

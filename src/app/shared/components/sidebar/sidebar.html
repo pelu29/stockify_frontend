@@ -1,13 +1,16 @@
 <!-- Sidebar (Tailwind CSS) - diseño inspirado en la imagen provista -->
 <nav class="w-64 bg-white border-r border-gray-200 min-h-screen px-4 py-6">
+
 	<!-- Logo -->
 	<div class="flex items-center gap-3 px-2 mb-8">
 		<div class="flex items-center justify-center w-10 h-10 rounded-full bg-blue-50 text-blue-600">
 			<!-- Simple badge icon -->
 			<svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-				<path stroke-linecap="round" stroke-linejoin="round" d="M12 3v4m0 10v4m9-9h-4M7 12H3m14.95-6.95-2.83 2.83M8.88 15.12l-2.83 2.83m0-11.31 2.83 2.83M15.12 15.12l2.83 2.83" />
+				<path stroke-linecap="round" stroke-linejoin="round"
+					d="M12 3v4m0 10v4m9-9h-4M7 12H3m14.95-6.95-2.83 2.83M8.88 15.12l-2.83 2.83m0-11.31 2.83 2.83M15.12 15.12l2.83 2.83" />
 			</svg>
 		</div>
+
 		<div class="flex flex-col">
 			<span class="text-blue-600 font-semibold text-lg">Stockify</span>
 			<small class="text-gray-400 text-xs">Admin</small>
@@ -16,10 +19,12 @@
 
 	<!-- Menu -->
 	<ul class="space-y-1">
+
 		<!-- Dashboard (activo) -->
 		<li (click)="navegar('layout/dashboard')" class="hover:cursor-pointer">
 			<a class="flex items-center gap-3 px-3 py-2 rounded-md text-blue-700 bg-blue-50 border-l-4 border-blue-600">
-				<svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+				<svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 flex-shrink-0" viewBox="0 0 24 24" fill="none"
+					stroke="currentColor" stroke-width="1.5">
 					<path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M13 5v6h6" />
 				</svg>
 				<span class="text-sm font-medium">Dashboard</span>
@@ -30,57 +35,102 @@
 		<li>
 			<div class="flex items-center justify-between px-3 py-2 rounded-md text-gray-700 hover:bg-gray-50">
 				<div class="flex items-center gap-3">
-					<svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 flex-shrink-0 text-gray-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+					<svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 flex-shrink-0 text-gray-500"
+						viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
 						<path stroke-linecap="round" stroke-linejoin="round" d="M3 7h18M3 12h18M3 17h18" />
 					</svg>
 					<span class="text-sm">Restaurant Manage..</span>
 				</div>
-				<svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-gray-400" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5">
+
+				<svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-gray-400" viewBox="0 0 20 20" fill="none"
+					stroke="currentColor" stroke-width="1.5">
 					<path stroke-linecap="round" stroke-linejoin="round" d="M6 8l4 4 4-4" />
 				</svg>
 			</div>
+
 			<!-- Submenu (estática) -->
 			<ul class="ml-8 space-y-1">
 				<li>
-					<button (click)="navegar('layout/productos')" class="hover:cursor-pointer flex items-center gap-2 px-3 py-1 rounded-md text-gray-600 hover:bg-gray-50 text-sm">Lista de productos</button>
+					<button (click)="navegar('layout/productos')"
+						class="hover:cursor-pointer flex items-center gap-2 px-3 py-1 rounded-md text-gray-600 hover:bg-gray-50 text-sm">
+						Lista de productos
+					</button>
 				</li>
+
 				<li class="hover:cursor-pointer">
-					<button (click)="navegar('layout/ordenes')" class="hover:cursor-pointer flex items-center gap-2 px-3 py-1 rounded-md text-gray-600 hover:bg-gray-50 text-sm">Ordenes</button>
+					<button (click)="navegar('layout/ordenes')"
+						class="hover:cursor-pointer flex items-center gap-2 px-3 py-1 rounded-md text-gray-600 hover:bg-gray-50 text-sm">
+						Ordenes
+					</button>
 				</li>
+
 				<li class="hover:cursor-pointer">
-					<button (click)="navegar('layout/historial-ordenes')" class="hover:cursor-pointer flex items-center gap-2 px-3 py-1 rounded-md text-gray-600 hover:bg-gray-50 text-sm">Historial de ordenes</button>
+					<button (click)="navegar('layout/historial-ordenes')"
+						class="hover:cursor-pointer flex items-center gap-2 px-3 py-1 rounded-md text-gray-600 hover:bg-gray-50 text-sm">
+						Historial de ordenes
+					</button>
 				</li>
 			</ul>
 		</li>
 
 		<!-- Customer Management -->
 		<li class="hover:cursor-pointer" (click)="navegar('layout/agregar-componente')">
-			<button class=" hover:cursor-pointer flex items-center gap-3 px-3 py-2 rounded-md text-gray-700 hover:bg-gray-50" (click)="navegar('agregar-productos')">
-				<svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 flex-shrink-0 text-gray-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-					<path stroke-linecap="round" stroke-linejoin="round" d="M16 11c1.657 0 3-1.567 3-3.5S17.657 4 16 4s-3 1.567-3 3.5S14.343 11 16 11zM8 11c1.657 0 3-1.567 3-3.5S9.657 4 8 4 5 5.567 5 7.5 6.343 11 8 11zM12 14c-3 0-6 1.5-6 4v1h12v-1c0-2.5-3-4-6-4z" />
+			<button (click)="navegar('agregar-productos')"
+				class="hover:cursor-pointer flex items-center gap-3 px-3 py-2 rounded-md text-gray-700 hover:bg-gray-50">
+				<svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 flex-shrink-0 text-gray-500" viewBox="0 0 24 24"
+					fill="none" stroke="currentColor" stroke-width="1.5">
+					<path stroke-linecap="round" stroke-linejoin="round"
+						d="M16 11c1.657 0 3-1.567 3-3.5S17.657 4 16 4s-3 1.567-3 3.5S14.343 11 16 11zM8 11c1.657 0 3-1.567 3-3.5S9.657 4 8 4 5 5.567 5 7.5 6.343 11 8 11zM12 14c-3 0-6 1.5-6 4v1h12v-1c0-2.5-3-4-6-4z" />
 				</svg>
 				<span class="text-sm">Customer Management</span>
 			</button>
 		</li>
 
 		<!-- Rider Management -->
-		<li class="hover:cursor-pointer" (click)="navegar('layout/componente')">
-			<a class="flex items-center gap-3 px-3 py-2 rounded-md text-gray-700 hover:bg-gray-50">
-				<svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 flex-shrink-0 text-gray-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-					<path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+		<li>
+			<div class="flex items-center justify-between px-3 py-2 rounded-md text-gray-700 hover:bg-gray-50">
+				<div class="flex items-center gap-3">
+					<svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 flex-shrink-0 text-gray-500"
+						viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+						<path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+					</svg>
+					<span class="text-sm">Rider Management</span>
+				</div>
+
+				<svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-gray-400" viewBox="0 0 20 20" fill="none"
+					stroke="currentColor" stroke-width="1.5">
+					<path stroke-linecap="round" stroke-linejoin="round" d="M6 8l4 4 4-4" />
 				</svg>
-				<span class="text-sm">Rider Management</span>
-			</a>
+			</div>
+
+			<ul class="ml-8 space-y-1">
+				<li>
+					<button (click)="navegar('layout/rider-list')"
+						class="hover:cursor-pointer flex items-center gap-2 px-3 py-1 rounded-md text-gray-600 hover:bg-gray-50 text-sm">
+						Rider List
+					</button>
+				</li>
+
+				<li>
+					<button (click)="navegar('layout/rider-performance')"
+						class="hover:cursor-pointer flex items-center gap-2 px-3 py-1 rounded-md text-gray-600 hover:bg-gray-50 text-sm">
+						Rider Atendance
+					</button>
+				</li>
+			</ul>
 		</li>
 
 		<!-- Order Management -->
 		<li class="hover:cursor-pointer">
 			<a class="flex items-center gap-3 px-3 py-2 rounded-md text-gray-700 hover:bg-gray-50">
-				<svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 flex-shrink-0 text-gray-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+				<svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 flex-shrink-0 text-gray-500"
+					viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
 					<path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M3 6h18M3 14h18" />
 				</svg>
 				<span class="text-sm">Order Management</span>
-				<svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 ml-auto text-gray-400" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5">
+
+				<svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 ml-auto text-gray-400" viewBox="0 0 20 20"
+					fill="none" stroke="currentColor" stroke-width="1.5">
 					<path stroke-linecap="round" stroke-linejoin="round" d="M6 8l4 4 4-4" />
 				</svg>
 			</a>
@@ -89,7 +139,8 @@
 		<!-- Advertisement -->
 		<li class="hover:cursor-pointer" (click)="navegar('layout/componente')">
 			<a class="flex items-center gap-3 px-3 py-2 rounded-md text-gray-700 hover:bg-gray-50">
-				<svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 flex-shrink-0 text-gray-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+				<svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 flex-shrink-0 text-gray-500" viewBox="0 0 24 24"
+					fill="none" stroke="currentColor" stroke-width="1.5">
 					<path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5v14" />
 				</svg>
 				<span class="text-sm">Advertisement</span>
@@ -99,11 +150,14 @@
 		<!-- Employee Management -->
 		<li class="hover:cursor-pointer" (click)="navegar('layout/componente')">
 			<a class="flex items-center gap-3 px-3 py-2 rounded-md text-gray-700 hover:bg-gray-50">
-				<svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 flex-shrink-0 text-gray-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-					<path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14c-4 0-8 2-8 6h16c0-4-4-6-8-6z" />
+				<svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 flex-shrink-0 text-gray-500" viewBox="0 0 24 24"
+					fill="none" stroke="currentColor" stroke-width="1.5">
+					<path stroke-linecap="round" stroke-linejoin="round"
+						d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14c-4 0-8 2-8 6h16c0-4-4-6-8-6z" />
 				</svg>
 				<span class="text-sm">Employee Management</span>
 			</a>
 		</li>
+
 	</ul>
 </nav>
