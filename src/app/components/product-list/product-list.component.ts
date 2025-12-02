@@ -1,11 +1,11 @@
-
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Product } from '../../models/inventario/product.model';
-import { PRODUCTS } from '../../models/inventario/mock-products';
-import { Subject, debounceTime } from 'rxjs';
+import { Subject, debounceTime, forkJoin } from 'rxjs';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ProductosService, ProductoAPI, CategoriaAPI } from '../../services/inventario/productos/productos';
+import { getProductImage } from '../../models/inventario/product-images';
 
 @Component({
   selector: 'app-product-list',
@@ -17,10 +17,16 @@ import { Router } from '@angular/router';
 export class ProductListComponent implements OnInit {
   @ViewChild('searchInput') searchInput!: ElementRef;
 
-  constructor(private router:Router){}
+  constructor(
+    private router: Router,
+    private productosService: ProductosService
+  ) {}
 
-  allProducts: Product[] = PRODUCTS;
+  allProducts: Product[] = [];
   filteredProducts: Product[] = [];
+  categorias: Map<number, string> = new Map(); // Mapa de ID -> Nombre de categoría
+  isLoading = false;
+  errorMessage = '';
 
   searchTerm = '';
   selectedCategory = '';
@@ -32,7 +38,6 @@ export class ProductListComponent implements OnInit {
   filterExpanded = false;
   exportMenuOpen = false;
   actionMenuOpen: string | null = null;
-  // indica si cualquier menú de acción está abierto (permite reglas CSS más simples)
   menuIsOpen = false;
   sortColumn = '';
   sortDirection: 'asc' | 'desc' = 'asc';
@@ -43,18 +48,57 @@ export class ProductListComponent implements OnInit {
   totalPages = 1;
 
   ngOnInit(): void {
-    // Inicializar productos con estado basado en stock
-    this.allProducts = this.allProducts.map((p) => ({
-      ...p,
-      estado: p.stock > 0 ? 'Active' : 'Inactive',
-    }));
-
-    this.filteredProducts = [...this.allProducts];
-    this.updatePagination();
+    this.loadData();
 
     // Debounce para búsqueda
     this.searchSubject.pipe(debounceTime(300)).subscribe((term) => {
       this.filterProducts();
+    });
+  }
+
+  // Cargar productos y categorías desde la API
+  loadData(): void {
+    this.isLoading = true;
+    this.errorMessage = '';
+
+    // Llamar ambas APIs en paralelo
+    forkJoin({
+      productos: this.productosService.getProductos(),
+      categorias: this.productosService.getCategorias()
+    }).subscribe({
+      next: ({ productos, categorias }) => {
+        // Crear mapa de categorías ID -> Nombre
+        categorias.forEach((cat: CategoriaAPI) => {
+          this.categorias.set(cat.id, cat.nombre);
+        });
+
+        // Mapear productos de la API al formato del componente
+        this.allProducts = productos.map((p: ProductoAPI) => ({
+          nombre: p.nombre,
+          codigoBarras: p.codigo,
+          descripcion: p.descripcion,
+          categoria: this.categorias.get(p.categoria_id) || 'Sin categoría',
+          precio: parseFloat(p.precio),
+          stock: p.stock,
+          imagen: getProductImage(p.id),
+          estado:
+          p.stock_minimo === 0
+          ? 'Inactive'
+          : p.stock > p.stock_minimo
+          ? 'Active'
+          : 'Inactive',
+          selected: false
+        }));
+
+        this.filteredProducts = [...this.allProducts];
+        this.updatePagination();
+        this.isLoading = false;
+      },
+      error: (error) => {
+        console.error('Error al cargar datos:', error);
+        this.errorMessage = 'Error al cargar los datos. Por favor, intenta de nuevo.';
+        this.isLoading = false;
+      }
     });
   }
 
@@ -74,10 +118,7 @@ export class ProductListComponent implements OnInit {
   // Toggle filter
   toggleFilter(): void {
     this.filterExpanded = !this.filterExpanded;
-    // Si cerramos el panel, no limpiamos las selecciones automáticamente —
-    // el usuario puede usar 'Limpiar' si quiere.
     if (!this.filterExpanded) {
-      // opcional: aplicar el filtro actual
       this.filterProducts();
     }
   }
@@ -91,7 +132,6 @@ export class ProductListComponent implements OnInit {
     } else {
       this.selectedCategories = this.selectedCategories.filter((c) => c !== category);
     }
-    // aplicar filtro inmediatamente
     this.filterProducts();
   }
 
@@ -102,7 +142,7 @@ export class ProductListComponent implements OnInit {
 
   getCategories(): string[] {
     const set = new Set<string>(this.allProducts.map((p) => p.categoria));
-    return Array.from(set);
+    return Array.from(set).sort();
   }
 
   isCategoryMatch(product: Product): boolean {
@@ -215,20 +255,18 @@ export class ProductListComponent implements OnInit {
   }
 
   // Acciones de productos
-  addProduct(ruta:string): void {
+  addProduct(ruta: string): void {
     this.router.navigate([`/${ruta}`]);
   }
 
   viewProduct(): void {
-    this.router.navigate([`/layout/detalle-producto`])
-    // TODO: Implementar vista detallada
+    this.router.navigate([`/layout/detalle-producto`]);
   }
 
   editProduct(product: Product): void {
     console.log('Editar producto:', product);
     this.actionMenuOpen = null;
     this.menuIsOpen = false;
-    // TODO: Implementar edición
   }
 
   deleteProduct(product: Product): void {
@@ -273,19 +311,16 @@ export class ProductListComponent implements OnInit {
   private exportToPDF(): void {
     console.log('Exportando a PDF...');
     alert('Exportación a PDF - Por implementar');
-    // TODO: Implementar con jsPDF o similar
   }
 
   private exportToExcel(): void {
     console.log('Exportando a Excel...');
     alert('Exportación a Excel - Por implementar');
-    // TODO: Implementar con xlsx o similar
   }
 
   private exportToCSV(): void {
     console.log('Exportando a CSV...');
 
-    // Implementación básica de CSV
     const headers = [
       'Nombre',
       'Código Barras',
@@ -316,7 +351,7 @@ export class ProductListComponent implements OnInit {
     link.download = `productos_${new Date().getTime()}.csv`;
     link.click();
   }
-  // ✅ trackBy fuera de exportToCSV, al mismo nivel
+
   trackByCodigo(index: number, product: Product): string {
     return product.codigoBarras;
   }

@@ -17,6 +17,7 @@ import { Formularios } from './components/formularios/formularios';
 import { PagesNotFound } from '@features/auth/pages/pages-not-found/pages-not-found';
 import { noAuthGuard } from './guards/no-auth-guard';
 
+
 export const routes: Routes = [
   { path:'',pathMatch:'full',redirectTo:'login'},
   { path: 'register', component: Register,canActivate:[noAuthGuard]},

@@ -20,7 +20,7 @@ export class LoginComponent {
 
   constructor(private fb: FormBuilder, private router: Router, private authService: Auth) {
     this.loginForm = this.fb.group({
-      username: ['', [Validators.required,]],
+      username: ['', [Validators.required]],
       password: ['', [Validators.required, Validators.minLength(6)]],
     });
   }
@@ -41,39 +41,41 @@ export class LoginComponent {
     if (this.loginForm.valid) {
       this.isLoading = true;
 
-      try {
+      this.authService.ObtenerToken(this.loginForm.value).subscribe({
+        next: (data) => {
+          console.log('✅ Respuesta del backend:', data);
 
-        //Intentamos obtener token del backend
-
-        this.authService.ObtenerToken(this.loginForm.value).subscribe({
-          next: (data) => {
-            console.log(data);
-            this.authService.guardarTokenAcces(data.acces);
-            this.authService.guardarTokenRefresh(data.refresh);
-            this.router.navigate(['/layout']);  
-          },
-          error: (error) => {
-            console.log(error);
+          // ✅ CORRECCIÓN: access con dos 's'
+          if (!data.access || !data.refresh) {
+            console.error('❌ Error: El backend no devolvió tokens correctamente');
+            this.isLoading = false;
+            return;
           }
-        })
 
-        //debe estar dentro de next de la linea 49
-        setTimeout(() => {
-          this.isLoading = false;
+          // Guardar tokens correctamente
+          this.authService.guardarTokenAcces(data.access);  // ← access (dos 's')
+          this.authService.guardarTokenRefresh(data.refresh);
+
+          // Verificar que se guardaron
+          console.log('💾 Access token guardado:', localStorage.getItem('access') ? 'SÍ' : 'NO');
+          console.log('💾 Refresh token guardado:', localStorage.getItem('refresh') ? 'SÍ' : 'NO');
+
+          // Mostrar mensaje de éxito
           this.showSuccessMessage = true;
 
-          console.log('Login exitoso:', this.loginForm.value);
-
-          // 🔹 Espera 1 segundo y navega al componente import-report
+          // Redirigir después de 1 segundo
           setTimeout(() => {
+            this.isLoading = false;
             this.showSuccessMessage = false;
+            this.router.navigate(['/layout/productos']);
           }, 1000);
-
-        }, 1500);
-
-      } catch (err) {
-        console.log("Algo salio mal: " + err);
-      }
+        },
+        error: (error) => {
+          console.error('❌ Error en login:', error);
+          this.isLoading = false;
+          alert('Usuario o contraseña incorrectos');
+        }
+      });
 
     } else {
       this.markFormGroupTouched();
