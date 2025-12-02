@@ -28,6 +28,8 @@ export const routes: Routes = [
   {path:'productos',component:ProductListComponent},
   { path: 'api-practice', component:ApiPractice},
   { path: 'app-formulario', component:Formularios},
+ 
+
   {
     path:'layout', component:Layout,
     canActivate:[authGuard],

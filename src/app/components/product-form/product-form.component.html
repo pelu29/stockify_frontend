@@ -1,11 +1,13 @@
 <div class="cuadro">
   <h2>Agregar producto</h2>
 
+  <!-- FOTO -->
   <div class="foto">
     <div class="fotobox" [class.has-image]="fotoUrl" (click)="seleccionarFoto()">
       <ng-container *ngIf="!fotoUrl; else imagenCargada">
         <span>+ Agregar foto</span>
       </ng-container>
+
       <ng-template #imagenCargada>
         <img [src]="fotoUrl" alt="Vista previa" class="preview" />
       </ng-template>
@@ -23,75 +25,64 @@
 
   <p style="color:#3b82f6; margin-top:0.5rem;">{{ mensaje }}</p>
 
+  <!-- FORMULARIO -->
   <form #formProducto="ngForm" (ngSubmit)="agregarProducto(formProducto)">
+    
+    <!-- Categoría -->
     <div class="txt">
       <label for="categoria">Categoría</label>
       <select id="categoria" name="categoria" required [(ngModel)]="categoria">
         <option value="">Seleccionar</option>
-        <option value="pizza">Pizza</option>
-        <option value="hamburguesa">Hamburguesa</option>
+        <option value="1">Pizza</option>
+        <option value="2">Hamburguesa</option>
       </select>
     </div>
 
+    <!-- Código -->
     <div class="txt">
       <label for="codigo">Código de barras</label>
-      <input id="codigo" name="codigoBarras" type="text" required [(ngModel)]="codigoBarras" />
+      <input id="codigo" name="codigo" type="text" required [(ngModel)]="codigo" />
     </div>
 
+    <!-- Nombre -->
     <div class="txt">
       <label for="nombre">Nombre del producto</label>
-      <input id="nombre" name="nombre" type="text" placeholder="Cheese Pizza" required [(ngModel)]="nombre" />
+      <input id="nombre" name="nombre" type="text" required [(ngModel)]="nombre" />
     </div>
 
+    <!-- Descripción -->
     <div class="txt">
       <label for="descripcion">Descripción</label>
-      <textarea id="descripcion" name="descripcion" placeholder="Escribe los ingredientes o preparación" [(ngModel)]="descripcion"></textarea>
+      <textarea id="descripcion" name="descripcion" [(ngModel)]="descripcion"></textarea>
     </div>
 
-    <div class="checkbox">
-      <label>
-        <input type="checkbox" [(ngModel)]="habilitarT" name="t" (change)="alternarT()" />
-        Habilitar Tamaños
-      </label>
-    </div>
-
-    <div class="sizes">
-      <div class="size-input">
-        <label>Pequeño</label>
-        <div class="input-wrapper">
-          <span class="currency">S/</span>
-          <input type="number" min="0" name="precioPequeno" [(ngModel)]="precioPequeno" [disabled]="!habilitarT" />
-        </div>
-      </div>
-
-      <div class="size-input">
-        <label>Medio</label>
-        <div class="input-wrapper">
-          <span class="currency">S/</span>
-          <input type="number" min="0" name="precioMedio" [(ngModel)]="precioMedio" [disabled]="!habilitarT" />
-        </div>
-      </div>
-
-      <div class="size-input">
-        <label>Grande</label>
-        <div class="input-wrapper">
-          <span class="currency">S/</span>
-          <input type="number" min="0" name="precioGrande" [(ngModel)]="precioGrande" [disabled]="!habilitarT" />
-        </div>
-      </div>
-    </div>
-
+    <!-- Precio -->
     <div class="txt">
-      <label>Precio</label>
+      <label for="precio">Precio</label>
       <div class="input-wrapper">
         <span class="currency">S/</span>
-        <input type="number" min="0" required name="precio" [(ngModel)]="precio" [disabled]="habilitarT" />
+        <input
+          id="precio"
+          name="precio"
+          type="number"
+          min="0"
+          required
+          [(ngModel)]="precio"
+        />
       </div>
     </div>
 
+    <!-- Stock -->
     <div class="txt">
       <label for="stock">Stock inicial</label>
-      <input id="stock" name="stock" type="number" placeholder="Ej: 50" min="0" required [(ngModel)]="stock" />
+      <input
+        id="stock"
+        name="stock"
+        type="number"
+        min="0"
+        required
+        [(ngModel)]="stock"
+      />
     </div>
 
     <button type="submit" class="btn1 full">Agregar producto</button>
