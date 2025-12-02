@@ -13,8 +13,10 @@ export const PRODUCT_IMAGES: ProductImage[] = [
   { id: 4, imagen: 'images/productos/te-de-jazmin.jpg' },
   { id: 5, imagen: 'images/productos/mochi-de-mango.jpg' },
   { id: 6, imagen: 'images/productos/galletas-de-arroz.jpg' },
-  { id: 7, imagen: 'images/productos/sandwich.jpg' },
-  { id: 8, imagen: 'images/productos/agua_mineral.jpg' },
+  { id: 7, imagen: 'images/productos/kimbap-clasico.jpg' },
+  { id: 8, imagen: 'images/productos/cheesecake-de-frutos-rojos.jpg' },
+  { id: 9, imagen: 'images/productos/papitas-onduladas-bbq.jpg' },
+  { id: 10, imagen: 'images/productos/pollo-teriyaki-con-arroz.jpg' },
   // Agrega más productos según tu base de datos
 ];
 
