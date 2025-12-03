@@ -16,6 +16,8 @@ import { DetalleProducto } from './components/detalle-producto/detalle-producto'
 import { Formularios } from './components/formularios/formularios';
 import { PagesNotFound } from '@features/auth/pages/pages-not-found/pages-not-found';
 import { noAuthGuard } from './guards/no-auth-guard';
+import { AddRestaurantComponent } from './components/add-restaurant/add-restaurant';
+
 
 export const routes: Routes = [
   { path:'',pathMatch:'full',redirectTo:'login'},
@@ -27,6 +29,7 @@ export const routes: Routes = [
   {path:'navbar',component:Navbar},
   {path:'productos',component:ProductListComponent},
   { path: 'app-formulario', component:Formularios},
+  { path: 'add-restaurant', component: AddRestaurantComponent },
 
   {
     path:'layout', component:Layout,  
@@ -39,7 +42,10 @@ export const routes: Routes = [
       {path:'ordenes',component:Orders},
       {path:'historial-ordenes',component:OrderHistory},
       {path:'detalle-producto', component:DetalleProducto},
-      {path:'**',component:PagesNotFound}
+      {path:'**',component:PagesNotFound},
+      { path: 'add-restaurant', component: AddRestaurantComponent }
+
+
     ]
   }
 ];
