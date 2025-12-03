@@ -5,7 +5,6 @@ import { CategoryComponent } from './components/inventario/category.component';
 import { Register } from '@features/auth/pages/register/register';
 import { LoginComponent } from '@features/auth/pages/login/login';
 import { ImportReportComponent } from './components/import-report/import-report.component';
-import { Dashboard } from './components/dashboard/dashboard';
 import { Sidebar } from '@shared/components/sidebar/sidebar';
 import { Navbar } from '@shared/components/navbar/navbar';
 import { Layout } from './layout/layout/layout';
@@ -33,7 +32,7 @@ export const routes: Routes = [
     canActivate:[authGuard],
     children:[
       {path:'',redirectTo:'dashboard',pathMatch:'full'},
-      {path:'dashboard',component:Dashboard},
+
       {path:'productos',component:ProductListComponent},
       {path:'agregar-productos',component:ProductFormComponent},
       {path:'ordenes',component:Orders},
