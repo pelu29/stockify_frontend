@@ -16,30 +16,35 @@ import { DetalleProducto } from './components/detalle-producto/detalle-producto'
 import { Formularios } from './components/formularios/formularios';
 import { PagesNotFound } from '@features/auth/pages/pages-not-found/pages-not-found';
 import { noAuthGuard } from './guards/no-auth-guard';
+import { TransaccionesComponent } from './components/transacciones/transacciones.component';
 
 export const routes: Routes = [
-  { path:'',pathMatch:'full',redirectTo:'login'},
-  { path: 'register', component: Register,canActivate:[noAuthGuard]},
-  { path: 'login', component:LoginComponent, canActivate:[noAuthGuard]},
-  { path: 'categorias', component:CategoryComponent},
+
+  { path: '', pathMatch: 'full', redirectTo: 'login' },
+  { path: 'register', component: Register, canActivate: [noAuthGuard] },
+  { path: 'login', component: LoginComponent, canActivate: [noAuthGuard] },
+  { path: 'categorias', component: CategoryComponent },
   { path: 'report', component: ImportReportComponent },
-  {path:'sidebar',component:Sidebar},
-  {path:'navbar',component:Navbar},
-  {path:'productos',component:ProductListComponent},
-  { path: 'app-formulario', component:Formularios},
+  { path: 'sidebar', component: Sidebar },
+  { path: 'navbar', component: Navbar },
+  { path: 'productos', component: ProductListComponent },
+  { path: 'app-formulario', component: Formularios },
+
 
   {
-    path:'layout', component:Layout,  
-    canActivate:[authGuard],
-    children:[
-      {path:'',redirectTo:'dashboard',pathMatch:'full'},
-      {path:'dashboard',component:Dashboard},
-      {path:'productos',component:ProductListComponent},
-      {path:'agregar-productos',component:ProductFormComponent},
-      {path:'ordenes',component:Orders},
-      {path:'historial-ordenes',component:OrderHistory},
-      {path:'detalle-producto', component:DetalleProducto},
-      {path:'**',component:PagesNotFound}
+    path: 'layout',
+    component: Layout,
+    canActivate: [authGuard],
+    children: [
+      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+      { path: 'dashboard', component: Dashboard },
+      { path: 'productos', component: ProductListComponent },
+      { path: 'agregar-productos', component: ProductFormComponent },
+      { path: 'ordenes', component: Orders },
+      { path: 'historial-ordenes', component: OrderHistory },
+      { path: 'detalle-producto', component: DetalleProducto },
+      { path: 'transacciones', component: TransaccionesComponent },
+      { path: '**', component: PagesNotFound }
     ]
   }
 ];
