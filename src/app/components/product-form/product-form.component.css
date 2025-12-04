@@ -38,7 +38,7 @@ h2 {
   overflow: visible !important;
 }
 
-/* ✅ cuando hay imagen, quitar borde */
+
 .fotobox img {
   width: 100%;
   height: 100%;
@@ -129,7 +129,7 @@ textarea {
 .checkbox input[type="checkbox"] {
   width: 16px;
   height: 16px;
-  accent-color: #3b82f6; /* color azul moderno */
+  accent-color: #3b82f6;
 }
 
 
@@ -148,7 +148,7 @@ textarea {
   margin-top: 1rem;
 }
 
-/* ===== Símbolo S/ fijo ===== */
+
 .input-wrapper {
   position: relative;
   display: block;
@@ -174,11 +174,8 @@ textarea {
 
 
 
-/* 🔹 Cuando hay imagen, quitamos el borde y texto */
+
 .fotobox.has-image {
   border: none;
   color: transparent;
 }
-
-/* 🔹 Si quieres un borde azul cuando ya hay imagen, cambia "none" por: */
-/* border: 2px solid #3b82f6; */

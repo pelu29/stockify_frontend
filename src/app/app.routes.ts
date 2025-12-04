@@ -25,11 +25,15 @@ export const routes: Routes = [
   { path: 'login', component: LoginComponent, canActivate: [noAuthGuard] },
   { path: 'categorias', component: CategoryComponent },
   { path: 'report', component: ImportReportComponent },
+  {path:'sidebar',component:Sidebar},
+  {path:'navbar',component:Navbar},
+  {path:'productos',component:ProductListComponent},
+  { path: 'api-practice', component:ApiPractice},
+  { path: 'app-formulario', component:Formularios},
   { path: 'sidebar', component: Sidebar },
   { path: 'navbar', component: Navbar },
   { path: 'productos', component: ProductListComponent },
   { path: 'app-formulario', component: Formularios },
-
 
   {
     path: 'layout',
