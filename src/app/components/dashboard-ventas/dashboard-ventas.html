@@ -1,0 +1,108 @@
+<div class="layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <h2 class="logo">Katarina Restaurant</h2>
+
+    <ul class="menu">
+      <li>Overview</li>
+      <li>Customer List</li>
+      <li>Food Menu</li>
+      <li class="active">Sales</li>
+      <li>Wallet</li>
+      <li>Reviews</li>
+      <li>Advertisement</li>
+    </ul>
+
+    <button class="new-menu-btn">+ Create New Menu</button>
+  </aside>
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <main class="content">
+
+    <!-- HEADER -->
+    <div class="header">
+      <h1>Dish List (03)</h1>
+
+      <div class="options">
+        <button>Search</button>
+        <button>Filter</button>
+        <button>Export</button>
+      </div>
+    </div>
+
+    <!-- SEARCH BAR -->
+    <div class="search-bar">
+      <input type="text" placeholder="Search" />
+    </div>
+
+    <!-- FILTER BOXES -->
+    <div class="filters">
+
+      <div class="filter-card">
+        <p class="title">Price Range</p>
+        <div class="range-box">
+          <span>0</span>
+          <input type="range" min="0" max="150" />
+          <span>150</span>
+        </div>
+      </div>
+
+      <div class="filter-card">
+        <p class="title">Category</p>
+        <select>
+          <option>Pizza</option>
+          <option>Burger</option>
+          <option>Chicken</option>
+          <option>Drinks</option>
+        </select>
+      </div>
+
+      <div class="filter-card">
+        <p class="title">Duration</p>
+        <select>
+          <option>This month</option>
+          <option>This week</option>
+        </select>
+      </div>
+
+      <div class="filter-actions">
+        <button class="clear">Clear Filter</button>
+        <button class="apply">Apply Filter</button>
+      </div>
+
+    </div>
+
+    <!-- TABLA -->
+    <div class="table-container">
+      <table>
+
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>IMG</th>
+            <th>Category</th>
+            <th>Price</th>
+            <th>Sales</th>
+            <th></th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let item of data">
+            <td>{{ item.name }}</td>
+            <td><img [src]="item.image" class="img" /></td>
+            <td>{{ item.category }}</td>
+            <td>{{ item.price }}</td>
+            <td class="green">{{ item.sales }} Sales</td>
+            <td class="dots">⋮</td>
+          </tr>
+        </tbody>
+
+      </table>
+    </div>
+
+  </main>
+
+</div>
+

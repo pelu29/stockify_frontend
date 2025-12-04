@@ -58,30 +58,44 @@ export class Register {
 
     if (this.registerForm.valid) {
 
-      const formValue = this.registerForm.value;
+      try{
+        const formValue = this.registerForm.value;
       
-      const nuevoUsuario = new Usuario(
+        const nuevoUsuario = new Usuario(
         formValue.firstName,
         formValue.lastName,
         formValue.email,
         formValue.phoneNumber,
         formValue.password
-      )
+        )
 
-      console.log("Instancia de usuario: " , nuevoUsuario);
-      console.log(this.usuarioService.agregarUsuario(nuevoUsuario));
+        
+        this.usuarioService.RegistrarUsuario(nuevoUsuario).subscribe({
+          next:(respuesta)=>{
+            //console.log(respuesta);
+          },
+          error:(err)=>{
+            //console.log(err);
+          }
+        });
+        
+        // Mostrar mensaje de éxito
+        alert('El registro fue exitoso!');
+        //console.log(nuevoUsuario);
 
-      // Mostrar mensaje de éxito
-      this.successMessage = '✓ Account created successfully!';
+        this.navigate('/login');
 
-      console.log('Form Data:', this.registerForm.value);
-      console.log('Registration successful!');
+        setTimeout(() => {
+          this.registerForm.reset();
+          this.submitted = false;
+          this.successMessage = '';
+        }, 3000);
 
-      setTimeout(() => {
-        this.registerForm.reset();
-        this.submitted = false;
-        this.successMessage = '';
-      }, 3000);
+      }catch(error){
+        console.log("Ocurrio un error al mandar los datos al backend");
+        alert("Ocurrio un error al mandar los datos al backend")
+      }
+
     } else {
       Object.keys(this.registerForm.controls).forEach(key => {
         this.registerForm.get(key)?.markAsTouched();
@@ -90,8 +104,8 @@ export class Register {
       console.log('Form is invalid', this.registerForm.errors);
     }
 
-    this.navigate('categorias');
   }
+  
   get f() {
     return this.registerForm.controls;
   }
