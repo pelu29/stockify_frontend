@@ -18,6 +18,7 @@ import { PagesNotFound } from '@features/auth/pages/pages-not-found/pages-not-fo
 import { noAuthGuard } from './guards/no-auth-guard';
 import { TransaccionesComponent } from './components/transacciones/transacciones.component';
 
+
 export const routes: Routes = [
 
   { path: '', pathMatch: 'full', redirectTo: 'login' },

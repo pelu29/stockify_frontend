@@ -9,29 +9,34 @@ export class Auth {
 
   http = inject(HttpClient);
 
-  api_token:string = "https://stockify-backend-0r7c.onrender.com/api/token/";
+  api_token: string = "https://stockify-backend-0r7c.onrender.com/api/token/";
 
-  ObtenerToken(usuario:object):Observable<any>{
-    return this.http.post(this.api_token,usuario);
+  // Login
+  ObtenerToken(usuario: object): Observable<any> {
+    return this.http.post(this.api_token, usuario);
   }
 
-  getToken():string | null{
+  // Obtener token de acceso
+  getToken(): string | null {
     return localStorage.getItem("access");
   }
 
-  guardarTokenAcces(token:string){
-    localStorage.setItem("acces",token);
+  // Guardar tokens en localStorage
+  guardarTokenAcces(token: string) {
+    localStorage.setItem("access", token);
   }
 
-  guardarTokenRefresh(token:string){
-    localStorage.setItem("refresh",token);
+  guardarTokenRefresh(token: string) {
+    localStorage.setItem("refresh", token);
   }
 
-  logout(){
+  // Cerrar sesión
+  logout() {
     localStorage.clear();
   }
 
-  isLoggedIn():boolean{
+  // Verifica si el usuario está logueado
+  isLoggedIn(): boolean {
     return !!localStorage.getItem("refresh");
   }
 }
