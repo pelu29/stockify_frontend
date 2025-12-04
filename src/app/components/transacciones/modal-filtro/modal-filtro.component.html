@@ -1,0 +1,28 @@
+<div class="modal-header">
+  <h5 class="modal-title">Filtrar Transacciones</h5>
+  <button type="button" class="btn-close" (click)="cerrar()"></button>
+</div>
+
+<div class="modal-body">
+  <form [formGroup]="formFiltro">
+    <div class="mb-3">
+      <label>Descripción</label>
+      <input type="text" class="form-control" formControlName="descripcion">
+    </div>
+
+    <div class="mb-3">
+      <label>Mínimo</label>
+      <input type="number" class="form-control" formControlName="minimo">
+    </div>
+
+    <div class="mb-3">
+      <label>Máximo</label>
+      <input type="number" class="form-control" formControlName="maximo">
+    </div>
+  </form>
+</div>
+
+<div class="modal-footer">
+  <button class="btn btn-secondary" (click)="cerrar()">Cancelar</button>
+  <button class="btn btn-primary" (click)="aplicar()">Aplicar Filtro</button>
+</div>

@@ -18,11 +18,10 @@ export class LoginComponent {
   showSuccessMessage = false;
   showPassword = false;
 
-  constructor(private fb: FormBuilder, private router: Router, private authService:Auth) {
+  constructor(private fb: FormBuilder, private router: Router, private authService: Auth) {
     this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
+      username: ['', [Validators.required,]],
       password: ['', [Validators.required, Validators.minLength(6)]],
-      rememberMe: [false]
     });
   }
 
@@ -42,20 +41,40 @@ export class LoginComponent {
     if (this.loginForm.valid) {
       this.isLoading = true;
 
-      setTimeout(() => {
-        this.isLoading = false;
-        this.showSuccessMessage = true;
+      try {
 
-        console.log('Login exitoso:', this.loginForm.value);
+        //Intentamos obtener token del backend
 
-        // 🔹 Espera 1 segundo y navega al componente import-report
+        this.authService.ObtenerToken(this.loginForm.value).subscribe({
+          next: (data) => {
+            console.log(data);
+            this.authService.guardarTokenAcces(data.acces);
+            this.authService.guardarTokenRefresh(data.refresh);
+            this.router.navigate(['/layout']);  
+          },
+          error: (error) => {
+            console.log(error);
+          }
+        })
+
+        //debe estar dentro de next de la linea 49
         setTimeout(() => {
-          this.showSuccessMessage = false;
-          this.authService.login("Esto sera mi token");
-          this.router.navigate(['/layout']);
-        }, 1000);
+          this.isLoading = false;
+          this.showSuccessMessage = true;
 
-      }, 1500);
+          console.log('Login exitoso:', this.loginForm.value);
+
+          // 🔹 Espera 1 segundo y navega al componente import-report
+          setTimeout(() => {
+            this.showSuccessMessage = false;
+          }, 1000);
+
+        }, 1500);
+
+      } catch (err) {
+        console.log("Algo salio mal: " + err);
+      }
+
     } else {
       this.markFormGroupTouched();
     }

@@ -1,0 +1,84 @@
+<div class="page-header">
+  <h1>Transacciones</h1>
+
+  <div class="header-actions">
+    <input
+      type="text"
+      placeholder="Buscar transacción..."
+      class="search-input"
+      (input)="buscar($event)"
+    />
+
+    <button class="btn btn-light" (click)="openModal()">Filtrar</button>
+    <button class="btn btn-primary" (click)="openAdd()">+ Agregar</button>
+    <button class="btn btn-success" (click)="exportar()">Exportar</button>
+  </div>
+</div>
+
+<!-- FORMULARIO DE AGREGAR -->
+<div *ngIf="mostrarForm" class="form-card">
+  <h3>Nueva Transacción</h3>
+
+  <form [formGroup]="formTransaccion">
+    <div class="form-row">
+      <label>Producto</label>
+      <input type="text" formControlName="producto" />
+    </div>
+
+    <div class="form-row">
+      <label>Cantidad</label>
+      <input type="number" formControlName="cantidad" />
+    </div>
+
+    <div class="form-row">
+      <label>Tipo</label>
+      <select formControlName="tipo">
+        <option value="entrada">Entrada</option>
+        <option value="salida">Salida</option>
+      </select>
+    </div>
+  </form>
+
+  <div class="form-actions">
+    <button class="btn btn-primary" (click)="guardar()">Guardar</button>
+    <button class="btn btn-light" (click)="closeAdd()">Cancelar</button>
+  </div>
+</div>
+
+<!-- TABLA -->
+<div class="table-wrapper">
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Producto</th>
+        <th>Cantidad</th>
+        <th>Tipo</th>
+        <th>Fecha</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr
+        *ngFor="let t of transaccionesFiltradas"
+        (click)="seleccionar(t)"
+        [class.selected]="t === transaccionSeleccionada"
+      >
+        <td>{{ t.id }}</td>
+        <td>{{ t.producto }}</td>
+        <td>{{ t.cantidad }}</td>
+
+        <td>
+          <span class="status" [class.in]="t.tipo === 'entrada'" [class.out]="t.tipo === 'salida'">
+            {{ t.tipo }}
+          </span>
+        </td>
+
+        <td>{{ t.fecha }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- MODAL -->
+<app-modal-filtro *ngIf="mostrarModal" (cerrar)="closeModal()"></app-modal-filtro>
