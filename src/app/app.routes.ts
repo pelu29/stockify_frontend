@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+
 import { ProductListComponent } from './components/product-list/product-list.component';
 import { ProductFormComponent } from './components/product-form/product-form.component';
 import { CategoryComponent } from './components/inventario/category.component';
@@ -13,6 +14,11 @@ import { authGuard } from './guards/auth-guard';
 import { Orders } from './components/orders/orders';
 import { OrderHistory } from './components/order-history/order-history';
 import { DetalleProducto } from './components/detalle-producto/detalle-producto';
+import { ApiPracticeComponent } from './components/api-practice/api-practice.component';
+import { FormulariosComponent } from './components/formularios/formularios.component';
+import { PokeApiComponent } from './components/pokeapi/pokeapi';
+import { ClientesComponent  } from './components/clientes/clientes.component';
+import { NegociosComponent } from './components/negocios/negocios.component';
 import { Formularios } from './components/formularios/formularios';
 import { PagesNotFound } from '@features/auth/pages/pages-not-found/pages-not-found';
 import { noAuthGuard } from './guards/no-auth-guard';
@@ -47,9 +53,11 @@ export const routes: Routes = [
       { path: 'agregar-productos', component: ProductFormComponent },
       { path: 'ordenes', component: Orders },
       { path: 'historial-ordenes', component: OrderHistory },
+      { path: 'detalle-producto', component: DetalleProducto }
       { path: 'detalle-producto', component: DetalleProducto },
       { path: 'transacciones', component: TransaccionesComponent },
       { path: '**', component: PagesNotFound }
+
     ]
   }
 ];

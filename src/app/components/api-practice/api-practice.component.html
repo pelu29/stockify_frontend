@@ -1,0 +1,27 @@
+<div class="container">
+  <h2 class="title">API Practice</h2>
+
+  <button class="btn" (click)="cargarUsuarios()">Cargar Usuario</button>
+  <button class="btn" (click)="cargarPokemones()">Cargar Pokemones</button>
+
+  <hr>
+
+  <div *ngIf="userData" class="user-card">
+    <img class="user-img" [src]="userData.picture.large" alt="user">
+    <p class="name">{{ userData.name.first }} {{ userData.name.last }}</p>
+    <p class="country">{{ userData.location.country }}</p>
+  </div>
+
+  <hr>
+
+  <div *ngIf="pokemonData.length > 0">
+    <div class="pokemon-list">
+      <div class="pokemon-card" *ngFor="let p of pokemonData">
+        <img class="pokemon-img" [src]="p.sprites.front_default" alt="{{ p.name }}">
+        <p class="pokemon-name">{{ p.name }}</p>
+        <p class="pokemon-detail"><strong>ID:</strong> {{ p.id }}</p>
+        <p class="pokemon-detail"><strong>Tipo:</strong> {{ p.types[0].type.name }}</p>
+      </div>
+    </div>
+  </div>
+</div>
