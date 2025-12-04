@@ -14,6 +14,7 @@ import { OrderHistory } from './components/order-history/order-history';
 import { DetalleProducto } from './components/detalle-producto/detalle-producto';
 import { Formularios } from './components/formularios/formularios';
 import { PagesNotFound } from '@features/auth/pages/pages-not-found/pages-not-found';
+import { RiderFormComponent } from './components/rider-form/rider-form';
 import { noAuthGuard } from './guards/no-auth-guard';
 import { AddRestaurantComponent } from './components/add-restaurant/add-restaurant';
 
@@ -34,6 +35,7 @@ export const routes: Routes = [
   {path:'navbar',component:Navbar},
   {path:'productos',component:ProductListComponent},
   { path: 'app-formulario', component:Formularios},
+  { path: 'rider-form', component: RiderFormComponent },
   { path: 'add-restaurant', component: AddRestaurantComponent },
 
   {
