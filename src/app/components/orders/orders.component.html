@@ -1,0 +1,48 @@
+<div class="orders-container">
+  <header class="orders-header">
+    <h1>Orders</h1>
+    <div class="actions">
+      <button class="btn" (click)="cargarOrdenes()">🔄 Refresh</button>
+    </div>
+  </header>
+
+  <nav class="orders-filters">
+    <button *ngFor="let s of statuses" (click)="cambiarFiltro(s.key)" [class.active]="filterStatus===s.key">{{ s.label }}</button>
+  </nav>
+
+  <div *ngIf="error" class="mensaje error">{{ error }}</div>
+  <div *ngIf="cargando" class="mensaje info">Cargando órdenes...</div>
+
+  <table *ngIf="!cargando && orders.length>0" class="orders-table">
+    <thead>
+      <tr>
+        <th>Order id</th>
+        <th>Date</th>
+        <th>Customer</th>
+        <th>Price</th>
+        <th>Status</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let order of filteredOrders()">
+        <td>{{ order.order_id || order.id }}</td>
+        <td>{{ formatoFecha(order.date) }}</td>
+        <td>{{ order.customer || '—' }}</td>
+        <td>{{ order.total ? ('$' + order.total) : '—' }}</td>
+        <td><span class="badge {{ order.status }}">{{ order.status || '—' }}</span></td>
+        <td>
+          <select (change)="cambiarEstado(order, $any($event.target).value)" [value]="order.status || 'pending'">
+            <option value="pending">Pending</option>
+            <option value="preparing">Being Prepared</option>
+            <option value="on_the_way">On The Way</option>
+            <option value="delivered">Delivered</option>
+            <option value="cancelled">Cancelled</option>
+          </select>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="!cargando && orders.length===0" class="sin-datos">No hay órdenes disponibles.</div>
+</div>

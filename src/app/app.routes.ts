@@ -19,9 +19,15 @@ import { AddRestaurantComponent } from './components/add-restaurant/add-restaura
 
 
 export const routes: Routes = [
-  { path:'',pathMatch:'full',redirectTo:'login'},
+  // Temporal: redirigir al dashboard para facilitar depuración en desarrollo
+  { path:'',pathMatch:'full',redirectTo:'layout/dashboard'},
+  // Compatibilidad: si se abre `/orders` a secas, redirigir al layout donde está definida la ruta
+  { path: 'orders', pathMatch: 'full', redirectTo: 'layout/orders' },
   { path: 'register', component: Register,canActivate:[noAuthGuard]},
   { path: 'login', component:LoginComponent, canActivate:[noAuthGuard]},
+  // Rutas de utilidad durante desarrollo
+  { path: 'api-practice', loadComponent: () => import('./components/api-practice/api-practice').then(c => c.ApiPractice) },
+  { path: 'formulario', loadComponent: () => import('./formulario/formulario').then(m => m.FormularioComponent) },
   { path: 'categorias', component:CategoryComponent},
   { path: 'report', component: ImportReportComponent },
   {path:'sidebar',component:Sidebar},
@@ -34,6 +40,7 @@ export const routes: Routes = [
     path:'layout', component:Layout,  
     canActivate:[authGuard],
     children:[
+      { path: 'orders', loadComponent: () => import('./components/orders/orders.component').then(c => c.OrdersComponent), canActivate: [authGuard] },
       {path:'',redirectTo:'dashboard',pathMatch:'full'},
 
       {path:'productos',component:ProductListComponent},
