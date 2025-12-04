@@ -17,7 +17,9 @@ import { PagesNotFound } from '@features/auth/pages/pages-not-found/pages-not-fo
 import { RidersComponent } from './components/riders-list/riders-list';
 import { RiderFormComponent } from './components/rider-form/rider-form';
 import { noAuthGuard } from './guards/no-auth-guard';
+import { TransaccionesComponent } from './components/transacciones/transacciones.component';
 import { AddRestaurantComponent } from './components/add-restaurant/add-restaurant';
+
 
 export const routes: Routes = [
   // Temporal: redirigir al dashboard para facilitar depuración en desarrollo
@@ -55,7 +57,6 @@ export const routes: Routes = [
       {path:'detalle-producto', component:DetalleProducto},
       {path:'**',component:PagesNotFound},
       { path: 'add-restaurant', component: AddRestaurantComponent }
-
 
     ]
   }
