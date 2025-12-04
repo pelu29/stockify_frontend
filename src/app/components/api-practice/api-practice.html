@@ -1,11 +1,19 @@
-<div class="flex justify-center pt-8">
+<div class="contenedor">
+  <h1>Listado de Pokémon</h1>
 
-    <button class="border 
-    rounded-md p-2
-    hover:cursor-pointer 
-    bg-blue-500 text-white" 
-    (click)="confirmacionPost()">Click</button>
+  <button (click)="obtenerPokemones()" class="btn">
+    Cargar Pokemones
+  </button>
 
-    
+  <div class="lista" *ngIf="pokemones.length > 0">
+    <div class="pokemon" *ngFor="let pk of pokemones">
+      <img [src]="pk.sprites.front_default" alt="pokemon" />
+      <h3>{{ pk.name | uppercase }}</h3>
+    </div>
+  </div>
 
+  <p *ngIf="pokemones.length === 0" class="mensaje">
+    Presiona el botón para cargar los Pokémon.
+  </p>
 </div>
+

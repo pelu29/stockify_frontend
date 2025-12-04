@@ -1,0 +1,152 @@
+<div class="contenedor-crud">
+  <!-- Encabezado y botones de acción -->
+  <header class="header-crud">
+    <div class="header-top">
+      <button class="btn btn-volver" (click)="volver()">← Volver</button>
+      <h1>🔥 Pokédex CRUD</h1>
+    </div>
+    <p>Gestión de Pokémon</p>
+  </header>
+
+  <!-- Mensaje de estado -->
+  <div *ngIf="mensaje" class="mensaje" [ngClass]="mensaje.includes('✓') ? 'exito' : 'error'">
+    {{ mensaje }}
+  </div>
+
+  <!-- Sección de Listado -->
+  <section class="seccion-listado" *ngIf="modo === 'listar'">
+    <div class="botones-accion">
+      <button (click)="abrirCrear()" class="btn btn-crear" [disabled]="cargando">
+        ➕ Crear nuevo Pokémon
+      </button>
+      <button (click)="obtenerPokemones()" class="btn btn-refrescar" [disabled]="cargando">
+        🔄 Refrescar lista
+      </button>
+    </div>
+
+    <div *ngIf="cargando" class="spinner">
+      <p>Cargando...</p>
+    </div>
+
+    <div *ngIf="!cargando && pokemones.length === 0" class="sin-datos">
+      <p>No hay Pokémon registrados. ¡Crea uno nuevo!</p>
+    </div>
+
+    <div *ngIf="!cargando && pokemones.length > 0" class="tabla-contenedor">
+      <table class="tabla">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Tipo</th>
+            <th>⭐ Favorito</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let pokemon of pokemones" [class.favorito]="pokemon.favorito">
+            <td>{{ pokemon.id }}</td>
+            <td>{{ pokemon.nombre }}</td>
+            <td><span class="tipo-badge">{{ pokemon.tipo }}</span></td>
+            <td class="celda-favorito">
+              <span *ngIf="pokemon.favorito" class="estrella">⭐</span>
+              <span *ngIf="!pokemon.favorito" class="gris">☆</span>
+            </td>
+            <td class="celda-acciones">
+              <button (click)="abrirEdicion(pokemon)" class="btn btn-editar">✏️ Editar</button>
+              <button (click)="eliminarPokemon(pokemon.id!)" class="btn btn-eliminar">🗑️ Eliminar</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Sección de Formulario (Crear o Editar) -->
+  <section class="seccion-formulario" *ngIf="modo === 'crear' || modo === 'editar'">
+    <div class="formulario-card">
+      <h2>{{ modo === 'crear' ? '✨ Crear nuevo Pokémon' : '✏️ Editar Pokémon' }}</h2>
+
+      <form [formGroup]="formulario" class="formulario">
+        <div class="form-grupo">
+          <label for="nombre">Nombre <span class="requerido">*</span></label>
+          <input
+            id="nombre"
+            type="text"
+            formControlName="nombre"
+            placeholder="ej: Pikachu"
+            class="input"
+          />
+          <small *ngIf="campoEsInvalido('nombre')" class="error">
+            Nombre requerido (mínimo 2 caracteres).
+          </small>
+        </div>
+
+        <div class="form-grupo">
+          <label for="tipo">Tipo <span class="requerido">*</span></label>
+          <select id="tipo" formControlName="tipo" class="input">
+            <option value="">-- Selecciona un tipo --</option>
+            <option value="Fuego">🔥 Fuego</option>
+            <option value="Agua">💧 Agua</option>
+            <option value="Eléctrico">⚡ Eléctrico</option>
+            <option value="Planta">🌿 Planta</option>
+            <option value="Hielo">❄️ Hielo</option>
+            <option value="Lucha">👊 Lucha</option>
+            <option value="Veneno">☠️ Veneno</option>
+            <option value="Tierra">🪨 Tierra</option>
+            <option value="Volador">🦅 Volador</option>
+            <option value="Psíquico">🧠 Psíquico</option>
+            <option value="Bicho">🐛 Bicho</option>
+            <option value="Roca">⛰️ Roca</option>
+            <option value="Fantasma">👻 Fantasma</option>
+            <option value="Dragón">🐉 Dragón</option>
+            <option value="Siniestro">😈 Siniestro</option>
+            <option value="Acero">⚙️ Acero</option>
+            <option value="Hada">✨ Hada</option>
+          </select>
+          <small *ngIf="campoEsInvalido('tipo')" class="error">
+            El tipo es requerido.
+          </small>
+        </div>
+
+        <div class="form-grupo checkbox">
+          <label>
+            <input type="checkbox" formControlName="favorito" />
+            <span>⭐ Agregar a favoritos</span>
+          </label>
+        </div>
+
+        <div class="botones-formulario">
+          <button
+            *ngIf="modo === 'crear'"
+            type="button"
+            (click)="crearPokemon()"
+            class="btn btn-guardar"
+            [disabled]="cargando"
+          >
+            {{ cargando ? '⏳ Guardando...' : '💾 Crear Pokémon' }}
+          </button>
+
+          <button
+            *ngIf="modo === 'editar'"
+            type="button"
+            (click)="editarPokemon()"
+            class="btn btn-guardar"
+            [disabled]="cargando"
+          >
+            {{ cargando ? '⏳ Guardando...' : '💾 Actualizar Pokémon' }}
+          </button>
+
+          <button
+            type="button"
+            (click)="cancelarEdicion()"
+            class="btn btn-cancelar"
+            [disabled]="cargando"
+          >
+            ❌ Cancelar
+          </button>
+        </div>
+      </form>
+    </div>
+  </section>
+</div>
