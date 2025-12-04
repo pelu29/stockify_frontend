@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { Auth } from 'src/app/services/usuarios/auth';
 
 @Component({
   selector: 'app-login',
@@ -11,16 +12,16 @@ import { Router } from '@angular/router';
   imports: [CommonModule, ReactiveFormsModule]
 })
 export class LoginComponent {
+
   loginForm: FormGroup;
   isLoading = false;
   showSuccessMessage = false;
   showPassword = false;
 
-  constructor(private fb: FormBuilder, private router: Router) {
+  constructor(private fb: FormBuilder, private router: Router, private authService: Auth) {
     this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
+      username: ['', [Validators.required]],
       password: ['', [Validators.required, Validators.minLength(6)]],
-      rememberMe: [false]
     });
   }
 
@@ -40,19 +41,42 @@ export class LoginComponent {
     if (this.loginForm.valid) {
       this.isLoading = true;
 
-      setTimeout(() => {
-        this.isLoading = false;
-        this.showSuccessMessage = true;
+      this.authService.ObtenerToken(this.loginForm.value).subscribe({
+        next: (data) => {
+          console.log('✅ Respuesta del backend:', data);
 
-        console.log('Login exitoso:', this.loginForm.value);
+          // ✅ CORRECCIÓN: access con dos 's'
+          if (!data.access || !data.refresh) {
+            console.error('❌ Error: El backend no devolvió tokens correctamente');
+            this.isLoading = false;
+            return;
+          }
 
-        // 🔹 Espera 1 segundo y navega al componente import-report
-        setTimeout(() => {
-          this.showSuccessMessage = false;
-          this.router.navigate(['/import-report']);
-        }, 1000);
+          // Guardar tokens correctamente
+          this.authService.guardarTokenAcces(data.access);  // ← access (dos 's')
+          this.authService.guardarTokenRefresh(data.refresh);
 
-      }, 1500);
+          // Verificar que se guardaron
+          console.log('💾 Access token guardado:', localStorage.getItem('access') ? 'SÍ' : 'NO');
+          console.log('💾 Refresh token guardado:', localStorage.getItem('refresh') ? 'SÍ' : 'NO');
+
+          // Mostrar mensaje de éxito
+          this.showSuccessMessage = true;
+
+          // Redirigir después de 1 segundo
+          setTimeout(() => {
+            this.isLoading = false;
+            this.showSuccessMessage = false;
+            this.router.navigate(['/layout/productos']);
+          }, 1000);
+        },
+        error: (error) => {
+          console.error('❌ Error en login:', error);
+          this.isLoading = false;
+          alert('Usuario o contraseña incorrectos');
+        }
+      });
+
     } else {
       this.markFormGroupTouched();
     }

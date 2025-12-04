@@ -19,23 +19,28 @@ import { FormulariosComponent } from './components/formularios/formularios.compo
 import { PokeApiComponent } from './components/pokeapi/pokeapi';
 import { ClientesComponent  } from './components/clientes/clientes.component';
 import { NegociosComponent } from './components/negocios/negocios.component';
+import { Formularios } from './components/formularios/formularios';
+import { PagesNotFound } from '@features/auth/pages/pages-not-found/pages-not-found';
+import { noAuthGuard } from './guards/no-auth-guard';
+import { TransaccionesComponent } from './components/transacciones/transacciones.component';
+
 
 export const routes: Routes = [
 
-  { path: '', redirectTo: 'api-practice', pathMatch: 'full' },
-
-  { path: 'register', component: Register },
-  { path: 'login', component: LoginComponent },
+  { path: '', pathMatch: 'full', redirectTo: 'login' },
+  { path: 'register', component: Register, canActivate: [noAuthGuard] },
+  { path: 'login', component: LoginComponent, canActivate: [noAuthGuard] },
   { path: 'categorias', component: CategoryComponent },
   { path: 'report', component: ImportReportComponent },
+  {path:'sidebar',component:Sidebar},
+  {path:'navbar',component:Navbar},
+  {path:'productos',component:ProductListComponent},
+  { path: 'api-practice', component:ApiPractice},
+  { path: 'app-formulario', component:Formularios},
   { path: 'sidebar', component: Sidebar },
   { path: 'navbar', component: Navbar },
   { path: 'productos', component: ProductListComponent },
-  { path: 'api-practice', component: ApiPracticeComponent },
-  { path: 'formularios', component: FormulariosComponent },
-  { path: 'api-pokemones', component: PokeApiComponent },
-  { path: 'clientes', component: ClientesComponent  },
-  { path: 'negocios', component: NegociosComponent },
+  { path: 'app-formulario', component: Formularios },
 
   {
     path: 'layout',
@@ -49,6 +54,10 @@ export const routes: Routes = [
       { path: 'ordenes', component: Orders },
       { path: 'historial-ordenes', component: OrderHistory },
       { path: 'detalle-producto', component: DetalleProducto }
+      { path: 'detalle-producto', component: DetalleProducto },
+      { path: 'transacciones', component: TransaccionesComponent },
+      { path: '**', component: PagesNotFound }
+
     ]
   }
 ];

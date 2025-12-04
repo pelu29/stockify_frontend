@@ -5,7 +5,6 @@ import { Sidebar } from '@shared/components/sidebar/sidebar';
 import { Navbar } from '@shared/components/navbar/navbar';
 import { ApiPracticeComponent } from './components/api-practice/api-practice.component';
 
-
 @Component({
   selector: 'app-root',
   standalone: true,

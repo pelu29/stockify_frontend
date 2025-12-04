@@ -1,107 +1,87 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
+import { NgForm, FormsModule } from '@angular/forms';
+import { ProductosService } from 'src/app/services/product.service';
 import { CommonModule } from '@angular/common';
-import { FormsModule, NgForm } from '@angular/forms';
-import { Product } from '../../models/product.model';
-import { PRODUCTS } from '../../models/mock-products';
 
 @Component({
   selector: 'app-product-form',
-  standalone: true,
-  imports: [CommonModule, FormsModule],
+  standalone: true,               
+  imports: [FormsModule , CommonModule],         
   templateUrl: './product-form.component.html',
   styleUrls: ['./product-form.component.css']
 })
 export class ProductFormComponent {
-  @ViewChild('inputFoto', { static: false }) inputFoto!: ElementRef<HTMLInputElement>;
 
-  // Variables del formulario
-  fotoUrl: string | null = null;
-  mensaje: string = '';
-  habilitarT: boolean = false;
+  @ViewChild('inputFoto') inputFoto!: ElementRef<HTMLInputElement>;
 
-  // Campos del producto
+  // Campos del formulario
   categoria: string = '';
-  codigoBarras: string = '';
+  codigo: string = '';
   nombre: string = '';
   descripcion: string = '';
   precio: number | null = null;
   stock: number | null = null;
 
-  // Precios por tamaño
-  precioPequeno: number | null = null;
-  precioMedio: number | null = null;
-  precioGrande: number | null = null;
+  // imagen solo visual
+  fotoUrl: string | null = null;
 
-  seleccionarFoto(): void {
+  mensaje: string = '';
+
+  constructor(private productService: ProductosService) {}
+
+  
+  seleccionarFoto() {
     this.inputFoto.nativeElement.click();
   }
 
-  cargarFoto(event: Event): void {
-    const input = event.target as HTMLInputElement;
+  cargarFoto(event: Event) {
+    const file = (event.target as HTMLInputElement).files?.[0];
+    if (!file) return;
 
-    if (input.files && input.files.length > 0) {
-      const archivo = input.files[0];
-
-      if (!archivo.type.startsWith('image/')) {
-        this.mensaje = '❌ El archivo no es una imagen.';
-        this.fotoUrl = null;
-        return;
-      }
-
-      const lector = new FileReader();
-      lector.onload = () => {
-        this.fotoUrl = lector.result as string;
-        this.mensaje = '✅ Imagen cargada correctamente';
-      };
-      lector.readAsDataURL(archivo);
-    } else {
-      this.mensaje = 'No se seleccionó ninguna imagen.';
-    }
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.fotoUrl = reader.result as string; 
+    };
+    reader.readAsDataURL(file);
   }
 
-  eliminarFoto(): void {
+  eliminarFoto() {
     this.fotoUrl = null;
-    this.mensaje = 'Imagen eliminada.';
-    if (this.inputFoto) {
-      this.inputFoto.nativeElement.value = '';
-    }
+    this.inputFoto.nativeElement.value = '';
   }
 
-  alternarT(): void {
-    // Si se desactiva, limpiar precios
-    if (!this.habilitarT) {
-      this.precioPequeno = null;
-      this.precioMedio = null;
-      this.precioGrande = null;
-    } else {
-      this.precio = null; // desactivar precio principal
-    }
-  }
+  
+  agregarProducto(form: NgForm) {
 
-  agregarProducto(form: NgForm): void {
     if (form.invalid) {
-      this.mensaje = '⚠️ Complete todos los campos obligatorios.';
+      this.mensaje = 'Completa todos los campos requeridos.';
       return;
     }
 
-    const nuevoProducto: Product = {
+    
+    const data = {
+      codigo: this.codigo,
       nombre: this.nombre,
-      imagen: this.fotoUrl || '',
-      codigoBarras: this.codigoBarras,
       descripcion: this.descripcion,
-      categoria: this.categoria,
-      precio: this.habilitarT ? (this.precioMedio ?? 0) : (this.precio ?? 0),
-      stock: this.stock ?? 0
+      precio: this.precio ?? 0,
+      stock: this.stock ?? 0,
+
+
+      stock_minimo: 0,            
+      negocio_id: 1,              
+      categoria_id: Number(this.categoria) 
     };
 
-    // Simular guardar producto
-    PRODUCTS.push(nuevoProducto);
-    console.log('✅ Producto agregado correctamente:', nuevoProducto);
+    this.productService.crearProducto(data).subscribe({
+      next: () => {
+        this.mensaje = 'Producto agregado correctamente ✔';
 
-    this.mensaje = '✅ Producto agregado correctamente. Revisa la consola.';
-
-    form.resetForm();
-    this.fotoUrl = null;
-    this.habilitarT = false;
+        form.resetForm();
+        this.fotoUrl = null;
+      },
+      error: () => {
+        this.mensaje = '❌ Error al agregar el producto';
+      }
+    });
   }
 }

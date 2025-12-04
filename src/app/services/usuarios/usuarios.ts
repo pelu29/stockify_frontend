@@ -1,4 +1,6 @@
-import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { inject, Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { Usuario } from 'src/app/models/usuarios/usuarios.model';
 
 @Injectable({
@@ -6,18 +8,24 @@ import { Usuario } from 'src/app/models/usuarios/usuarios.model';
 })
 export class Usuarios {
 
-  usuarios:Usuario[] = [];
+  clientes_api:string = "https://stockify-backend-0r7c.onrender.com/api/usuarios/clientes/";
+  http = inject(HttpClient);
+  datoEnMemoria:string = "";
 
-  agregarUsuario(usuario:Usuario):boolean{
-    if(this.usuarios.push(usuario)){
-      return true;
-    }else{
-      return false;
-    }
+  ObtenerUsuarios():Observable<any>{
+    return this.http.get<any>(this.clientes_api);
   }
 
-  listarUsuario():Usuario[]{
-    return this.usuarios;
+  RegistrarUsuario(usuario:Object):Observable<any>{
+    return this.http.post<any>(this.clientes_api,usuario);
+  }
+
+  CargarDatoEnMemoria(data:string):void{
+    this.datoEnMemoria = data;
+  }
+
+  MostrarDato():void{
+    console.log(this.datoEnMemoria);
   }
   
 }
