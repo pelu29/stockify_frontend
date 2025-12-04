@@ -1,0 +1,135 @@
+<!-- LOGIN PAGE / ROLE SELECTION -->
+<div class="login-page-wrapper" *ngIf="!hasActiveSession">
+  <div class="login-container">
+    <!-- FORM PANEL -->
+    <div class="login-form-panel">
+      <div class="login-card">
+        <!-- Logo -->
+        <div class="logo-area">
+          <p class="logo-text">Stockify</p>
+        </div>
+
+        <!-- Título -->
+        <h2 class="title">Iniciar Sesión</h2>
+        <p class="subtitle">Accede a tu cuenta de Stockify</p>
+
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+          <!-- Error general de API -->
+          <div *ngIf="errorMessage" class="api-error-message">
+            {{ errorMessage }}
+          </div>
+
+          <!-- Email -->
+          <div class="form-group">
+            <label for="email">Correo electrónico</label>
+            <input
+              type="email"
+              id="email"
+              formControlName="email"
+              placeholder="john.doe@gmail.com"
+            />
+            <div *ngIf="f['email'].invalid && f['email'].touched" class="error-message">
+              <span *ngIf="f['email'].errors?.['required']">El email es requerido.</span>
+              <span *ngIf="f['email'].errors?.['email']">Debe ser un email válido.</span>
+            </div>
+          </div>
+
+          <!-- Password -->
+          <div class="form-group">
+            <label for="password">Contraseña</label>
+            <input
+              type="password"
+              id="password"
+              formControlName="password"
+              placeholder="••••••••••••••"
+            />
+            <div *ngIf="f['password'].invalid && f['password'].touched" class="error-message">
+              <span *ngIf="f['password'].errors?.['required']">La contraseña es requerida.</span>
+              <span *ngIf="f['password'].errors?.['minlength']">Mínimo 6 caracteres.</span>
+            </div>
+          </div>
+
+          <!-- Opciones -->
+          <div class="form-options">
+            <label class="remember-me-label">
+              <input type="checkbox" /> Recuérdame
+            </label>
+            <a href="#" class="forgot-password">¿Olvidaste tu contraseña?</a>
+          </div>
+
+          <!-- Botón principal -->
+          <button type="submit" class="btn-login" [disabled]="loginForm.invalid || loading">
+            {{ loading ? 'Cargando...' : 'Ingresar' }}
+          </button>
+
+          <!-- Separador -->
+          <div class="or-separator">
+            <hr />
+            <span>O inicia con</span>
+            <hr />
+          </div>
+
+          <!-- Login social -->
+        <div class="social-login">
+  <button type="button" class="social-btn facebook" aria-label="Facebook">
+    <i class="fab fa-facebook-f"></i>
+  </button>
+  <button type="button" class="social-btn google" aria-label="Google">
+    <i class="fab fa-google"></i>
+  </button>
+  <button type="button" class="social-btn apple" aria-label="Apple">
+    <i class="fab fa-apple"></i>
+  </button>
+</div>
+
+          <!-- Enlace registro -->
+          <div class="register-link">
+            ¿No tienes una cuenta? <a routerLink="/register">Regístrate</a>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- IMAGE PANEL -->
+    <div class="login-image-panel">
+      <!-- 🔹 Usa tu imagen aquí -->
+<img
+  src="sesion.png"
+  alt="Ilustración de inicio de sesión"
+  class="illustration"
+/>
+
+      <div class="slider-dots">
+        <span class="dot active"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ROLE SELECTION PAGE -->
+<div class="role-selection-wrapper" *ngIf="hasActiveSession">
+  <div class="role-selection-card">
+    <h2>¡Bienvenido!</h2>
+    <p>Selecciona un rol para acceder a las secciones disponibles</p>
+
+    <!-- Botones -->
+    <div class="role-buttons">
+      <button class="btn-role" (click)="selectRole('admin')">Administrador</button>
+      <button class="btn-role" (click)="selectRole('vendedor')">Vendedor</button>
+      <button class="btn-role" (click)="selectRole('invitado')">Invitado</button>
+    </div>
+
+    <!-- Estado del rol -->
+    <p class="current-role-status">
+      Rol actual:
+      <span [ngClass]="{'text-red-500': userRole === 'ninguno'}">
+        {{ userRole || 'ninguno' }}
+      </span>
+    </p>
+
+    <!-- Logout -->
+    <button class="logout-btn" (click)="logout()">Cerrar sesión</button>
+  </div>
+</div>

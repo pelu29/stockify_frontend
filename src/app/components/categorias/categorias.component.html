@@ -1,0 +1,18 @@
+<div class="contenedor-categorias">
+  <header>
+    <h1>📚 Categorías de Inventario</h1>
+    <p *ngIf="cargando">Cargando categorías…</p>
+    <p *ngIf="error" class="error">{{ error }}</p>
+  </header>
+
+  <ul *ngIf="!cargando && categorias.length > 0" class="lista-categorias">
+    <li *ngFor="let c of categorias" class="categoria-item">
+      <strong>{{ c.nombre }}</strong>
+      <p *ngIf="c.descripcion">{{ c.descripcion }}</p>
+    </li>
+  </ul>
+
+  <div *ngIf="!cargando && categorias.length === 0" class="sin-datos">
+    <p>No hay categorías disponibles.</p>
+  </div>
+</div>

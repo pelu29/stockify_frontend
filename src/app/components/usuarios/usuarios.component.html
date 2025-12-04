@@ -1,0 +1,91 @@
+<div class="contenedor-usuarios">
+  <!-- Encabezado -->
+  <header class="header-usuarios">
+    <div class="header-top">
+      <button class="btn btn-volver" (click)="volver()">← Volver</button>
+      <h1>👥 Usuarios</h1>
+    </div>
+    <p>Gestión de usuarios desde la API</p>
+  </header>
+
+  <!-- Mensajes -->
+  <div *ngIf="mensaje" class="mensaje exito">
+    {{ mensaje }}
+  </div>
+
+  <div *ngIf="error" class="mensaje error">
+    {{ error }}
+  </div>
+
+  <!-- Botón refrescar -->
+  <div class="botones-accion">
+    <button (click)="cargarUsuarios()" class="btn btn-refrescar" [disabled]="cargando">
+      🔄 Refrescar lista
+    </button>
+  </div>
+
+  <!-- Spinner de carga -->
+  <div *ngIf="cargando" class="spinner-container">
+    <div class="spinner">
+      <p>Cargando usuarios...</p>
+    </div>
+  </div>
+
+  <!-- Sin datos -->
+  <div *ngIf="!cargando && usuarios.length === 0" class="sin-datos">
+    <p>No hay usuarios disponibles.</p>
+  </div>
+
+  <!-- Grid de tarjetas de usuarios -->
+  <div *ngIf="!cargando && usuarios.length > 0" class="grid-usuarios">
+    <div *ngFor="let usuario of usuarios" class="tarjeta-usuario">
+      <div class="usuario-avatar">
+        <div class="avatar-placeholder" *ngIf="!usuario.imagen">
+          {{ usuario.nombre.charAt(0).toUpperCase() }}
+        </div>
+        <img *ngIf="usuario.imagen" [src]="usuario.imagen" alt="Avatar" class="avatar-img" />
+      </div>
+
+      <div class="usuario-info">
+        <h3 class="usuario-nombre">{{ usuario.nombre }}</h3>
+        
+        <div class="usuario-detalles">
+          <p class="detalle">
+            <span class="etiqueta">Email:</span>
+            <span class="valor">{{ usuario.email }}</span>
+          </p>
+          
+          <p class="detalle" *ngIf="usuario.telefono">
+            <span class="etiqueta">Teléfono:</span>
+            <span class="valor">{{ usuario.telefono }}</span>
+          </p>
+          
+          <p class="detalle" *ngIf="usuario.rol">
+            <span class="etiqueta">Rol:</span>
+            <span class="badge" [ngClass]="'badge-' + (usuario.rol || 'default').toLowerCase()">
+              {{ usuario.rol }}
+            </span>
+          </p>
+
+          <p class="detalle" *ngIf="usuario.estado">
+            <span class="etiqueta">Estado:</span>
+            <span class="badge" [ngClass]="'estado-' + (usuario.estado || 'default').toLowerCase()">
+              {{ usuario.estado }}
+            </span>
+          </p>
+
+          <p class="detalle" *ngIf="usuario.fecha_registro">
+            <span class="etiqueta">Registrado:</span>
+            <span class="valor">{{ usuario.fecha_registro | date: 'short' }}</span>
+          </p>
+        </div>
+      </div>
+
+      <div class="usuario-acciones">
+        <button class="btn btn-eliminar-card" (click)="eliminarUsuario(usuario.id)">
+          🗑️ Eliminar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

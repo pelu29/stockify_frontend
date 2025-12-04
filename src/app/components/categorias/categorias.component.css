@@ -1,0 +1,5 @@
+.contenedor-categorias{padding:24px}
+.lista-categorias{list-style:none;padding:0}
+.categoria-item{background:#fff;border-radius:8px;padding:12px;margin-bottom:10px;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.error{color:#b00020;background:#ffe6e6;padding:8px;border-radius:6px}
+.sin-datos{color:#666;padding:12px}

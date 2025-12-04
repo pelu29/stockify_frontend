@@ -1,0 +1,186 @@
+<div class="contenedor-negocios">
+  <!-- Encabezado -->
+  <header class="header-negocios">
+    <div class="header-top">
+      <button class="btn btn-volver" (click)="volver()">← Volver</button>
+      <h1>👥 Usuarios</h1>
+    </div>
+    <p>Gestión de usuarios desde la API</p>
+  </header>
+
+  <!-- Mensajes -->
+  <div *ngIf="mensaje" class="mensaje exito">
+    {{ mensaje }}
+  </div>
+
+  <div *ngIf="error" class="mensaje error">
+    {{ error }}
+  </div>
+
+  <!-- Botones de acción -->
+  <div class="botones-accion">
+    <button (click)="abrirCrear()" class="btn btn-crear" [disabled]="cargando">
+      ➕ Crear usuario
+    </button>
+    <button (click)="cargarUsuarios()" class="btn btn-refrescar" [disabled]="cargando">
+      🔄 Refrescar lista
+    </button>
+  </div>
+
+  <!-- Formulario de creación/edición -->
+  <section class="seccion-formulario" *ngIf="mostrarFormulario">
+    <div class="formulario-card">
+      <h2>{{ editandoId ? '✏️ Editar Usuario' : '✨ Crear Nuevo Usuario' }}</h2>
+
+      <form [formGroup]="formulario" class="formulario">
+        <div class="form-grupo">
+          <label for="nombre_usuario">Nombre de usuario</label>
+          <input
+            id="nombre_usuario"
+            type="text"
+            formControlName="nombre_usuario"
+            placeholder="ej: juanperez"
+            class="input"
+          />
+        </div>
+
+        <div class="form-grupo">
+          <label for="nombre">Nombre</label>
+          <input
+            id="nombre"
+            type="text"
+            formControlName="nombre"
+            placeholder="ej: Juan"
+            class="input"
+          />
+        </div>
+
+        <div class="form-grupo">
+          <label for="apellidos">Apellidos</label>
+          <input
+            id="apellidos"
+            type="text"
+            formControlName="apellidos"
+            placeholder="ej: Pérez García"
+            class="input"
+          />
+        </div>
+
+        <div class="form-grupo">
+          <label for="email">Email</label>
+          <input
+            id="email"
+            type="email"
+            formControlName="email"
+            placeholder="ej: juan@example.com"
+            class="input"
+          />
+        </div>
+
+        <div class="form-grupo">
+          <label for="telefono">Teléfono</label>
+          <input
+            id="telefono"
+            type="tel"
+            formControlName="telefono"
+            placeholder="ej: +1234567890"
+            class="input"
+          />
+        </div>
+
+        <div class="botones-formulario">
+          <button
+            *ngIf="!editandoId"
+            type="button"
+            (click)="crearUsuario()"
+            class="btn btn-guardar"
+            [disabled]="cargando"
+          >
+            {{ cargando ? '⏳ Guardando...' : '💾 Crear Usuario' }}
+          </button>
+
+          <button
+            *ngIf="editandoId"
+            type="button"
+            (click)="actualizarUsuario()"
+            class="btn btn-guardar"
+            [disabled]="cargando"
+          >
+            {{ cargando ? '⏳ Guardando...' : '💾 Actualizar Usuario' }}
+          </button>
+
+          <button
+            type="button"
+            (click)="cancelarEdicion()"
+            class="btn btn-cancelar"
+            [disabled]="cargando"
+          >
+            ❌ Cancelar
+          </button>
+        </div>
+
+  <!-- Panel de depuración temporal: muestra payload y respuesta HTTP en caso de error -->
+  <div *ngIf="error" class="debug-panel">
+    <h4>Error</h4>
+    <pre class="debug-block">{{ error }}</pre>
+    <div class="debug-sub">Request payload:</div>
+    <pre class="debug-block">{{ formulario.value | json }}</pre>
+  </div>
+
+      </form>
+    </div>
+  </section>
+
+  <!-- Spinner de carga -->
+  <div *ngIf="cargando && !mostrarFormulario" class="spinner">
+    <p>Cargando usuarios...</p>
+  </div>
+
+  <!-- Sin datos -->
+  <div *ngIf="!cargando && usuarios.length === 0 && !mostrarFormulario" class="sin-datos">
+    <p>No hay usuarios disponibles. ¡Crea uno nuevo!</p>
+  </div>
+
+  <!-- Grid de tarjetas de usuarios -->
+  <div *ngIf="!cargando && usuarios.length > 0 && !mostrarFormulario" class="grid-usuarios">
+    <div *ngFor="let usuario of usuarios" class="tarjeta-usuario">
+      <div class="usuario-avatar">
+        <div class="avatar-placeholder">
+          {{ (usuario.nombre_usuario || usuario.nombre || 'U').charAt(0).toUpperCase() }}
+        </div>
+      </div>
+
+      <div class="usuario-info">
+        <h3 class="usuario-nombre">
+          {{ usuario.nombre_usuario ? ('@' + usuario.nombre_usuario) : (usuario.nombre + (usuario.apellidos ? (' ' + usuario.apellidos) : '')) }}
+        </h3>
+        
+        <div class="usuario-detalles">
+          <p class="detalle">
+            <span class="etiqueta">Email:</span>
+            <span class="valor">{{ usuario.email }}</span>
+          </p>
+          
+          <p class="detalle" *ngIf="usuario.telefono">
+            <span class="etiqueta">Teléfono:</span>
+            <span class="valor">{{ usuario.telefono }}</span>
+          </p>
+          
+          <p class="detalle" *ngIf="usuario.apellidos">
+            <span class="etiqueta">Apellidos:</span>
+            <span class="valor">{{ usuario.apellidos }}</span>
+          </p>
+        </div>
+      </div>
+
+      <div class="usuario-acciones">
+        <button class="btn btn-editar-card" (click)="abrirEdicion(usuario)">
+          ✏️ Editar
+        </button>
+        <button class="btn btn-eliminar-card" (click)="eliminarUsuario(usuario.id)">
+          🗑️ Eliminar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
