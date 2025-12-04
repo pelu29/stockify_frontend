@@ -16,15 +16,15 @@ export class Auth {
   }
 
   getToken():string | null{
-    return localStorage.getItem("access");
+    return localStorage.getItem('access_token');
   }
 
   guardarTokenAcces(token:string){
-    localStorage.setItem("acces",token);
+    localStorage.setItem('access_token', token);
   }
 
   guardarTokenRefresh(token:string){
-    localStorage.setItem("refresh",token);
+    localStorage.setItem('refresh_token', token);
   }
 
   logout(){
@@ -32,6 +32,6 @@ export class Auth {
   }
 
   isLoggedIn():boolean{
-    return !!localStorage.getItem("refresh");
+    return !!localStorage.getItem('access_token') || !!localStorage.getItem('refresh_token');
   }
 }

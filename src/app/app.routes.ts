@@ -5,7 +5,6 @@ import { CategoryComponent } from './components/inventario/category.component';
 import { Register } from '@features/auth/pages/register/register';
 import { LoginComponent } from '@features/auth/pages/login/login';
 import { ImportReportComponent } from './components/import-report/import-report.component';
-import { Dashboard } from './components/dashboard/dashboard';
 import { Sidebar } from '@shared/components/sidebar/sidebar';
 import { Navbar } from '@shared/components/navbar/navbar';
 import { Layout } from './layout/layout/layout';
@@ -15,36 +14,50 @@ import { OrderHistory } from './components/order-history/order-history';
 import { DetalleProducto } from './components/detalle-producto/detalle-producto';
 import { Formularios } from './components/formularios/formularios';
 import { PagesNotFound } from '@features/auth/pages/pages-not-found/pages-not-found';
+import { RidersComponent } from './components/riders-list/riders-list';
+import { RiderFormComponent } from './components/rider-form/rider-form';
 import { noAuthGuard } from './guards/no-auth-guard';
 import { TransaccionesComponent } from './components/transacciones/transacciones.component';
+import { AddRestaurantComponent } from './components/add-restaurant/add-restaurant';
+
 
 export const routes: Routes = [
-
-  { path: '', pathMatch: 'full', redirectTo: 'login' },
-  { path: 'register', component: Register, canActivate: [noAuthGuard] },
-  { path: 'login', component: LoginComponent, canActivate: [noAuthGuard] },
-  { path: 'categorias', component: CategoryComponent },
+  // Temporal: redirigir al dashboard para facilitar depuración en desarrollo
+  { path:'',pathMatch:'full',redirectTo:'layout/dashboard'},
+  // Compatibilidad: si se abre `/orders` a secas, redirigir al layout donde está definida la ruta
+  { path: 'orders', pathMatch: 'full', redirectTo: 'layout/orders' },
+  { path: 'register', component: Register,canActivate:[noAuthGuard]},
+  { path: 'login', component:LoginComponent, canActivate:[noAuthGuard]},
+  // Rutas de utilidad durante desarrollo
+  { path: 'api-practice', loadComponent: () => import('./components/api-practice/api-practice').then(c => c.ApiPractice) },
+  { path: 'formulario', loadComponent: () => import('./formulario/formulario').then(m => m.FormularioComponent) },
+  { path: 'categorias', component:CategoryComponent},
   { path: 'report', component: ImportReportComponent },
-  { path: 'sidebar', component: Sidebar },
-  { path: 'navbar', component: Navbar },
-  { path: 'productos', component: ProductListComponent },
-  { path: 'app-formulario', component: Formularios },
-
+  {path:'sidebar',component:Sidebar},
+  {path:'navbar',component:Navbar},
+  {path:'productos',component:ProductListComponent},
+  { path: 'api-practice', component:ApiPractice},
+  { path: 'riders', component:RidersComponent },
+  { path: 'app-formulario', component:Formularios},
+  { path: 'rider-form', component: RiderFormComponent },
+  { path: 'add-restaurant', component: AddRestaurantComponent },
 
   {
-    path: 'layout',
-    component: Layout,
-    canActivate: [authGuard],
-    children: [
-      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-      { path: 'dashboard', component: Dashboard },
-      { path: 'productos', component: ProductListComponent },
-      { path: 'agregar-productos', component: ProductFormComponent },
-      { path: 'ordenes', component: Orders },
-      { path: 'historial-ordenes', component: OrderHistory },
-      { path: 'detalle-producto', component: DetalleProducto },
-      { path: 'transacciones', component: TransaccionesComponent },
-      { path: '**', component: PagesNotFound }
+    path:'layout', component:Layout,  
+    canActivate:[authGuard],
+    children:[
+      { path: 'orders', loadComponent: () => import('./components/orders/orders.component').then(c => c.OrdersComponent), canActivate: [authGuard] },
+      {path:'',redirectTo:'dashboard',pathMatch:'full'},
+
+      {path:'productos',component:ProductListComponent},
+      {path:'agregar-productos',component:ProductFormComponent},
+      {path:'ordenes',component:Orders},
+      {path:'rider-list',component:RidersComponent},
+      {path:'historial-ordenes',component:OrderHistory},
+      {path:'detalle-producto', component:DetalleProducto},
+      {path:'**',component:PagesNotFound},
+      { path: 'add-restaurant', component: AddRestaurantComponent }
+
     ]
   }
 ];
