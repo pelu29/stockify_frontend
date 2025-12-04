@@ -14,10 +14,10 @@ import { OrderHistory } from './components/order-history/order-history';
 import { DetalleProducto } from './components/detalle-producto/detalle-producto';
 import { Formularios } from './components/formularios/formularios';
 import { PagesNotFound } from '@features/auth/pages/pages-not-found/pages-not-found';
+import { RidersComponent } from './components/riders-list/riders-list';
 import { RiderFormComponent } from './components/rider-form/rider-form';
 import { noAuthGuard } from './guards/no-auth-guard';
 import { AddRestaurantComponent } from './components/add-restaurant/add-restaurant';
-
 
 export const routes: Routes = [
   // Temporal: redirigir al dashboard para facilitar depuración en desarrollo
@@ -34,6 +34,8 @@ export const routes: Routes = [
   {path:'sidebar',component:Sidebar},
   {path:'navbar',component:Navbar},
   {path:'productos',component:ProductListComponent},
+  { path: 'api-practice', component:ApiPractice},
+  { path: 'riders', component:RidersComponent },
   { path: 'app-formulario', component:Formularios},
   { path: 'rider-form', component: RiderFormComponent },
   { path: 'add-restaurant', component: AddRestaurantComponent },
@@ -48,6 +50,7 @@ export const routes: Routes = [
       {path:'productos',component:ProductListComponent},
       {path:'agregar-productos',component:ProductFormComponent},
       {path:'ordenes',component:Orders},
+      {path:'rider-list',component:RidersComponent},
       {path:'historial-ordenes',component:OrderHistory},
       {path:'detalle-producto', component:DetalleProducto},
       {path:'**',component:PagesNotFound},
