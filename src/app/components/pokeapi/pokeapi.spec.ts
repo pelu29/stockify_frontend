@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { PokeApiComponent } from './pokeapi';
 
 describe('PokeApiComponent', () => {
@@ -7,7 +8,11 @@ describe('PokeApiComponent', () => {
   let fixture: ComponentFixture<PokeApiComponent>;
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [PokeApiComponent]
+      imports: [PokeApiComponent],
+      providers: [
+        provideHttpClient(),
+        provideHttpClientTesting()
+      ]
     })
     .compileComponents();
 

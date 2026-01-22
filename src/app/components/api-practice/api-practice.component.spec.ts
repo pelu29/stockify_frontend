@@ -1,5 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ApiPracticeComponent } from './api-practice.component';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 
 describe('ApiPracticeComponent', () => {
   let component: ApiPracticeComponent;
@@ -7,7 +9,11 @@ describe('ApiPracticeComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ApiPracticeComponent]
+      imports: [ApiPracticeComponent],
+      providers: [
+        provideHttpClient(),
+        provideHttpClientTesting()
+      ]
     })
     .compileComponents();
 
