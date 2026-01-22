@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { Pokeapi } from 'src/app/services/pokeapi';
+// 1. Importamos con el nombre nuevo
+import { PokeapiService } from 'src/app/services/pokeapi';
 
 @Component({
   selector: 'app-pokeapi',
@@ -8,12 +9,13 @@ import { Pokeapi } from 'src/app/services/pokeapi';
 })
 export class PokeApiComponent {
 
-  constructor(private pokeApi: Pokeapi) {}
+  // 2. Inyectamos el servicio con su tipo correcto
+  constructor(private pokeService: PokeapiService) {}
 
   llamadaPokemones(): void {
-    this.pokeApi.obtenerListadoPokemones().subscribe({
-      next: (datos) => { console.log(datos); },
-      error: (error) => { console.log(error); }
+    this.pokeService.obtenerListadoPokemones().subscribe({
+      next: (datos: any) => { console.log(datos); }, // Agregué ': any' para evitar error TS7006
+      error: (error: any) => { console.log(error); } // Agregué ': any'
     });
   }
 }

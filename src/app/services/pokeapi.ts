@@ -25,7 +25,7 @@ export interface UsuarioRandom {
 @Injectable({
   providedIn: 'root'
 })
-export class Pokeapi {
+export class PokeapiService {
 
   http = inject(HttpClient);
 

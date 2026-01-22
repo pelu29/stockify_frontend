@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { forkJoin } from 'rxjs';
-import { Pokeapi, Pokemon, PokemonListado, UsuarioRandom } from '../../services/pokeapi';
+import { PokeapiService, Pokemon, PokemonListado, UsuarioRandom } from '../../services/pokeapi';
 
 @Component({
   selector: 'app-api-practice',
@@ -15,7 +15,7 @@ export class ApiPracticeComponent {
   userData: UsuarioRandom['results'][0] | null = null;
   pokemonData: Pokemon[] = [];
 
-  constructor(private apiService: Pokeapi) {}
+  constructor(private apiService: PokeapiService) {}
 
   cargarUsuarios() {
     this.apiService.obtenerUsuarioRandom().subscribe(
