@@ -9,11 +9,12 @@ describe('ReportsComponent', () => {
   let fixture: ComponentFixture<ReportsComponent>;
   let reportServiceSpy: jasmine.SpyObj<ReportService>;
 
-  beforeEach(async () => {
+beforeEach(async () => {
     const spy = jasmine.createSpyObj('ReportService', ['downloadPDF', 'downloadCSV']);
 
     await TestBed.configureTestingModule({
-      declarations: [ReportsComponent],
+      imports: [ReportsComponent], 
+      
       providers: [{ provide: ReportService, useValue: spy }]
     }).compileComponents();
 

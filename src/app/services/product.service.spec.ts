@@ -1,12 +1,20 @@
 import { TestBed } from '@angular/core/testing';
-
-import { ProductosService } from './product.service';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { PokeapiService } from './pokeapi';
+import { ProductosService } from './product.service'; 
 
 describe('ProductService', () => {
   let service: ProductosService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule({
+      providers: [
+        PokeapiService,
+        provideHttpClient(),
+        provideHttpClientTesting() 
+      ]
+    });
     service = TestBed.inject(ProductosService);
   });
 
