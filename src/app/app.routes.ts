@@ -35,7 +35,7 @@ export const routes: Routes = [
   {path:'sidebar',component:Sidebar},
   {path:'navbar',component:Navbar},
   {path:'productos',component:ProductListComponent},
-  { path: 'api-practice', component:ApiPractice},
+  { path: 'api-practice', component:ApiPracticeComponent},
   { path: 'app-formulario', component:Formularios},
   { path: 'sidebar', component: Sidebar },
   { path: 'navbar', component: Navbar },
@@ -53,7 +53,7 @@ export const routes: Routes = [
       { path: 'agregar-productos', component: ProductFormComponent },
       { path: 'ordenes', component: Orders },
       { path: 'historial-ordenes', component: OrderHistory },
-      { path: 'detalle-producto', component: DetalleProducto }
+      { path: 'detalle-producto', component: DetalleProducto },
       { path: 'detalle-producto', component: DetalleProducto },
       { path: 'transacciones', component: TransaccionesComponent },
       { path: '**', component: PagesNotFound }
