@@ -1,0 +1,30 @@
+name: "angular p"
+
+on:
+  push:
+    branches: [ "pruebas" ]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Type check
+        run: npx tsc --noEmit
+
+      - name: Run tests (services specs)
+        run: npm test -- --watch=false --browsers=ChromeHeadless
+
+      - name: Build
+        run: npm run build
+
