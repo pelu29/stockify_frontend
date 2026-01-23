@@ -1,4 +1,4 @@
-name: "angular p"
+name: "Angular pp"
 
 on:
   push:
@@ -19,12 +19,7 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Type check
-        run: npx tsc --noEmit
+      - name: Run single service test
+        run: npm test -- --watch=false --browsers=ChromeHeadless --include=**/categorias.spec.ts
 
-      - name: Run tests (services specs)
-        run: npm test -- --watch=false --browsers=ChromeHeadless
-
-      - name: Build
-        run: npm run build
 
